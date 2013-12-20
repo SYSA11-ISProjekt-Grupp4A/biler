@@ -52,7 +52,8 @@ public class PersonFinder extends JPanel implements /*KeyListener, */DocumentLis
     output.add(result, BorderLayout.CENTER);
 
     add(input, BorderLayout.NORTH);
-    add(output, BorderLayout.CENTER); }
+    add(output, BorderLayout.CENTER);
+    findPerson(); }
 
   public void findPerson() {
     String key = input.getText();

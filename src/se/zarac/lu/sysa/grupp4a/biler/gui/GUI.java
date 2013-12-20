@@ -19,7 +19,7 @@ public class GUI extends JFrame {
   public GUI(Biler biler) {
     this.biler = biler;
     setSize(640, 480);
-    //        setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
+    //setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
     setResizable(true);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLayout(new GridLayout(0, 1));
