@@ -3,6 +3,7 @@ package se.zarac.lu.sysa.grupp4a.biler;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import se.zarac.lu.sysa.grupp4a.biler.filters.Seats;
 import se.zarac.lu.sysa.grupp4a.biler.models.Item;
 import se.zarac.lu.sysa.grupp4a.biler.models.Person;
 import se.zarac.lu.sysa.grupp4a.biler.models.Product;
@@ -18,14 +19,15 @@ public class Biler {
   protected List<Person> customers;   
   protected List<Product> products;
   protected List<Filter> filters;
-  protected SeatsFilter seatsFilter;
+  protected Seats seatsFilter;
   protected List<Item> items;
   protected List<Booking> bookings;
 
   /**
-   * Ze k0nstrukt0r.
+   * Ze konstrukt0r.
    */
   public Biler() {
+    // indices / registries
     this.customers = new LinkedList<Person>();
     this.products = new LinkedList<Product>();
     this.filters = new LinkedList<Filter>();
@@ -33,11 +35,10 @@ public class Biler {
     this.bookings = new LinkedList<Booking>();
     
     // THE filters
-    seatsFilter = new SeatsFilter();
-    seatsFilter.setSeats(4);
-    
-    filters.add(seatsFilter);
-
+//    seatsFilter = new Seats(4);
+//    seatsFilter.setSeats(4);
+//  filters.add(seatsFilter);
+    filters.add(new Seats(4));
     System.out.println("Filters: " + filters); }
 
   /**

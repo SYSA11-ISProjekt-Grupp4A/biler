@@ -99,14 +99,20 @@ public class GUI extends JFrame {
         break; } }
   
   /**
-   * Want to view a model? Well, let's
+   * View a Model.
+   * 
+   * @param model The Model, it must have a matching View. */
+  public void view(Model model) {
+    setComponent(createView(model)); }
+
+  /**
+   * Create a View for a Model.
    *   find out what type of model it is
    *   create a view for that type
    *   display that view
    * 
-   * @param model Something derived from Model. It must have a matching View.
-   */
-  public void view(Model model) {
+   * @param model The Model, it must have a matching View. */
+  protected View createView(Model model) {
     /* some reflection references (for those interested)
      *   http://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Constructor.html#newInstance(java.lang.Object...)
      *   http://msdn.microsoft.com/en-us/library/aa986011(v=vs.80).aspx
@@ -119,9 +125,8 @@ public class GUI extends JFrame {
     try {
       Class<View> viewClass = (Class<View>)Class.forName(className);
       Constructor<View> viewConstructor = viewClass.getConstructor(viewArguments);
-      View view = viewConstructor.newInstance(model);
-      setComponent(view); }
-    // TODO something amazing
+      return viewConstructor.newInstance(model); }
+    // TODO something amazing (shouldn't happen, so perhaps exit(!0)?)
     catch (SecurityException e) {
       e.printStackTrace(); }
     catch (NoSuchMethodException e) {
@@ -135,4 +140,7 @@ public class GUI extends JFrame {
     catch (InvocationTargetException e) {
       e.printStackTrace(); }
     catch (ClassNotFoundException e) {
-      e.printStackTrace(); } } }
+      e.printStackTrace(); }
+    
+    // shouldn't happen.
+    return null; } }

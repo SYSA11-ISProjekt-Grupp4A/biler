@@ -1,10 +1,14 @@
-package se.zarac.lu.sysa.grupp4a.biler;
+package se.zarac.lu.sysa.grupp4a.biler.filters;
 
+import se.zarac.lu.sysa.grupp4a.biler.Filter;
 import se.zarac.lu.sysa.grupp4a.biler.models.Item;
 import se.zarac.lu.sysa.grupp4a.biler.models.Vehicle;
 
-public class SeatsFilter implements Filter {
+public class Seats implements Filter {
   protected int seats;
+  
+  public Seats(int seats) {
+    this.seats = seats; }
 
   public int getSeats() {
     return seats; }
