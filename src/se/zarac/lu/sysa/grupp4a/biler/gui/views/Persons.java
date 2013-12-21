@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+@SuppressWarnings("serial")
 public class Persons extends View implements /*KeyListener, */DocumentListener {
   protected GUI gui;
   protected Biler biler;

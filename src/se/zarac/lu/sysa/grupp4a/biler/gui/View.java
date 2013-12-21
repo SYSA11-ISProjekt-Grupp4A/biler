@@ -7,4 +7,5 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
  * 
  * @author zarac
  */
+@SuppressWarnings("serial")
 public abstract class View extends JPanel { }

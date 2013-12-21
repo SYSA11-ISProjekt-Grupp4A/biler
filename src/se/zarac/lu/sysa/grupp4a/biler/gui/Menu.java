@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JButton;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 
+@SuppressWarnings("serial")
 public class Menu extends JPanel {
   protected GUI gui;
 

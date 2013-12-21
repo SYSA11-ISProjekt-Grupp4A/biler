@@ -1,6 +1,8 @@
 package se.zarac.lu.sysa.grupp4a.biler.models;
 
-public class Phone {
+import se.zarac.lu.sysa.grupp4a.biler.Model;
+
+public class Phone extends Model {
     protected String number;
     
     public Phone(String number) {

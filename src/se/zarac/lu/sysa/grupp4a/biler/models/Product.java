@@ -1,6 +1,8 @@
 package se.zarac.lu.sysa.grupp4a.biler.models;
 
-public class Product {
+import se.zarac.lu.sysa.grupp4a.biler.Model;
+
+public class Product extends Model {
     protected String id;
     
     public Product(String id) {

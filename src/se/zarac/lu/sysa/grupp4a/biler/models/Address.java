@@ -1,6 +1,8 @@
 package se.zarac.lu.sysa.grupp4a.biler.models;
 
-public class Address {
+import se.zarac.lu.sysa.grupp4a.biler.Model;
+
+public class Address extends Model {
     protected String street;
     protected String number;
     protected String postalCode;

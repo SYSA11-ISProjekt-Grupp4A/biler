@@ -1,8 +1,9 @@
 package se.zarac.lu.sysa.grupp4a.biler.models;
 
 import java.util.Date;
+import se.zarac.lu.sysa.grupp4a.biler.Model;
 
-public class Booking {
+public class Booking extends Model {
     protected Person by;
     protected Item item;
     protected Date start;

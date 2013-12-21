@@ -13,6 +13,7 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.views.Persons;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.Products;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.Splash;
 
+@SuppressWarnings("serial")
 public class GUI extends JFrame {
   protected Biler biler;
   protected JPanel container; // for the activities, or something

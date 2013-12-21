@@ -9,6 +9,7 @@ package se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson;
  * 2790B0 39,144,176 water begins
  * 2B4E72 43,78,114 water ends */
 
+@SuppressWarnings("serial")
 public class Color extends java.awt.Color {
   public Color(int r, int g, int b) {
     super(r, g, b); }

@@ -9,6 +9,7 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 import se.zarac.lu.sysa.grupp4a.biler.models.Item;
 
+@SuppressWarnings("serial")
 public class Items extends View {
   protected GUI gui;
   protected Biler biler;

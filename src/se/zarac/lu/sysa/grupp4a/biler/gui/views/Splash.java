@@ -8,6 +8,7 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 
+@SuppressWarnings("serial")
 public class Splash extends View {
   protected GUI gui;
   protected Timer timer;
