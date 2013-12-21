@@ -8,16 +8,28 @@ import se.zarac.lu.sysa.grupp4a.biler.models.Person;
 import se.zarac.lu.sysa.grupp4a.biler.models.Product;
 import se.zarac.lu.sysa.grupp4a.biler.models.Vehicle;
 
+/**
+ * Entry point to running Biler.
+ *  
+ * @author zarac
+ */
 public class Main {
+  /**
+   * Creates an instance of Biler, attaches a GUI to it, and populate()s it with some stuff.
+   * @param argv
+   */
   public static void main(String[] argv) {
     Biler biler = new Biler();
     populate(biler);
-    whatsAvailable(biler);
     GUI gui = new GUI(biler);
-    // TODO bug-1 : needs to be set here AND inside JFrame constructor (it shouldn't?)
+    // TODO bug-gui-visible : needs to be set here AND inside JFrame constructor (it shouldn't?)
     gui.setVisible(true); }
     
-    // some test data
+    /**
+     * Populate Biler with some data.
+     * 
+     * @param biler The instance of Biler, duh!
+     */
     public static void populate(Biler biler) {
       List<Person> customers = biler.getCustomers();
       List<Product> products = biler.getProducts();
@@ -28,8 +40,8 @@ public class Main {
       Person kalle = new Person("Kalle", "4803051932");
       Person lisa = new Person("Lisa", "4402025155");
 
-      customers.add(kalle);
-      customers.add(lisa);
+      biler.add(kalle);
+      biler.add(lisa);
       
       System.out.println("Customers: " + customers);
       
@@ -38,9 +50,9 @@ public class Main {
       Vehicle saab95 = new Vehicle("95", 4);
       Vehicle enzo = new Vehicle("enzo", 2);
       
-      products.add(volvoV70);
-      products.add(saab95);
-      products.add(enzo);
+      biler.add(volvoV70);
+      biler.add(saab95);
+      biler.add(enzo);
 
       System.out.println("Products: " + products);
                
@@ -49,19 +61,17 @@ public class Main {
       Item saaben = new Item(saab95, "saaab");
       Item enzon = new Item(enzo, "enzon");
       
-      items.add(volvon);
-      items.add(saaben);
-      items.add(enzon);
+      biler.add(volvon);
+      biler.add(saaben);
+      biler.add(enzon);
    
       System.out.println("Items: " + items);
       
       // and a booking bookings
+      // TODO : don't use deprecated stuff
+      @SuppressWarnings("deprecation")
       Booking kalleTarVolvon = new Booking(kalle, volvon, new Date(2013, 12, 19), new Date(2013, 12, 19));
 
-      bookings.add(kalleTarVolvon);
+      biler.add(kalleTarVolvon);
 
-      System.out.println("Bookings: " + bookings); }
-    
-    // test availability
-    public static void whatsAvailable(Biler biler) {
-      System.out.println("Filtered: " + biler.filter(biler.getFilters(), biler.getItems())); } }
+      System.out.println("Bookings: " + bookings); } }

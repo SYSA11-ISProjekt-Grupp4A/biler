@@ -1,41 +1,138 @@
+
 package se.zarac.lu.sysa.grupp4a.biler.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import se.zarac.lu.sysa.grupp4a.biler.Biler;
-import se.zarac.lu.sysa.grupp4a.biler.models.Booking;
-import se.zarac.lu.sysa.grupp4a.biler.models.Person;
+import java.awt.GridBagLayout;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import javax.swing.JComponent;
+import se.zarac.lu.sysa.grupp4a.biler.*;
+import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.*;
+import se.zarac.lu.sysa.grupp4a.biler.gui.views.Items;
+import se.zarac.lu.sysa.grupp4a.biler.gui.views.Persons;
+import se.zarac.lu.sysa.grupp4a.biler.gui.views.Products;
+import se.zarac.lu.sysa.grupp4a.biler.gui.views.Splash;
 
-@SuppressWarnings("serial")
 public class GUI extends JFrame {
   protected Biler biler;
-
-  // ze aktivitiez
-  protected JPanel personFinder;
-
+  protected JPanel container; // for the activities, or something
+  protected Menu menu;
+  // activities / modes
+  protected enum Activity { SPLASH, ABOUT, PRODUCTS, ITEMS, PERSONS, BOOKINGS, EXIT };
+  public static Activity DEFAULT_ACTIVITY = Activity.ABOUT;
+  protected Splash splash;
+  // TODO protected About about;
+  protected Products products;
+  protected Items items;
+  protected Persons persons;
+  // TODO protected Bookings bookings;
+  
+  
   public GUI(Biler biler) {
     this.biler = biler;
-    setSize(640, 480);
-    //setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
-    setResizable(true);
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
-    setLayout(new GridLayout(0, 1));
-    personFinder = new PersonFinder(this);
-    add(personFinder);
+    
+    // frame
+    setTitle(biler.getName());
+    setLayout(new BorderLayout());
+
+    // menu
+    menu = new Menu(this);
+    add(menu, BorderLayout.SOUTH);
+    
+    // container, for activities
+    container = new JPanel();
+    container.setLayout(new GridBagLayout());
+    add(container, BorderLayout.CENTER);
+
+    // modes / activities / views / whatever you'd like to call them
+    splash = new Splash(this, biler.getName());
+    // TODO about = new About(this);
+    products = new Products(this);
+    items = new Items(this);
+    persons = new Persons(this);
+    // TODO bookings = new Bookings(this);
+    
+    view(Activity.SPLASH);
+    
     // TODO bug-1 : needs to be set here AND after JFrame is instantiated
     setVisible(true); }
 
   public Biler getBiler() {
     return biler; }
 
-  public void view(Person person) {
-    getContentPane().removeAll();
-    add(new PersonView(person));
-    revalidate(); }
-
-  public void view(Booking booking) {
-    removeAll();
-    System.out.println("!NI!" + booking); } }
+  public void setComponent(JComponent component) {
+    container.removeAll();
+    container.add(component);
+    // be JRE6 compliant, don't use revalidate()
+    container.invalidate();
+    container.validate();
+    container.repaint(); }
+  
+  public void view(Activity activity) {
+    switch(activity) {
+      case SPLASH:
+        setComponent(splash);
+        // TODO bug-timer, cannot be used twice
+        splash.timeOut(1);
+        break;
+      /* TODO case ABOUT:
+        setComponent(about);
+        break; */
+      case PRODUCTS:
+        setComponent(products);
+        break;
+      case ITEMS:
+        setComponent(items);
+        break;
+      case PERSONS:
+        setComponent(persons);
+        persons.getInput().requestFocus();
+        break;
+      /* TODO case BOOKINGS:
+        setComponent(bookings);
+        break; */
+      case EXIT:
+        System.exit(0);
+        break;
+      default:
+        setComponent(new JLabel("No such activity, '" + activity + "'."));
+        break; } }
+  
+  /**
+   * Want to view a model? Well, let's
+   *   find out what type of model it is
+   *   create a view for that type
+   *   display that view
+   * 
+   * @param model Something derived from Model. It must have a matching View.
+   */
+  public void view(Model model) {
+    /* some reflection references (for those interested)
+     *   http://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Constructor.html#newInstance(java.lang.Object...)
+     *   http://msdn.microsoft.com/en-us/library/aa986011(v=vs.80).aspx
+     *   http://www.javapractices.com/topic/TopicAction.do?Id=237
+     *   http://www.javapractices.com/topic/TopicAction.do?Id=113 */
+    Class<? extends Model> modelClass = model.getClass();
+    String className = "se.zarac.lu.sysa.grupp4a.biler.gui.views." + modelClass.getSimpleName();
+    Class<? extends Model>[] viewArguments = new Class[] { modelClass };
+    // Constructor constructor = modelClass
+    try {
+      Class<View> viewClass = (Class<View>)Class.forName(className);
+      Constructor<View> viewConstructor = viewClass.getConstructor(viewArguments);
+      View view = viewConstructor.newInstance(model);
+      setComponent(view); }
+    // TODO something amazing
+    catch (SecurityException e) {
+      e.printStackTrace(); }
+    catch (NoSuchMethodException e) {
+      e.printStackTrace(); }
+    catch (IllegalArgumentException e) {
+      e.printStackTrace(); }
+    catch (InstantiationException e) {
+      e.printStackTrace(); }
+    catch (IllegalAccessException e) {
+      e.printStackTrace(); }
+    catch (InvocationTargetException e) {
+      e.printStackTrace(); }
+    catch (ClassNotFoundException e) {
+      e.printStackTrace(); } } }

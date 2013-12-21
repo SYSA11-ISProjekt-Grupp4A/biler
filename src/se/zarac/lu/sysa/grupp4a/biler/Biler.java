@@ -8,13 +8,23 @@ import se.zarac.lu.sysa.grupp4a.biler.models.Person;
 import se.zarac.lu.sysa.grupp4a.biler.models.Product;
 import se.zarac.lu.sysa.grupp4a.biler.models.Booking;
 
+/**
+ * The main program, Biler.
+ * 
+ * @author zarac
+ */
 public class Biler {
+  protected String name = "Biler 0.0.1";
   protected List<Person> customers;   
   protected List<Product> products;
   protected List<Filter> filters;
+  protected SeatsFilter seatsFilter;
   protected List<Item> items;
   protected List<Booking> bookings;
 
+  /**
+   * Ze k0nstrukt0r.
+   */
   public Biler() {
     this.customers = new LinkedList<Person>();
     this.products = new LinkedList<Product>();
@@ -23,14 +33,20 @@ public class Biler {
     this.bookings = new LinkedList<Booking>();
     
     // THE filters
-    SeatsFilter seatsFilter = new SeatsFilter();
+    seatsFilter = new SeatsFilter();
     seatsFilter.setSeats(4);
     
     filters.add(seatsFilter);
 
     System.out.println("Filters: " + filters); }
 
-  // check if item passes all filters
+  /**
+   * Check if item passes all given filters.
+   * 
+   * @param filters
+   * @param item
+   * @return Well, did it?
+   */
   public boolean filter(List<Filter> filters, Item item) {
     Iterator<Filter> f = filters.iterator();
     while (f.hasNext()) {
@@ -78,4 +94,26 @@ public class Biler {
     return items; }
 
   public List<Booking> getBookings() {
-    return bookings; } }
+    return bookings; }
+
+  public void setName(String name) {
+    // TODO trigger event so GUI can act?
+    this.name = name; }
+  
+  public String getName() {
+    return name; }
+
+  public void add(Person kalle) {
+    customers.add(kalle); } 
+
+  public void add(Product product) {
+    products.add(product); } 
+
+  public void add(Item item) {
+    items.add(item); } 
+
+  public void add(Booking booking) {
+    bookings.add(booking); } 
+
+  public void add(Filter filter) {
+    filters.add(filter); } }

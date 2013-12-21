@@ -1,25 +1,20 @@
-package se.zarac.lu.sysa.grupp4a.biler.gui;
+package se.zarac.lu.sysa.grupp4a.biler.gui.views;
 
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
-import se.zarac.lu.sysa.grupp4a.biler.models.Person;
+import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
+import se.zarac.lu.sysa.grupp4a.biler.gui.View;
+import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.*;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-@SuppressWarnings("serial")
-public class PersonFinder extends JPanel implements /*KeyListener, */DocumentListener {
+public class Persons extends View implements /*KeyListener, */DocumentListener {
   protected GUI gui;
   protected Biler biler;
   protected JTextField input;
@@ -28,15 +23,20 @@ public class PersonFinder extends JPanel implements /*KeyListener, */DocumentLis
   protected JLabel metaLabel;
   protected JPanel result;
 
-  public PersonFinder(GUI gui) {
+  public Persons(GUI gui) {
+    super();
     this.gui = gui;
     this.biler = gui.getBiler();
 
+    //setBackground(Color.BLACK);
     setLayout(new BorderLayout());
 
+    // input
     input = new JTextField();
-    input.getDocument().addDocumentListener(this);
+    input.getDocument().addDocumentListener(this);    
+    add(input, BorderLayout.NORTH);
 
+    // output
     output = new JPanel();
     output.setLayout(new BorderLayout());
 
@@ -51,21 +51,22 @@ public class PersonFinder extends JPanel implements /*KeyListener, */DocumentLis
     result.setLayout(new FlowLayout());
     output.add(result, BorderLayout.CENTER);
 
-    add(input, BorderLayout.NORTH);
     add(output, BorderLayout.CENTER);
+    
+    // do initial empty search
     findPerson(); }
 
   public void findPerson() {
+    // what to find
     String key = input.getText();
-    List<Person> matches = biler.findPerson(key);
+    // find it/them
+    List<se.zarac.lu.sysa.grupp4a.biler.models.Person> matches = biler.findPerson(key);
+    // draw it/them
     metaLabel.setText("Found " + matches.size() + " persons.");
     result.removeAll();
-    Iterator<Person> p = matches.iterator();
-    System.out.println("matches for " + key + ": " + matches);
+    Iterator<se.zarac.lu.sysa.grupp4a.biler.models.Person> p = matches.iterator();
     while (p.hasNext()) {
-      Person person = p.next();
-      PersonView view = new PersonView(person);
-      result.add(view); }
+      result.add(new PersonView(p.next())); }
 
     result.revalidate();
     result.repaint(); }
@@ -91,12 +92,12 @@ public class PersonFinder extends JPanel implements /*KeyListener, */DocumentLis
   public void removeUpdate(DocumentEvent arg0) {
     findPerson(); }    
 
-  protected class PersonView extends JLabel implements MouseListener {
-    protected Person person;
+  protected class PersonView extends JButton implements MouseListener {
+    protected se.zarac.lu.sysa.grupp4a.biler.models.Person person;
 
-    public PersonView(Person person) {
+    public PersonView(se.zarac.lu.sysa.grupp4a.biler.models.Person person) {
+      super(person.getName());
       this.person = person;
-      setText(person.getName());
       addMouseListener(this); }
 
     @Override
@@ -113,4 +114,7 @@ public class PersonFinder extends JPanel implements /*KeyListener, */DocumentLis
     public void mousePressed(MouseEvent arg0) { }
 
     @Override
-    public void mouseReleased(MouseEvent arg0) { } } }
+    public void mouseReleased(MouseEvent arg0) { } }
+
+  public JTextField getInput() {
+    return input; } }

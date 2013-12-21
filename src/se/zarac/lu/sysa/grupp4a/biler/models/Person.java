@@ -1,16 +1,32 @@
 package se.zarac.lu.sysa.grupp4a.biler.models;
 
 import java.util.List;
+import se.zarac.lu.sysa.grupp4a.biler.Model;
 
-public class Person {
-    protected String name;
-    protected String personNumber;
+/**
+ * Represents a Person. A customer is merely a Person with relations to Booking(s) and Orders(s).
+ * 
+ * @author zarac
+ */
+public class Person extends Model {
+    protected String name = "anonymous";
+    protected String personNumber; // ID
     protected List<Phone> phoneNumbers;
     protected List<Address> addresses;
-    
-    public Person(String name, String personNumber) {
-        this.name = name;
+
+    /**
+     * @param personNumber All persons need a number.
+     */
+    public Person(String personNumber) {
         this.personNumber = personNumber; }
+    
+    /**
+     * @param name Because it's handy.
+     * @param personNumber All persons need a number.
+     */
+    public Person(String name, String personNumber) {
+      this.name = name;
+      this.personNumber = personNumber; }
     
     public String toString() {
         return name; } 
