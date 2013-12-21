@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="." destdir="doc" doctitle="Biler 0.0.1 documentation" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson,se.zarac.lu.sysa.grupp4a.biler.models,se.zarac.lu.sysa.grupp4a.biler.gui,se.zarac.lu.sysa.grupp4a.biler" source="1.6" sourcefiles="src/Main.java" sourcepath="src" splitindex="true" use="false" version="true"/>
+    </target>
+</project>
