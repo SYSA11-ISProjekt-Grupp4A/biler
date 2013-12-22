@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import javax.swing.JComponent;
 import se.zarac.lu.sysa.grupp4a.biler.*;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.*;
+import se.zarac.lu.sysa.grupp4a.biler.gui.views.Fallback;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.Items;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.Persons;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.Products;
@@ -104,7 +105,10 @@ public class GUI extends JFrame {
    * 
    * @param model The Model, it must have a matching View. */
   public void view(Model model) {
-    setComponent(createView(model)); }
+    setComponent(createView(model.getClass(), model)); }
+  
+  public void getView(Filter filter) {
+    setComponent(createView(filter.getClass(), filter)); }
 
   /**
    * Create a View for a Model.
@@ -113,32 +117,54 @@ public class GUI extends JFrame {
    *   display that view
    * 
    * @param model The Model, it must have a matching View. */
-  protected View createView(Model model) {
-    /* some reflection references (for those interested)
-     *   http://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Constructor.html#newInstance(java.lang.Object...)
-     *   http://msdn.microsoft.com/en-us/library/aa986011(v=vs.80).aspx
-     *   http://www.javapractices.com/topic/TopicAction.do?Id=237
-     *   http://www.javapractices.com/topic/TopicAction.do?Id=113 */
-    Class<? extends Model> modelClass = model.getClass();
-    String className = "se.zarac.lu.sysa.grupp4a.biler.gui.views." + modelClass.getSimpleName();
-    Class<? extends Model>[] viewArguments = new Class[] { modelClass };
-    // Constructor constructor = modelClass
+
+  public View createView(Class clas, Object object) {
     try {
-      Class<View> viewClass = (Class<View>)Class.forName(className);
-      Constructor<View> viewConstructor = viewClass.getConstructor(viewArguments);
-      return viewConstructor.newInstance(model); }
-    // TODO something amazing (shouldn't happen, so perhaps exit(!0)?)
-    catch (SecurityException e) {
-      e.printStackTrace(); }
-    catch (NoSuchMethodException e) {
-      e.printStackTrace(); }
-    catch (IllegalArgumentException e) {
-      e.printStackTrace(); }
+      return getViewConstructor(clas).newInstance(object); }
     catch (InstantiationException e) {
       e.printStackTrace(); }
     catch (IllegalAccessException e) {
       e.printStackTrace(); }
     catch (InvocationTargetException e) {
+      e.printStackTrace(); }
+
+    // shouldn't happen.
+    return null; }
+  
+  public View createView(Filter filter) {
+    return createView(filter.getClass(), filter); }
+  
+  public Constructor<View> getViewConstructor(Class c) {
+    /* some reflection references (for those interested)
+     *   http://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Constructor.html#newInstance(java.lang.Object...)
+     *   http://msdn.microsoft.com/en-us/library/aa986011(v=vs.80).aspx
+     *   http://www.javapractices.com/topic/TopicAction.do?Id=237
+     *   http://www.javapractices.com/topic/TopicAction.do?Id=113 */
+    String className = "se.zarac.lu.sysa.grupp4a.biler.gui.views." + c.getSimpleName();
+    Class<? extends Model>[] viewArguments = new Class[] { c };
+    // Constructor constructor = modelClass
+    try {
+      Class<View> viewClass = (Class<View>)Class.forName(className);
+      return viewClass.getConstructor(viewArguments); }
+    // TODO something amazing (shouldn't happen, so perhaps exit(!0)?)
+    catch (SecurityException e) {
+      e.printStackTrace(); }
+    catch (NoSuchMethodException e) {
+      System.err.println("No specific View.");
+      className = "se.zarac.lu.sysa.grupp4a.biler.gui.views.Fallback";
+      try {
+        Class<View> fallback = (Class<View>)Class.forName(className);
+        try {
+          return fallback.getConstructor(viewArguments); }
+        catch (SecurityException e1) {
+          e1.printStackTrace(); }
+        catch (NoSuchMethodException e1) {
+          System.err.println("No fallback View '" + className + "'.");
+          e.printStackTrace(); 
+          return null; } }
+      catch (ClassNotFoundException e1) {
+        e1.printStackTrace(); }}
+    catch (IllegalArgumentException e) {
       e.printStackTrace(); }
     catch (ClassNotFoundException e) {
       e.printStackTrace(); }

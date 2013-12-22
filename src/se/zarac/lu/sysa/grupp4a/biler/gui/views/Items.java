@@ -1,8 +1,8 @@
 package se.zarac.lu.sysa.grupp4a.biler.gui.views;
 
 import java.util.Iterator;
-import java.util.List;
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
+import se.zarac.lu.sysa.grupp4a.biler.Filter;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
@@ -13,17 +13,28 @@ import se.zarac.lu.sysa.grupp4a.biler.models.Item;
 public class Items extends View {
   protected GUI gui;
   protected Biler biler;
+  protected JPanel filters;
   protected JPanel items;
   
   public Items(GUI gui) {
     this.gui = gui; 
     biler = gui.getBiler();
+    
+    filters = new JPanel();
+    Iterator<Filter> f = biler.getFilters().iterator();
+    while (f.hasNext()) {
+      Filter filter = f.next();
+      filters.add(gui.createView(filter)); }
+    add(filters);
+    
     items = new JPanel();
-    view(biler.getItems()); }
+    add(items);
+    
+    draw(); }
   
-  protected void view(List<Item> items) {
-    this.items.removeAll();
-    Iterator<Item> i = items.iterator();
+  protected void draw() {
+    items.removeAll();
+    Iterator<Item> i = biler.getItems().iterator();
     while (i.hasNext()) {
       Item item = i.next();
-      add(new JLabel(item.toString())); } } }
+      items.add(new JLabel(item.toString())); } } }
