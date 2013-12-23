@@ -9,4 +9,4 @@ public class Fallback extends View {
   
   public Fallback(Object object) {
     this.object = object;
-    add(new JLabel(object.toString())); } }
+    add(new JLabel("[No view for '" + object.toString() + "'.]")); } }

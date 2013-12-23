@@ -114,13 +114,18 @@ public class GUI extends JFrame {
    * Create a View for a Model.
    *   find out what type of model it is
    *   create a view for that type
-   *   display that view
    * 
    * @param model The Model, it must have a matching View. */
 
   public View createView(Class clas, Object object) {
+    View view = null;
     try {
-      return getViewConstructor(clas).newInstance(object); }
+      Constructor<View> constructor = getViewConstructor(clas);
+      if (constructor == null) {
+        System.out.println("View constructor not found for '" + object + "'.");
+        view = new Fallback(object); }
+      else {
+        view = constructor.newInstance(object); } }
     catch (InstantiationException e) {
       e.printStackTrace(); }
     catch (IllegalAccessException e) {
@@ -128,46 +133,30 @@ public class GUI extends JFrame {
     catch (InvocationTargetException e) {
       e.printStackTrace(); }
 
-    // shouldn't happen.
-    return null; }
+    return view; }
   
   public View createView(Filter filter) {
     return createView(filter.getClass(), filter); }
   
   public Constructor<View> getViewConstructor(Class c) {
+    Constructor<View> constructor = null;
     /* some reflection references (for those interested)
      *   http://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Constructor.html#newInstance(java.lang.Object...)
      *   http://msdn.microsoft.com/en-us/library/aa986011(v=vs.80).aspx
      *   http://www.javapractices.com/topic/TopicAction.do?Id=237
      *   http://www.javapractices.com/topic/TopicAction.do?Id=113 */
     String className = "se.zarac.lu.sysa.grupp4a.biler.gui.views." + c.getSimpleName();
-    Class<? extends Model>[] viewArguments = new Class[] { c };
-    // Constructor constructor = modelClass
     try {
+      Class<? extends Model>[] viewArguments = new Class[] { c };
       Class<View> viewClass = (Class<View>)Class.forName(className);
       return viewClass.getConstructor(viewArguments); }
-    // TODO something amazing (shouldn't happen, so perhaps exit(!0)?)
     catch (SecurityException e) {
       e.printStackTrace(); }
     catch (NoSuchMethodException e) {
-      System.err.println("No specific View.");
-      className = "se.zarac.lu.sysa.grupp4a.biler.gui.views.Fallback";
-      try {
-        Class<View> fallback = (Class<View>)Class.forName(className);
-        try {
-          return fallback.getConstructor(viewArguments); }
-        catch (SecurityException e1) {
-          e1.printStackTrace(); }
-        catch (NoSuchMethodException e1) {
-          System.err.println("No fallback View '" + className + "'.");
-          e.printStackTrace(); 
-          return null; } }
-      catch (ClassNotFoundException e1) {
-        e1.printStackTrace(); }}
+      System.out.println("No specific View '" + className + "'."); }
     catch (IllegalArgumentException e) {
       e.printStackTrace(); }
     catch (ClassNotFoundException e) {
       e.printStackTrace(); }
     
-    // shouldn't happen.
-    return null; } }
+    return constructor; } }
