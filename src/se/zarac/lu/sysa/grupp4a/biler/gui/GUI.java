@@ -123,9 +123,9 @@ public class GUI extends JFrame {
       Constructor<View> constructor = getViewConstructor(clas);
       if (constructor == null) {
         System.out.println("View constructor not found for '" + object + "'.");
-        view = new Fallback(object); }
+        view = new Fallback(object, this); }
       else {
-        view = constructor.newInstance(object); } }
+        view = constructor.newInstance(object, this); } }
     catch (InstantiationException e) {
       e.printStackTrace(); }
     catch (IllegalAccessException e) {
@@ -134,9 +134,12 @@ public class GUI extends JFrame {
       e.printStackTrace(); }
 
     return view; }
-  
+
   public View createView(Filter filter) {
     return createView(filter.getClass(), filter); }
+  
+  public View createView(Object obj) {
+    return createView(obj.getClass(), obj); }
   
   public Constructor<View> getViewConstructor(Class c) {
     Constructor<View> constructor = null;
@@ -146,14 +149,14 @@ public class GUI extends JFrame {
      *   http://www.javapractices.com/topic/TopicAction.do?Id=237
      *   http://www.javapractices.com/topic/TopicAction.do?Id=113 */
     String className = "se.zarac.lu.sysa.grupp4a.biler.gui.views." + c.getSimpleName();
+    Class<? extends Model>[] viewArguments = new Class[] { c, getClass() };
     try {
-      Class<? extends Model>[] viewArguments = new Class[] { c };
       Class<View> viewClass = (Class<View>)Class.forName(className);
       return viewClass.getConstructor(viewArguments); }
     catch (SecurityException e) {
       e.printStackTrace(); }
     catch (NoSuchMethodException e) {
-      System.out.println("No specific View '" + className + "'."); }
+      System.out.println("No specific View '" + className + "' with arguments '" + viewArguments + "'."); }
     catch (IllegalArgumentException e) {
       e.printStackTrace(); }
     catch (ClassNotFoundException e) {

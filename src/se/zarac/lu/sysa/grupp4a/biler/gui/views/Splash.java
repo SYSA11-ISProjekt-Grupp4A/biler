@@ -3,6 +3,7 @@ package se.zarac.lu.sysa.grupp4a.biler.gui.views;
 import java.awt.GridBagLayout;
 import java.util.Timer;
 import java.util.TimerTask;
+import se.zarac.lu.sysa.grupp4a.biler.Biler;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
@@ -10,7 +11,6 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 
 @SuppressWarnings("serial")
 public class Splash extends View {
-  protected GUI gui;
   protected Timer timer;
   protected Task task;
   protected String text;
@@ -18,7 +18,7 @@ public class Splash extends View {
   protected JLabel label;
   
   public Splash(GUI gui, String text) {
-    this.gui = gui;
+    super(gui);
     this.text = text;
     task = new Task();
     panel = new JPanel();

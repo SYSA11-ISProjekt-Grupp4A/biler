@@ -38,10 +38,14 @@ public class Main {
       
       // some customers
       Person kalle = new Person("Kalle", "4803051932");
-      Person lisa = new Person("Lisa", "4402025155");
+      Person lisa = new Person("Lisa", "8581484013");
+      Person arne = new Person("Arne", "4884120443");
+      Person hugo = new Person("Hugo", "5802837592");
 
       biler.add(kalle);
       biler.add(lisa);
+      biler.add(arne);
+      biler.add(hugo);
       
       System.out.println("Customers: " + customers);
       

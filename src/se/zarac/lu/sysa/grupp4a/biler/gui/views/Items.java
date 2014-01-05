@@ -11,14 +11,14 @@ import se.zarac.lu.sysa.grupp4a.biler.models.Item;
 
 @SuppressWarnings("serial")
 public class Items extends View {
-  protected GUI gui;
-  protected Biler biler;
   protected JPanel filters;
   protected JPanel items;
+  protected Biler biler;
   
   public Items(GUI gui) {
-    this.gui = gui; 
-    biler = gui.getBiler();
+    super(gui);
+    this.gui = gui;
+    this.biler = gui.getBiler();
     
     filters = new JPanel();
     Iterator<Filter> f = biler.getFilters().iterator();

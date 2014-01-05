@@ -1,5 +1,6 @@
 package se.zarac.lu.sysa.grupp4a.biler.gui.views;
 
+import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
 
@@ -7,6 +8,7 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
 public class Fallback extends View {
   protected Object object;
   
-  public Fallback(Object object) {
+  public Fallback(Object object, GUI gui) {
+    super(gui);
     this.object = object;
     add(new JLabel("[No view for '" + object.toString() + "'.]")); } }

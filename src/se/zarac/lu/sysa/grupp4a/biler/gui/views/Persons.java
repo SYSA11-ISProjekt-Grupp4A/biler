@@ -16,18 +16,16 @@ import javax.swing.event.DocumentListener;
 
 @SuppressWarnings("serial")
 public class Persons extends View implements /*KeyListener, */DocumentListener {
-  protected GUI gui;
-  protected Biler biler;
   protected JTextField input;
   protected JPanel output;
   protected JPanel meta;
   protected JLabel metaLabel;
   protected JPanel result;
+  protected Biler biler;  
 
   public Persons(GUI gui) {
-    super();
-    this.gui = gui;
-    this.biler = gui.getBiler();
+    super(gui);
+    biler = gui.getBiler();
 
     //setBackground(Color.BLACK);
     setLayout(new BorderLayout());

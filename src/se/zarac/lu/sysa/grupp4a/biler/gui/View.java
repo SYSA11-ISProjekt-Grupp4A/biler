@@ -8,4 +8,8 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
  * @author zarac
  */
 @SuppressWarnings("serial")
-public abstract class View extends JPanel { }
+public abstract class View extends JPanel {
+  protected GUI gui;
+  
+  public View(GUI gui) {
+    this.gui = gui; } }
