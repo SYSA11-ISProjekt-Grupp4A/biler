@@ -1,0 +1,36 @@
+TODO
+  *
+    Person (Kund)
+      Lägga till
+      Uppdatera
+      Söka
+    Products (Vehicle)
+      Lista
+      Uppdatera
+      Lägga till
+    Items
+      Lägga till
+      Uppdatera
+    Booking
+      Lägga till
+  **
+    Save
+    Load
+DONE
+Bytygsgrader
+  Betyg E
+    Person (Kund)
+      Lägga till
+      Uppdatera
+      Söka
+      Visa tillhörande Bokningar
+    Fordon
+      Lägga till
+      Uppdatera
+    Bokning
+      Lägga till
+  Betyg C,D
+    Visa Bokningar för sökt Kund
+  Betyg A,B
+    Utökade modeller, gränsnitt, och funktioner.
+    Snygg kod
