@@ -36,7 +36,7 @@ public class Main {
       List<Item> items = biler.getItems();
       List<Booking> bookings = biler.getBookings();
       
-      // some customers
+      // some persons (can become customers and/or users)
       Person kalle = new Person("Kalle", "4803051932");
       Person lisa = new Person("Lisa", "8581484013");
       Person arne = new Person("Arne", "4884120443");
