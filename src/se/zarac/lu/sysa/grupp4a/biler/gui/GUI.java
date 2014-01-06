@@ -1,4 +1,3 @@
-
 package se.zarac.lu.sysa.grupp4a.biler.gui;
 
 import java.awt.BorderLayout;
@@ -13,6 +12,7 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.views.Items;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.Persons;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.Products;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.Splash;
+import se.zarac.lu.sysa.grupp4a.biler.gui.views.About;
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
@@ -23,7 +23,7 @@ public class GUI extends JFrame {
   protected enum Activity { SPLASH, ABOUT, PRODUCTS, ITEMS, PERSONS, BOOKINGS, EXIT };
   public static Activity DEFAULT_ACTIVITY = Activity.ABOUT;
   protected Splash splash;
-  // TODO protected About about;
+  protected About about;
   protected Products products;
   protected Items items;
   protected Persons persons;
@@ -48,7 +48,7 @@ public class GUI extends JFrame {
 
     // modes / activities / views / whatever you'd like to call them
     splash = new Splash(this, biler.getName());
-    // TODO about = new About(this);
+    about = new About(this);
     products = new Products(this);
     items = new Items(this);
     persons = new Persons(this);
@@ -77,9 +77,9 @@ public class GUI extends JFrame {
         // TODO bug-timer, cannot be used twice
         splash.timeOut(1);
         break;
-      /* TODO case ABOUT:
+      case ABOUT:
         setComponent(about);
-        break; */
+        break;
       case PRODUCTS:
         setComponent(products);
         break;
