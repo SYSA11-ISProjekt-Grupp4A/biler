@@ -14,6 +14,11 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.activities.About;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.*;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.Fallback;
 
+/**
+ * A Graphical User Interface (GUI) for Biler.
+ * 
+ * @author zarac
+ */
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
   protected Biler biler;
@@ -30,7 +35,11 @@ public class GUI extends JFrame {
   protected Persons persons;
   // TODO protected Bookings bookings;
   
-  
+  /**
+   * Construct it jao.
+   * 
+   * @param biler The Biler instance to control.
+   */
   public GUI(Biler biler) {
     this.biler = biler;
     
@@ -57,12 +66,22 @@ public class GUI extends JFrame {
     
     view(Activity.SPLASH);
     
-    // TODO bug-1 : needs to be set here AND after JFrame is instantiated
+    // TODO bug-gui-visible : needs to be set here AND after JFrame is instantiated
     setVisible(true); }
 
+  /**
+   * Get the Biler instance the GUI is attached to.
+   * 
+   * @return The Biler instance.
+   */
   public Biler getBiler() {
     return biler; }
 
+  /**
+   * Direct access to set a JComponent in the main container.
+   * 
+   * @param component The JComponent.
+   */
   public void setComponent(JComponent component) {
     container.removeAll();
     container.add(component);
@@ -71,6 +90,10 @@ public class GUI extends JFrame {
     container.validate();
     container.repaint(); }
   
+  /**
+   * View an Activity.
+   * @param activity The Activity.
+   */
   public void view(Activity activity) {
     switch(activity) {
       case SPLASH:
@@ -115,17 +138,22 @@ public class GUI extends JFrame {
   public void view(Model model) {
     setComponent(createView(model.getClass(), model)); }
   
-  public void getView(Filter filter) {
-    setComponent(createView(filter.getClass(), filter)); }
-
+  /**
+   * Create a View for an Object.
+   * 
+   * @param obj The Object to create a View for.
+   * @return The View.
+   */
+  public View createView(Object obj) {
+    return createView(obj.getClass(), obj); }
+  
   /**
    * Create a View for a Model.
    *   find out what type of model it is
    *   create a view for that type
    * 
    * @param model The Model, it must have a matching View. */
-
-  public View createView(Class clas, Object object) {
+  protected View createView(Class<?> clas, Object object) {
     View view = null;
     try {
       Constructor<View> constructor = getViewConstructor(clas);
@@ -142,14 +170,8 @@ public class GUI extends JFrame {
       e.printStackTrace(); }
 
     return view; }
-
-  public View createView(Filter filter) {
-    return createView(filter.getClass(), filter); }
   
-  public View createView(Object obj) {
-    return createView(obj.getClass(), obj); }
-  
-  public Constructor<View> getViewConstructor(Class c) {
+  protected Constructor<View> getViewConstructor(Class<?> c) {
     // TODO Clean.
     Constructor<View> constructor = null;
     /* some reflection references (for those interested)
@@ -162,7 +184,9 @@ public class GUI extends JFrame {
     /* Class<?>[] viewArguments = new Class<?>[] { (new Object()).getClass(), getClass() };
     System.out.println("arguments " + viewArguments[0] + viewArguments[1]); */
     try {
+      @SuppressWarnings("unchecked")
       Class<View> viewClass = (Class<View>)Class.forName(className);
+      @SuppressWarnings("unchecked")
       Constructor<View>[] cons = (Constructor<View>[])viewClass.getConstructors();
       //System.out.println("returning constructor : " + cons[0]);
       constructor = cons[0];
@@ -179,8 +203,7 @@ public class GUI extends JFrame {
     
     return constructor; }
 
-  @SuppressWarnings("serial")
-  public class Menu extends JPanel {
+  protected class Menu extends JPanel {
     protected GUI gui;
 
     public Menu(GUI gui) {

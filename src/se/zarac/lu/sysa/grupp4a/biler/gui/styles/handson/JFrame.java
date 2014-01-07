@@ -11,5 +11,5 @@ public class JFrame extends javax.swing.JFrame {
     setResizable(true);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     
-    setBackground(Color.LOSING_HOPE); 
+    setBackground(Color.LOSING_HOPE);
     setForeground(Color.WATER_BEGINS); } }
