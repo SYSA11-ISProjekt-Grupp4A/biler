@@ -38,8 +38,8 @@ public class Splash extends View {
     add(panel); }
     
   @Override
-  public void onView() {
-    super.onView();
+  public void postView() {
+    super.postView();
     timeOut(milliseconds); }
   
   protected void timeOut(int seconds) {

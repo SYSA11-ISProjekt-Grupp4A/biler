@@ -20,6 +20,11 @@ public abstract class View extends JPanel {
     this.gui = gui; }
   
   /**
+   * Called by GUI.view(View) pre revalidate() and repaint().
+   */
+  public void preView() { }
+  
+  /**
    * Called by GUI.view(View) post revalidate() and repaint().
    */
-  public void onView() { } }
+  public void postView() { } }

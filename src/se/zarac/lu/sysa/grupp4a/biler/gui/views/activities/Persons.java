@@ -113,8 +113,8 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
     return input; }
   
   @Override
-  public void onView() {
-    super.onView();
+  public void postView() {
+    super.postView();
     getInput().requestFocus();
     findPerson(); }
 

@@ -31,8 +31,10 @@ public class AddPerson extends View implements ActionListener {
     add(save); }
   
   @Override
-  public void onView() {
-    super.onView(); }
+  public void postView() {
+    super.postView();
+    number.setText(""); 
+    name.setText(""); }
 
   @Override
   public void actionPerformed(ActionEvent arg0) {

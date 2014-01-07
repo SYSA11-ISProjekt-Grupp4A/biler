@@ -10,6 +10,6 @@ public class Exit extends View {
     super(gui); }
 
   @Override
-  public void onView() {
-    super.onView();
+  public void preView() {
+    super.preView();
     System.exit(0); } }

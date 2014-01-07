@@ -8,11 +8,20 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
 
 @SuppressWarnings("serial")
 public class About extends View {
+  protected Biler biler;
   
   public About(GUI gui) {
     super(gui);
-    Biler biler = gui.getBiler();
-    setLayout(new GridLayout(0,1));
+    biler = gui.getBiler();
+    setLayout(new GridLayout(0,1)); }
+
+  @Override
+  public void preView() {
+    super.preView();
+    setInformation(); }
+  
+  protected void setInformation() {
+    removeAll();
     add(new JLabel("Name : "+ biler.getName()));
     add(new JLabel("Authors : "+ Biler.AUTHORS));
     add(new JLabel("Version : "+ Biler.VERSION));

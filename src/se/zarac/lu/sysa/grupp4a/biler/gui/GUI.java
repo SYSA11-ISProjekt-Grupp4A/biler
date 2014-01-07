@@ -53,7 +53,7 @@ public class GUI extends JFrame {
     add(container, BorderLayout.CENTER);
 
     // init. activities
-    activities.put("Splash", new Splash(GUI.this, "Herrow! o/", 1500));
+    activities.put("Splash", new Splash(GUI.this, "Herrow! o/", 900));
     activities.put("About", new About(GUI.this));
     activities.put("Products", new Products(GUI.this));
     activities.put("Items", new Items(GUI.this));
@@ -115,8 +115,9 @@ public class GUI extends JFrame {
    * 
    * @param view The View. */
   public void view(View view) {
+    view.preView();
     setComponent(view);
-    view.onView(); }
+    view.postView(); }
   
   /**
    * Create a View for an Object.
