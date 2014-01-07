@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JComponent;
 import se.zarac.lu.sysa.grupp4a.biler.*;
+import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.AddPerson;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Exit;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Splash;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Items;
@@ -57,6 +58,7 @@ public class GUI extends JFrame {
     activities.put("Products", new Products(GUI.this));
     activities.put("Items", new Items(GUI.this));
     activities.put("Persons", new Persons(GUI.this));
+    activities.put("AddPerson", new AddPerson(GUI.this));
     // TODO activities.put("bookings", new Bookings(GUI.this));
     activities.put("Exit", new Exit(GUI.this));
 

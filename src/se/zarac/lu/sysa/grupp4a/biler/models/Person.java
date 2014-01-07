@@ -24,12 +24,12 @@ public class Person extends Model {
      * @param name Because it's handy.
      * @param personNumber All persons need a number.
      */
-    public Person(String name, String personNumber) {
+    public Person(String personNumber, String name) {
       this.name = name;
       this.personNumber = personNumber; }
     
     public String toString() {
-        return name; } 
+        return personNumber + "-" + name; } 
     
     public String getName() {
         return name; }

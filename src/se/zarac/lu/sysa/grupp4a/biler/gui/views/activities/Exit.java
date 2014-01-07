@@ -12,5 +12,4 @@ public class Exit extends View {
   @Override
   public void onView() {
     super.onView();
-    System.out.println("onView() Exit loverloaded");
     System.exit(0); } }

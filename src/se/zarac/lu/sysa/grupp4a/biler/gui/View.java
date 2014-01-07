@@ -11,8 +11,15 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 public abstract class View extends JPanel {
   protected GUI gui;
   
+  /**
+   * A View of something in Biler.
+   * 
+   * @param gui The GUI we belong to.
+   */
   public View(GUI gui) {
     this.gui = gui; }
   
-  public void onView() {
-    System.out.println("[onView() not implemented]"); } }
+  /**
+   * Called by GUI.view(View) post revalidate() and repaint().
+   */
+  public void onView() { } }

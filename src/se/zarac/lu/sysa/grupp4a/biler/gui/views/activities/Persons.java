@@ -115,10 +115,11 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
   @Override
   public void onView() {
     super.onView();
-    getInput().requestFocus(); }
+    getInput().requestFocus();
+    findPerson(); }
 
   public class Menu extends JPanel {
     public Menu() {
       add(new Button("Add") {
         public void click() {
-          gui.view("PersonAdd"); } } ); } } }
+          gui.view("AddPerson"); } } ); } } }
