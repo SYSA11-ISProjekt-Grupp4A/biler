@@ -6,11 +6,11 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.JComponent;
 import se.zarac.lu.sysa.grupp4a.biler.*;
-import se.zarac.lu.sysa.grupp4a.biler.gui.activities.Splash;
-import se.zarac.lu.sysa.grupp4a.biler.gui.activities.Items;
-import se.zarac.lu.sysa.grupp4a.biler.gui.activities.Persons;
-import se.zarac.lu.sysa.grupp4a.biler.gui.activities.Products;
-import se.zarac.lu.sysa.grupp4a.biler.gui.activities.About;
+import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Splash;
+import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Items;
+import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Persons;
+import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Products;
+import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.About;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.*;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.Fallback;
 

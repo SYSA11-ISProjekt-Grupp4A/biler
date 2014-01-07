@@ -1,4 +1,4 @@
-package se.zarac.lu.sysa.grupp4a.biler.gui.activities;
+package se.zarac.lu.sysa.grupp4a.biler.gui.views.activities;
 
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
 import se.zarac.lu.sysa.grupp4a.biler.gui.Button;
