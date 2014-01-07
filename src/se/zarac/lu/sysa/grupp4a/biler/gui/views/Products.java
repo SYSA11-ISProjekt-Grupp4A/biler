@@ -1,10 +1,39 @@
 package se.zarac.lu.sysa.grupp4a.biler.gui.views;
 
+
+
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
+import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JButton;
+
+
 
 @SuppressWarnings("serial")
 public class Products extends View {
+ 
   
   public Products(GUI gui) {
-    super(gui); } }
+    super(gui);
+    
+    add(new JButton("Bilar"));
+    add(new JButton("Släp"));
+    add(new JButton("Övrigt"));}
+    
+    
+    
+ 
+  }
+
+
+
+
+  
+  
+  
+ 
+    
+   
+  
+  
+ 
+
