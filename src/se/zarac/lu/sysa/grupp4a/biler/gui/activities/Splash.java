@@ -1,9 +1,8 @@
-package se.zarac.lu.sysa.grupp4a.biler.gui.views;
+package se.zarac.lu.sysa.grupp4a.biler.gui.activities;
 
 import java.awt.GridBagLayout;
 import java.util.Timer;
 import java.util.TimerTask;
-import se.zarac.lu.sysa.grupp4a.biler.Biler;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;

@@ -9,8 +9,8 @@ import se.zarac.lu.sysa.grupp4a.biler.models.Product;
 import se.zarac.lu.sysa.grupp4a.biler.models.Vehicle;
 
 /**
- * Entry point to running Biler.
- *  
+ * (Example) execution of Biler.
+ * 
  * @author zarac
  */
 public class Main {

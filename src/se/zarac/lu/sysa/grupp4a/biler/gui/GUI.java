@@ -6,13 +6,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.JComponent;
 import se.zarac.lu.sysa.grupp4a.biler.*;
+import se.zarac.lu.sysa.grupp4a.biler.gui.activities.Splash;
+import se.zarac.lu.sysa.grupp4a.biler.gui.activities.Items;
+import se.zarac.lu.sysa.grupp4a.biler.gui.activities.Persons;
+import se.zarac.lu.sysa.grupp4a.biler.gui.activities.Products;
+import se.zarac.lu.sysa.grupp4a.biler.gui.activities.About;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.*;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.Fallback;
-import se.zarac.lu.sysa.grupp4a.biler.gui.views.Items;
-import se.zarac.lu.sysa.grupp4a.biler.gui.views.Persons;
-import se.zarac.lu.sysa.grupp4a.biler.gui.views.Products;
-import se.zarac.lu.sysa.grupp4a.biler.gui.views.Splash;
-import se.zarac.lu.sysa.grupp4a.biler.gui.views.About;
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
@@ -20,7 +20,8 @@ public class GUI extends JFrame {
   protected JPanel container; // for the activities, or something
   protected Menu menu;
   // activities / modes
-  public static enum Activity { SPLASH, ABOUT, PRODUCTS, ITEMS, PERSONS, BOOKINGS, EXIT };
+  public static enum Activity { SPLASH, ABOUT, PRODUCTS, ITEMS, PERSONS, 
+    PERSON_ADD, BOOKINGS, EXIT };
   public static Activity DEFAULT_ACTIVITY = Activity.ABOUT;
   protected Splash splash;
   protected About about;

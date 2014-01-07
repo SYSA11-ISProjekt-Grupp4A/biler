@@ -1,4 +1,4 @@
-package se.zarac.lu.sysa.grupp4a.biler.gui.views;
+package se.zarac.lu.sysa.grupp4a.biler.gui.activities;
 
 import java.util.Iterator;
 import se.zarac.lu.sysa.grupp4a.biler.Biler;

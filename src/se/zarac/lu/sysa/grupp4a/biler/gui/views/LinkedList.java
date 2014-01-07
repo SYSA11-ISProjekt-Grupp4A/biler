@@ -11,6 +11,7 @@ public class LinkedList extends View {
   
   public LinkedList(Object obj, GUI gui) {
     super(gui);
+    @SuppressWarnings("unchecked")
     List<Object> list = (List<Object>)obj;
     Iterator<Object> iterator = list.iterator();
     add(new JLabel("[LinkedList"));

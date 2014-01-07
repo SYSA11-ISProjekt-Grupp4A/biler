@@ -1,4 +1,4 @@
-package se.zarac.lu.sysa.grupp4a.biler.gui.views;
+package se.zarac.lu.sysa.grupp4a.biler.gui.activities;
 
 
 
@@ -16,8 +16,8 @@ public class Products extends View {
     super(gui);
     
     add(new JButton("Bilar"));
-    add(new JButton("SlŠp"));
-    add(new JButton("…vrigt"));}
+    add(new JButton("Slï¿½p"));
+    add(new JButton("ï¿½vrigt"));}
     
     
     

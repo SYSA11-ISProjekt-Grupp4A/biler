@@ -1,11 +1,10 @@
-package se.zarac.lu.sysa.grupp4a.biler.gui.views;
+package se.zarac.lu.sysa.grupp4a.biler.gui.activities;
 
 import java.awt.GridLayout;
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
-import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 
 @SuppressWarnings("serial")
 public class About extends View {

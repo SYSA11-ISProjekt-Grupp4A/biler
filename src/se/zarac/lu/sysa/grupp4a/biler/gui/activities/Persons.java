@@ -1,4 +1,4 @@
-package se.zarac.lu.sysa.grupp4a.biler.gui.views;
+package se.zarac.lu.sysa.grupp4a.biler.gui.activities;
 
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
 import se.zarac.lu.sysa.grupp4a.biler.gui.Button;
@@ -73,15 +73,6 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
     result.revalidate();
     result.repaint(); }
 
-  /* @Override
-    public void keyPressed(KeyEvent e) { }
-
-    @Override
-    public void keyReleased(KeyEvent arg0) { }
-
-    @Override
-    public void keyTyped(KeyEvent arg0) { } */
-
   @Override
   public void changedUpdate(DocumentEvent arg0) {
     System.out.println("changed update"); }
@@ -125,4 +116,4 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
     public Menu() {
       add(new Button("Add") {
         public void click() {
-          gui.view(new JLabel("[Person Add Activity not implmemented.]")); } } ); } } }
+          gui.view(GUI.Activity.PERSON_ADD); } } ); } } }
