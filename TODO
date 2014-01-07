@@ -1,7 +1,6 @@
 TODO
   *
     Person (Kund)
-      Lägga till
       Uppdatera
     Products (Vehicle)
       Lista
@@ -18,6 +17,7 @@ TODO
 DONE
   Person
     Söka
+    Lägga till
 Bytygsgrader
   Betyg E
     Person (Kund)
