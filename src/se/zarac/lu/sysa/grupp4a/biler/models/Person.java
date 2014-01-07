@@ -10,7 +10,7 @@ import se.zarac.lu.sysa.grupp4a.biler.Model;
  */
 public class Person extends Model {
     protected String name = "anonymous";
-    protected String personNumber; // ID
+    protected String personNumber = "XXXXXXXXXX"; // ID
     protected List<Phone> phoneNumbers;
     protected List<Address> addresses;
 
@@ -25,8 +25,10 @@ public class Person extends Model {
      * @param personNumber All persons need a number.
      */
     public Person(String personNumber, String name) {
-      this.name = name;
-      this.personNumber = personNumber; }
+      if (personNumber.length() > 0)
+        this.personNumber = personNumber;
+      if (name.length() > 0)
+        this.name = name; }
     
     public String toString() {
         return personNumber + "-" + name; } 
