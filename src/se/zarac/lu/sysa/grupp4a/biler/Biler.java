@@ -15,7 +15,9 @@ import se.zarac.lu.sysa.grupp4a.biler.models.Booking;
  * @author zarac
  */
 public class Biler {
-  protected String name = "Biler 0.0.1";
+  public static final String VERSION = "0.0.1";
+  public static final String AUTHORS = "Alexander, Hannes, Mikkel";
+  protected String name = "Biler vr00m!";
   protected List<Person> customers;   
   protected List<Product> products;
   protected List<Filter> filters;
@@ -100,7 +102,7 @@ public class Biler {
   public void setName(String name) {
     // TODO trigger event so GUI can act?
     this.name = name; }
-  
+
   public String getName() {
     return name; }
 

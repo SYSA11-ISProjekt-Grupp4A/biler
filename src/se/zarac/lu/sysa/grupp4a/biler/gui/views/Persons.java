@@ -1,6 +1,7 @@
 package se.zarac.lu.sysa.grupp4a.biler.gui.views;
 
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
+import se.zarac.lu.sysa.grupp4a.biler.gui.Button;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.*;
@@ -27,7 +28,6 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
     super(gui);
     biler = gui.getBiler();
 
-    //setBackground(Color.BLACK);
     setLayout(new BorderLayout());
 
     // input
@@ -51,6 +51,9 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
     output.add(result, BorderLayout.CENTER);
 
     add(output, BorderLayout.CENTER);
+    
+    // menu
+    add(new Menu(), BorderLayout.SOUTH);
     
     // do initial empty search
     findPerson(); }
@@ -116,4 +119,10 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
     public void mouseReleased(MouseEvent arg0) { } }
 
   public JTextField getInput() {
-    return input; } }
+    return input; }
+  
+  public class Menu extends JPanel {
+    public Menu() {
+      add(new Button("Add") {
+        public void click() {
+          gui.view(new JLabel("[Person Add Activity not implmemented.]")); } } ); } } }

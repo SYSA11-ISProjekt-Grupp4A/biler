@@ -20,7 +20,7 @@ public class GUI extends JFrame {
   protected JPanel container; // for the activities, or something
   protected Menu menu;
   // activities / modes
-  protected enum Activity { SPLASH, ABOUT, PRODUCTS, ITEMS, PERSONS, BOOKINGS, EXIT };
+  public static enum Activity { SPLASH, ABOUT, PRODUCTS, ITEMS, PERSONS, BOOKINGS, EXIT };
   public static Activity DEFAULT_ACTIVITY = Activity.ABOUT;
   protected Splash splash;
   protected About about;
@@ -99,6 +99,13 @@ public class GUI extends JFrame {
       default:
         setComponent(new JLabel("No such activity, '" + activity + "'."));
         break; } }
+
+  /**
+   * Shortcut for setComponent().
+   * 
+   * @param component The JComponent. */
+  public void view(JComponent component) {
+    setComponent(component); }
   
   /**
    * View a Model.
@@ -142,6 +149,7 @@ public class GUI extends JFrame {
     return createView(obj.getClass(), obj); }
   
   public Constructor<View> getViewConstructor(Class c) {
+    // TODO Clean.
     Constructor<View> constructor = null;
     /* some reflection references (for those interested)
      *   http://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Constructor.html#newInstance(java.lang.Object...)
@@ -149,17 +157,43 @@ public class GUI extends JFrame {
      *   http://www.javapractices.com/topic/TopicAction.do?Id=237
      *   http://www.javapractices.com/topic/TopicAction.do?Id=113 */
     String className = "se.zarac.lu.sysa.grupp4a.biler.gui.views." + c.getSimpleName();
-    Class<? extends Model>[] viewArguments = new Class[] { c, getClass() };
+    //System.out.println("simple name " + c.getSimpleName());
+    /* Class<?>[] viewArguments = new Class<?>[] { (new Object()).getClass(), getClass() };
+    System.out.println("arguments " + viewArguments[0] + viewArguments[1]); */
     try {
       Class<View> viewClass = (Class<View>)Class.forName(className);
-      return viewClass.getConstructor(viewArguments); }
+      Constructor<View>[] cons = (Constructor<View>[])viewClass.getConstructors();
+      //System.out.println("returning constructor : " + cons[0]);
+      constructor = cons[0];
+      /* System.out.println("constructors " + cons.length + cons[0]);
+      return viewClass.getConstructor(viewArguments); */ }
     catch (SecurityException e) {
       e.printStackTrace(); }
-    catch (NoSuchMethodException e) {
-      System.out.println("No specific View '" + className + "' with arguments '" + viewArguments + "'."); }
+    /* catch (NoSuchMethodException e) {
+      System.out.println("No specific View '" + className + "' with arguments '" + viewArguments + "'."); } */
     catch (IllegalArgumentException e) {
       e.printStackTrace(); }
     catch (ClassNotFoundException e) {
       e.printStackTrace(); }
     
-    return constructor; } }
+    return constructor; }
+
+  @SuppressWarnings("serial")
+  public class Menu extends JPanel {
+    protected GUI gui;
+
+    public Menu(GUI gui) {
+      this.gui = gui;
+
+      add(new Button("About") {
+        public void click() { Menu.this.gui.view(GUI.Activity.ABOUT); } } );
+      add(new Button("Products") {
+        public void click() { Menu.this.gui.view(GUI.Activity.PRODUCTS); } } );
+      add(new Button("Items") {
+        public void click() { Menu.this.gui.view(GUI.Activity.ITEMS); } } ); 
+      add(new Button("Customers") {
+        public void click() { Menu.this.gui.view(GUI.Activity.PERSONS); } } ); 
+      add(new Button("Bookings") {
+        public void click() { Menu.this.gui.view(GUI.Activity.BOOKINGS); } } ); 
+      add(new Button("Exit") {
+        public void click() { Menu.this.gui.view(GUI.Activity.EXIT); } } ); } } }

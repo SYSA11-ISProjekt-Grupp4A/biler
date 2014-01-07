@@ -3,7 +3,6 @@ TODO
     Person (Kund)
       Lägga till
       Uppdatera
-      Söka
     Products (Vehicle)
       Lista
       Uppdatera
@@ -17,6 +16,8 @@ TODO
     Save
     Load
 DONE
+  Person
+    Söka
 Bytygsgrader
   Betyg E
     Person (Kund)

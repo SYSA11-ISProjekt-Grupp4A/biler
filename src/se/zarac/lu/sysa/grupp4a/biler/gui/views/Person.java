@@ -14,4 +14,5 @@ public class Person extends View {
     this.person = person;
     add(new JLabel(person.getName()));
     add(new JLabel(person.getPersonNumber()));
+    add(new JLabel("Bookings : "));
     add(gui.createView(gui.getBiler().getBookings())); } }
