@@ -12,4 +12,7 @@ public abstract class View extends JPanel {
   protected GUI gui;
   
   public View(GUI gui) {
-    this.gui = gui; } }
+    this.gui = gui; }
+  
+  public void onView() {
+    System.out.println("[onView() not implemented]"); } }

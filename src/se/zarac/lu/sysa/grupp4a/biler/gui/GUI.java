@@ -4,8 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JComponent;
 import se.zarac.lu.sysa.grupp4a.biler.*;
+import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Exit;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Splash;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Items;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Persons;
@@ -25,15 +28,7 @@ public class GUI extends JFrame {
   protected JPanel container; // for the activities, or something
   protected Menu menu;
   // activities / modes
-  public static enum Activity { SPLASH, ABOUT, PRODUCTS, ITEMS, PERSONS, 
-    PERSON_ADD, BOOKINGS, EXIT };
-  public static Activity DEFAULT_ACTIVITY = Activity.ABOUT;
-  protected Splash splash;
-  protected About about;
-  protected Products products;
-  protected Items items;
-  protected Persons persons;
-  // TODO protected Bookings bookings;
+  public Map<String, View> activities = new HashMap<String, View>();
   
   /**
    * Construct it jao.
@@ -42,7 +37,7 @@ public class GUI extends JFrame {
    */
   public GUI(Biler biler) {
     this.biler = biler;
-    
+
     // frame
     setTitle(biler.getName());
     setLayout(new BorderLayout());
@@ -56,15 +51,16 @@ public class GUI extends JFrame {
     container.setLayout(new GridBagLayout());
     add(container, BorderLayout.CENTER);
 
-    // modes / activities / views / whatever you'd like to call them
-    splash = new Splash(this, biler.getName());
-    about = new About(this);
-    products = new Products(this);
-    items = new Items(this);
-    persons = new Persons(this);
-    // TODO bookings = new Bookings(this);
-    
-    view(Activity.SPLASH);
+    // init. activities
+    activities.put("Splash", new Splash(GUI.this, "Herrow! o/", 1500));
+    activities.put("About", new About(GUI.this));
+    activities.put("Products", new Products(GUI.this));
+    activities.put("Items", new Items(GUI.this));
+    activities.put("Persons", new Persons(GUI.this));
+    // TODO activities.put("bookings", new Bookings(GUI.this));
+    activities.put("Exit", new Exit(GUI.this));
+
+    view("Splash");
     
     // TODO bug-gui-visible : needs to be set here AND after JFrame is instantiated
     setVisible(true); }
@@ -84,52 +80,26 @@ public class GUI extends JFrame {
    */
   public void setComponent(JComponent component) {
     container.removeAll();
-    container.add(component);
+    if (component == null)
+      container.add(new JLabel("Cannot setComponent(null)"));
+    else
+      container.add(component);
     // be JRE6 compliant, don't use revalidate()
     container.invalidate();
     container.validate();
     container.repaint(); }
   
   /**
-   * View an Activity.
+   * View an Activity from the activities index.
+   * 
    * @param activity The Activity.
    */
-  public void view(Activity activity) {
-    switch(activity) {
-      case SPLASH:
-        setComponent(splash);
-        // TODO bug-timer, cannot be used twice
-        splash.timeOut(1);
-        break;
-      case ABOUT:
-        setComponent(about);
-        break;
-      case PRODUCTS:
-        setComponent(products);
-        break;
-      case ITEMS:
-        setComponent(items);
-        break;
-      case PERSONS:
-        setComponent(persons);
-        persons.getInput().requestFocus();
-        break;
-      /* TODO case BOOKINGS:
-        setComponent(bookings);
-        break; */
-      case EXIT:
-        System.exit(0);
-        break;
-      default:
-        setComponent(new JLabel("No such activity, '" + activity + "'."));
-        break; } }
-
-  /**
-   * Shortcut for setComponent().
-   * 
-   * @param component The JComponent. */
-  public void view(JComponent component) {
-    setComponent(component); }
+  public void view(String activity) {
+    View view = activities.get(activity);
+    if (view == null)
+      setComponent(new JLabel("[The activity '" + activity + "' was not found.]"));
+    else
+      view(view); }
   
   /**
    * View a Model.
@@ -137,6 +107,14 @@ public class GUI extends JFrame {
    * @param model The Model, it must have a matching View. */
   public void view(Model model) {
     setComponent(createView(model.getClass(), model)); }
+
+  /**
+   * View a View then execute its onView().
+   * 
+   * @param view The View. */
+  public void view(View view) {
+    setComponent(view);
+    view.onView(); }
   
   /**
    * Create a View for an Object.
@@ -210,14 +188,14 @@ public class GUI extends JFrame {
       this.gui = gui;
 
       add(new Button("About") {
-        public void click() { Menu.this.gui.view(GUI.Activity.ABOUT); } } );
+        public void click() { Menu.this.gui.view("Splash"); } } );
       add(new Button("Products") {
-        public void click() { Menu.this.gui.view(GUI.Activity.PRODUCTS); } } );
+        public void click() { Menu.this.gui.view("Products"); } } );
       add(new Button("Items") {
-        public void click() { Menu.this.gui.view(GUI.Activity.ITEMS); } } ); 
+        public void click() { Menu.this.gui.view("Items"); } } ); 
       add(new Button("Customers") {
-        public void click() { Menu.this.gui.view(GUI.Activity.PERSONS); } } ); 
+        public void click() { Menu.this.gui.view("Persons"); } } ); 
       add(new Button("Bookings") {
-        public void click() { Menu.this.gui.view(GUI.Activity.BOOKINGS); } } ); 
+        public void click() { Menu.this.gui.view("Bookings"); } } ); 
       add(new Button("Exit") {
-        public void click() { Menu.this.gui.view(GUI.Activity.EXIT); } } ); } } }
+        public void click() { Menu.this.gui.view("Exit"); } } ); } } }

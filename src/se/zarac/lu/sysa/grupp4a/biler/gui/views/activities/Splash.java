@@ -10,16 +10,22 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 
 @SuppressWarnings("serial")
 public class Splash extends View {
-  protected Timer timer;
-  protected Task task;
   protected String text;
+  protected int milliseconds;
   protected JPanel panel;
   protected JLabel label;
   
-  public Splash(GUI gui, String text) {
+  /**
+   * Splash something.
+   * 
+   * @param gui Because it's a View.
+   * @param text The text to splash.
+   * @param seconds For how long.
+   */
+  public Splash(GUI gui, String text, int milliseconds) {
     super(gui);
     this.text = text;
-    task = new Task();
+    this.milliseconds = milliseconds;
     panel = new JPanel();
     panel.setLayout(new GridBagLayout());
     label = new JLabel(text);
@@ -30,12 +36,22 @@ public class Splash extends View {
     //text.setVerticalTextPosition(JLabel.CENTER);
     //setAlignmentY(CENTER_ALIGNMENT);
     add(panel); }
+    
+  @Override
+  public void onView() {
+    super.onView();
+    timeOut(milliseconds); }
   
-  public void timeOut(int seconds) {
-    timer = new Timer();
-    timer.schedule(task, seconds * 1000); }
-  
+  protected void timeOut(int seconds) {
+    Timer timer = new Timer();
+    timer.schedule(new Task(timer), milliseconds); }
+
   protected class Task extends TimerTask {
+    protected Timer timer;
+    
+    public Task(Timer timer) {
+      this.timer = timer; }
+
     public void run() {
-      gui.view(GUI.DEFAULT_ACTIVITY);
+      gui.view("About");
       timer.cancel(); } } }
