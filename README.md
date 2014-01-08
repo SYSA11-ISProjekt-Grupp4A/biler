@@ -3,7 +3,7 @@
 ## Usage example
 
 ### Get source - (in e.g. bash)
-* git clone http://...biler.git
+* git clone https://.../biler.git
 * cd biler
 * git submodule init
 * git submodule update
