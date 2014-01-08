@@ -7,8 +7,6 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.*;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.SwingConstants;
@@ -85,29 +83,16 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
   public void removeUpdate(DocumentEvent arg0) {
     findPerson(); }    
 
-  protected class PersonView extends JButton implements MouseListener {
+  protected class PersonView extends Button {
     protected se.zarac.lu.sysa.grupp4a.biler.models.Person person;
 
     public PersonView(se.zarac.lu.sysa.grupp4a.biler.models.Person person) {
       super(person.getName());
-      this.person = person;
-      addMouseListener(this); }
+      this.person = person; }
 
     @Override
-    public void mouseClicked(MouseEvent arg0) {
-      gui.view(person); }
-
-    @Override
-    public void mouseEntered(MouseEvent arg0) { }
-
-    @Override
-    public void mouseExited(MouseEvent arg0) { }
-
-    @Override
-    public void mousePressed(MouseEvent arg0) { }
-
-    @Override
-    public void mouseReleased(MouseEvent arg0) { } }
+    public void click() {
+      gui.view(person); } }
 
   public JTextField getInput() {
     return input; }

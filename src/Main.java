@@ -1,11 +1,8 @@
-import java.util.Date;
+
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
 import se.zarac.lu.sysa.grupp4a.biler.Model;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
-import se.zarac.lu.sysa.grupp4a.biler.models.Booking;
-import se.zarac.lu.sysa.grupp4a.biler.models.Item;
 import se.zarac.lu.sysa.grupp4a.biler.models.Person;
-import se.zarac.lu.sysa.grupp4a.biler.models.Product;
 import se.zarac.lu.sysa.grupp4a.biler.models.Vehicle;
 
 /**

@@ -6,7 +6,7 @@ import javax.swing.BorderFactory;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JTextField;
 
 @SuppressWarnings("serial")
-public abstract class Editable extends JTextField implements KeyListener {
+public class Editable extends JTextField implements KeyListener {
   protected String saved;
   
   @Override
@@ -22,6 +22,9 @@ public abstract class Editable extends JTextField implements KeyListener {
   @Override
   public void keyTyped(KeyEvent e) { }
 
+  public Editable() {
+    this(""); }
+  
   public Editable(String string) {
     super();
     this.saved = string;
@@ -29,6 +32,6 @@ public abstract class Editable extends JTextField implements KeyListener {
     setText(string);
     addKeyListener(this); }
 
-  public abstract void edited(); 
+  public void edited() { } 
 
   public void editing() { } }
