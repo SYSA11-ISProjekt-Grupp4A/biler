@@ -1,6 +1,7 @@
 import java.util.Date;
 import java.util.List;
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
+import se.zarac.lu.sysa.grupp4a.biler.Model;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.models.Booking;
 import se.zarac.lu.sysa.grupp4a.biler.models.Item;
@@ -20,7 +21,15 @@ public class Main {
    */
   public static void main(String[] argv) {
     Biler biler = new Biler();
-    populate(biler);
+    //populate(biler);
+    Model.load(biler);
+    
+    System.out.println("Person index: " + biler.getIndex("Person"));
+    System.out.println("Product index: " + biler.getIndex("Product"));
+    System.out.println("Vehicle index: " + biler.getIndex("Vehicle"));
+    System.out.println("Item index: " + biler.getIndex("Item"));
+    System.out.println("Booking index: " + biler.getIndex("Booking"));
+    
     GUI gui = new GUI(biler);
     // TODO bug-gui-visible : needs to be set here AND inside JFrame constructor (it shouldn't?)
     gui.setVisible(true); }
@@ -30,52 +39,25 @@ public class Main {
      * 
      * @param biler The instance of Biler, duh!
      */
-    public static void populate(Biler biler) {
-      List<Person> customers = biler.getCustomers();
-      List<Product> products = biler.getProducts();
-      List<Item> items = biler.getItems();
-      List<Booking> bookings = biler.getBookings();
-      
+    public static void populate(Biler biler) {      
       // some persons (can become customers and/or users)
-      Person kalle = new Person("4803051932", "Kalle");
-      Person lisa = new Person("8581484013", "Lisa");
-      Person arne = new Person("4884120443", "Arne");
-      Person hugo = new Person("5802837592", "Hugo");
-
-      biler.add(kalle);
-      biler.add(lisa);
-      biler.add(arne);
-      biler.add(hugo);
-      
-      System.out.println("Customers: " + customers);
+      biler.add(new Person("4803051932", "Kalle"));
+      biler.add(new Person("8581484013", "Lisa"));
+      biler.add(new Person("4884120443", "Arne"));
+      biler.add(new Person("5802837592", "Hugo"));
       
       // some vehicles (specialized Products)
-      Vehicle volvoV70 = new Vehicle("V70", 5);
-      Vehicle saab95 = new Vehicle("95", 4);
-      Vehicle enzo = new Vehicle("enzo", 2);
+      biler.add(new Vehicle("V70", 5));
+      biler.add(new Vehicle("95", 4));
+      biler.add(new Vehicle("enzo", 2));
       
-      biler.add(volvoV70);
-      biler.add(saab95);
-      biler.add(enzo);
-
-      System.out.println("Products: " + products);
-               
       // some items
-      Item volvon = new Item(volvoV70, "vulvan");
-      Item saaben = new Item(saab95, "saaab");
-      Item enzon = new Item(enzo, "enzon");
+      biler.add(new Item((Product)biler.getIndex("Product").get("V70"), "vulvan"));
+      biler.add(new Item((Product)biler.getIndex("Product").get("saab95"), "saaab"));
+      biler.add(new Item((Product)biler.getIndex("Product").get("enzo"), "enzon"));
       
-      biler.add(volvon);
-      biler.add(saaben);
-      biler.add(enzon);
-   
-      System.out.println("Items: " + items);
-      
-      // and a booking bookings
-      // TODO : don't use deprecated stuff
-      @SuppressWarnings("deprecation")
-      Booking kalleTarVolvon = new Booking(kalle, volvon, new Date(2013, 12, 19), new Date(2013, 12, 19));
-
-      biler.add(kalleTarVolvon);
-
-      System.out.println("Bookings: " + bookings); } }
+      // and a booking
+      biler.add(new Booking(
+          (Person)biler.getIndex("Person").get("4803051932"),
+          (Item)biler.getIndex("Item").get("vulvan"),
+          new Date(2013, 12, 19), new Date(2013, 12, 19))); } }

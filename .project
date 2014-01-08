@@ -3,6 +3,7 @@
 	<name>Biler</name>
 	<comment></comment>
 	<projects>
+		<project>commons-io</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

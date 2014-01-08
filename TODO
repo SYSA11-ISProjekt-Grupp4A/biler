@@ -1,23 +1,27 @@
 TODO
   *
-    Person (Kund)
-      Uppdatera
     Products (Vehicle)
       Lista
       Uppdatera
       Lägga till
     Items
-      Lägga till
+      Lägga till (should be done from Products Activity?)
       Uppdatera
     Booking
       Lägga till
   **
-    Save
-    Load
+    Padding to Editable/JTextField
+    Enhance Person View
+      List bookings
+      Delete
 DONE
-  Person
+  Person/Kund
     Söka
     Lägga till
+    Uppdatera
+  Model
+    Save
+    Load
 Bytygsgrader
   Betyg E
     Person (Kund)

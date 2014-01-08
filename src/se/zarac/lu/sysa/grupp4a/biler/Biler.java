@@ -1,13 +1,14 @@
 package se.zarac.lu.sysa.grupp4a.biler;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import se.zarac.lu.sysa.grupp4a.biler.filters.Seats;
 import se.zarac.lu.sysa.grupp4a.biler.models.Item;
 import se.zarac.lu.sysa.grupp4a.biler.models.Person;
-import se.zarac.lu.sysa.grupp4a.biler.models.Product;
-import se.zarac.lu.sysa.grupp4a.biler.models.Booking;
 
 /**
  * The main program, Biler.
@@ -17,29 +18,27 @@ import se.zarac.lu.sysa.grupp4a.biler.models.Booking;
 public class Biler {
   public static final String VERSION = "0.0.1";
   public static final String AUTHORS = "Alexander, Hannes, Mikkel";
+  public static final String DATA_PATH = "data/";
   protected String name = "Biler vr00m!";
-  protected List<Person> customers;   
-  protected List<Product> products;
-  protected List<Filter> filters;
+  protected List<Filter> filters = new LinkedList<Filter>();
   protected Seats seatsFilter;
-  protected List<Item> items;
-  protected List<Booking> bookings;
+  protected Map<String, Map<String, Model>> indices = new HashMap<String, Map<String, Model>>();
 
   /**
    * Ze konstrukt0r.
    */
   public Biler() {
-    // indices / registries
-    this.customers = new LinkedList<Person>();
-    this.products = new LinkedList<Product>();
-    this.filters = new LinkedList<Filter>();
-    this.items = new LinkedList<Item>();
-    this.bookings = new LinkedList<Booking>();
+    // some indices for our models
+    indices.put("Product", new HashMap<String, Model>());
+    indices.put("Item", new HashMap<String, Model>());
+    indices.put("Filter", new HashMap<String, Model>());
+    indices.put("Person", new HashMap<String, Model>());
+    indices.put("Booking", new HashMap<String, Model>());
     
     // THE filters
-//    seatsFilter = new Seats(4);
-//    seatsFilter.setSeats(4);
-//  filters.add(seatsFilter);
+    // seatsFilter = new Seats(4);
+    // seatsFilter.setSeats(4);
+    // filters.add(seatsFilter);
     filters.add(new Seats(4));
     System.out.println("Filters: " + filters); }
 
@@ -72,51 +71,75 @@ public class Biler {
         goodies.add(item); } }
 
     return goodies; }
-
+    
   public List<Person> findPerson(String key) {
     List<Person> matches = new LinkedList<Person>();
 
-    Iterator<Person> p = customers.iterator();
+    Iterator<Entry<String, Model>> p = indices.get("Person").entrySet().iterator();
+    //Iterator<Person> p = customers.iterator();
     while (p.hasNext()) {
-      Person person = p.next();
+      Entry<String, Model> entry = p.next();
+      Person person = (Person)entry.getValue();
+      //Person person = p.next();
       if (person.getName().toLowerCase().indexOf(key.toLowerCase()) > -1) {
         matches.add(person); } }
 
     return matches; }
 
-  public List<Person> getCustomers() {
-    return customers; }
-
-  public List<Product> getProducts() {
-    return products; }
-
   public List<Filter> getFilters() {
     return filters; }
 
-  public List<Item> getItems() {
-    return items; }
-
-  public List<Booking> getBookings() {
-    return bookings; }
-
   public void setName(String name) {
-    // TODO trigger event so GUI can act?
     this.name = name; }
 
   public String getName() {
     return name; }
 
-  public void add(Person kalle) {
-    customers.add(kalle); } 
-
-  public void add(Product product) {
-    products.add(product); } 
-
-  public void add(Item item) {
-    items.add(item); } 
-
-  public void add(Booking booking) {
-    bookings.add(booking); } 
-
+  /**
+   * Index singletons. Used for our models.
+   * 
+   * @param name The name of the index.
+   * @return The index.
+   */
+  public Map<String, Model> getIndex(String name) {
+    Map<String, Model> index = indices.get(name);
+    if (index == null) {
+      index = new HashMap<String, Model>();
+      indices.put(name, index); }
+    return index; }
+  
+  /**
+   * Add a Model.
+   * 
+   * @param model The Model.
+   */
+  public void add(Model model) {
+    System.out.println("Adding : " + model);
+    // TODO throws StreamCorruptedException on strange file.
+    getIndex(model.getClass().getSimpleName()).put(model.getId(), model); }
+  
+  /**
+   * Add a Filter.
+   * 
+   * @param filter The Filter.
+   */
   public void add(Filter filter) {
-    filters.add(filter); } }
+    filters.add(filter); }
+
+  /**
+   * Find Model.
+   * 
+   * @param index What index?
+   * @param id What id?
+   * @return The Model, hopefully.
+   */
+  public Model find(String index, String id) {
+    return getIndex(index).get(id); }
+  
+  /**
+   * Save all Models in all indices. 
+   */
+  public void saveEverything() {
+    for (Map.Entry<String, Map<String, Model>> index : indices.entrySet()) {
+      for (Map.Entry<String, Model> model : index.getValue().entrySet()) {
+        model.getValue().save(); } } } }

@@ -12,4 +12,5 @@ public class Exit extends View {
   @Override
   public void preView() {
     super.preView();
+    gui.getBiler().saveEverything();
     System.exit(0); } }

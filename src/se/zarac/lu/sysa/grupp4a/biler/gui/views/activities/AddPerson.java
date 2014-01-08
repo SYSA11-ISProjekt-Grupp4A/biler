@@ -40,4 +40,5 @@ public class AddPerson extends View implements ActionListener {
   public void actionPerformed(ActionEvent arg0) {
     Person person = new Person(number.getText(), name.getText());
     gui.getBiler().add(person);
+    person.save();
     gui.view(person); } }
