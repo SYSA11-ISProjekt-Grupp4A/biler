@@ -24,7 +24,7 @@ public class AddPerson extends View {
     number = new Editable();
     add(new JLabel("Person Number"));
     add(number);
-    name = new Editable("");
+    name = new Editable();
     add(new JLabel("Name"));
     add(name);
     add(new JLabel(""));
