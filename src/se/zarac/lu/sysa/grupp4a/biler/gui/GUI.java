@@ -92,7 +92,7 @@ public class GUI extends JFrame {
     container.repaint(); }
   
   /**
-   * View an Activity from the activities index.
+   * View an Activity from the activities index (singletons).
    * 
    * @param activity The Activity.
    */
@@ -106,14 +106,16 @@ public class GUI extends JFrame {
   /**
    * View a Model.
    * 
-   * @param model The Model, it must have a matching View. */
+   * @param model The Model, it must have a matching View.
+   */
   public void view(Model model) {
-    setComponent(createView(model.getClass(), model)); }
+    view(createView(model)); }
 
   /**
    * View a View then execute its onView().
    * 
-   * @param view The View. */
+   * @param view The View.
+   */
   public void view(View view) {
     view.preView();
     setComponent(view);
@@ -125,21 +127,31 @@ public class GUI extends JFrame {
    * @param obj The Object to create a View for.
    * @return The View.
    */
-  public View createView(Object obj) {
-    return createView(obj.getClass(), obj); }
+  public View createView(Model obj) {
+    return createView("se.zarac.lu.sysa.grupp4a.biler.gui.views.", obj); }
   
   /**
-   * Create a View for a Model.
-   *   find out what type of model it is
-   *   create a view for that type
+   * Create a View for an Filter.
    * 
-   * @param model The Model, it must have a matching View. */
-  protected View createView(Class<?> clas, Object object) {
+   * @param filter The Filter to create a View for.
+   * @return The View.
+   */
+  public View createView(Filter filter) {
+    return createView("se.zarac.lu.sysa.grupp4a.biler.gui.views.", filter); }
+  
+  /**
+   * Create a View for a Model or Filter.
+   * 
+   * @param clas The class path.
+   * @param model The Model/Filter, it must have a matching View.
+   */
+  protected View createView(String basePath, Object object) {
     View view = null;
     try {
-      Constructor<View> constructor = getViewConstructor(clas);
+      String className = basePath + object.getClass().getSimpleName();
+      Constructor<View> constructor = getViewConstructor(className);
       if (constructor == null) {
-        System.out.println("View constructor not found for '" + clas.getSimpleName() + "' (" + object + ").");
+        System.out.println("View constructor not found for '" + object.getClass().getSimpleName() + "' (" + object + ").");
         view = new Fallback(object, this); }
       else {
         view = constructor.newInstance(object, this); } }
@@ -152,7 +164,7 @@ public class GUI extends JFrame {
 
     return view; }
   
-  protected Constructor<View> getViewConstructor(Class<?> c) {
+  protected Constructor<View> getViewConstructor(String className) {
     // TODO Clean.
     Constructor<View> constructor = null;
     /* some reflection references (for those interested)
@@ -160,7 +172,6 @@ public class GUI extends JFrame {
      *   http://msdn.microsoft.com/en-us/library/aa986011(v=vs.80).aspx
      *   http://www.javapractices.com/topic/TopicAction.do?Id=237
      *   http://www.javapractices.com/topic/TopicAction.do?Id=113 */
-    String className = "se.zarac.lu.sysa.grupp4a.biler.gui.views." + c.getSimpleName();
     //System.out.println("simple name " + c.getSimpleName());
     /* Class<?>[] viewArguments = new Class<?>[] { (new Object()).getClass(), getClass() };
     System.out.println("arguments " + viewArguments[0] + viewArguments[1]); */

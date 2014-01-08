@@ -8,6 +8,8 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JTextField;
 
 @SuppressWarnings("serial")
 public class Editable extends JTextField implements KeyListener {
+  public final static Border border = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+  
   protected String saved;
   
   @Override
@@ -27,10 +29,10 @@ public class Editable extends JTextField implements KeyListener {
     this(""); }
   
   public Editable(String string) {
-    this(string, BorderFactory.createEmptyBorder(5, 5, 5, 5)); }
+    this(string, border); }
   
   public Editable(String string, String title) {
-    this(string, BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5), title)); }
+    this(string, BorderFactory.createTitledBorder(border, title)); }
   
   public Editable(String string, Border border) {
     super();

@@ -57,10 +57,12 @@ public class Items extends View {
 
   protected class ShortView extends JPanel {
     protected Item item;
-    
-    protected Button itemButton = new Button("") {
-      public void click() { } };
-    
+        
+    /**
+     * A short View for Item.
+     * 
+     * @param item The Item.
+     */
     public ShortView(final Item item) {
       this.item = item;
       add(new Button(item.toString()) {
@@ -79,4 +81,6 @@ public class Items extends View {
   
   protected class Menu extends JPanel {
     public Menu() {
-      add(new JLabel("ze menyy..")); } } }
+      add(new Button("Add item") {
+        public void click() {
+          gui.view("Products"); } } ); } } }

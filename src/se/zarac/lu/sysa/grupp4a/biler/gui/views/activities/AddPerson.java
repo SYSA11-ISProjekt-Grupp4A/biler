@@ -1,13 +1,10 @@
 package se.zarac.lu.sysa.grupp4a.biler.gui.views.activities;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import se.zarac.lu.sysa.grupp4a.biler.gui.Button;
 import se.zarac.lu.sysa.grupp4a.biler.gui.Editable;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
-import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JButton;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JTextField;
 import se.zarac.lu.sysa.grupp4a.biler.models.Person;

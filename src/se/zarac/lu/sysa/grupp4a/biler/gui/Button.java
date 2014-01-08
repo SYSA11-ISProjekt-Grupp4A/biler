@@ -8,11 +8,12 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JButton;
 
 @SuppressWarnings("serial")
 public abstract class Button extends JButton implements ActionListener {
+  public final static Border border = BorderFactory.createEmptyBorder(7, 10, 7, 10);
+  
   public abstract void click();
   
   public Button(String string) {
     super(string);
-    Border border = BorderFactory.createEmptyBorder(7, 10, 7, 10);
     setBorder(border);
     addActionListener(this); }
 
