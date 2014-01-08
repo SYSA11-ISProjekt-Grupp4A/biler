@@ -25,7 +25,7 @@ public class AddPerson extends View implements ActionListener {
     name = new JTextField();
     add(new JLabel("Name"));
     add(name);
-    save = new JButton("Save");
+    save = new JButton("Add");
     save.addActionListener(this);
     add(new JLabel(""));
     add(save); }

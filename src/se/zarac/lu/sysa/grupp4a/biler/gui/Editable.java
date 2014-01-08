@@ -2,6 +2,7 @@ package se.zarac.lu.sysa.grupp4a.biler.gui;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.BorderFactory;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JTextField;
 
 @SuppressWarnings("serial")
@@ -24,6 +25,7 @@ public abstract class Editable extends JTextField implements KeyListener {
   public Editable(String string) {
     super();
     this.saved = string;
+    setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
     setText(string);
     addKeyListener(this); }
 
