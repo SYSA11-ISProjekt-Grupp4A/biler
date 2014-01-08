@@ -1,7 +1,7 @@
 package se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson;
 
 /* styling
- * Colors palette
+ * Color palette
  *   http://www.colourlovers.com/palette/38562/Hands_On
  * 4E4D4A 78,77,74 dark days
  * 353432 53,52,50 losing hope

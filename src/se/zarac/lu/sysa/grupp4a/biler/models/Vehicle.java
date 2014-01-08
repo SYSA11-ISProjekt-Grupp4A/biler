@@ -10,6 +10,12 @@ public class Vehicle extends Product {
 
   public int getSeats() {
     return seats; }
-
-  public String toString() {
-    return id; } }
+  
+  @Override
+  public boolean filter() {
+    System.out.println("Vehicle.filter()" + this);
+    
+    if (!super.filter())
+      return false;
+    
+    return true; } }

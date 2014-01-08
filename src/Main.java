@@ -1,5 +1,4 @@
 import java.util.Date;
-import java.util.List;
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
 import se.zarac.lu.sysa.grupp4a.biler.Model;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
@@ -23,13 +22,20 @@ public class Main {
     Biler biler = new Biler();
     //populate(biler);
     Model.load(biler);
+
+    System.out.println((Person)biler.getIndex("Person").get("6667dce7-932d-4937-8e09-dc6b5cfc5635"));
+    System.out.println((Item)biler.getIndex("Item").get("NDU673"));
     
-    System.out.println("Person index: " + biler.getIndex("Person"));
-    System.out.println("Product index: " + biler.getIndex("Product"));
-    System.out.println("Vehicle index: " + biler.getIndex("Vehicle"));
-    System.out.println("Item index: " + biler.getIndex("Item"));
-    System.out.println("Booking index: " + biler.getIndex("Booking"));
-    
+    biler.add(new Item((Product)biler.getIndex("Product").get("Volvo V70")));
+    /* Test data
+    biler.add(
+        new Booking(
+            (Person)biler.getIndex("Person").get("6667dce7-932d-4937-8e09-dc6b5cfc5635"),
+            (Item)biler.getIndex("Item").get("NDU673"),
+            new Date(2013, 12, 22),
+            new Date(2013, 12, 27)));
+    */
+        
     GUI gui = new GUI(biler);
     // TODO bug-gui-visible : needs to be set here AND inside JFrame constructor (it shouldn't?)
     gui.setVisible(true); }
@@ -52,9 +58,9 @@ public class Main {
       biler.add(new Vehicle("enzo", 2));
       
       // some items
-      biler.add(new Item((Product)biler.getIndex("Product").get("V70"), "vulvan"));
-      biler.add(new Item((Product)biler.getIndex("Product").get("saab95"), "saaab"));
-      biler.add(new Item((Product)biler.getIndex("Product").get("enzo"), "enzon"));
+      biler.add(new Item((Product)biler.getIndex("Product").get("V70")));
+      biler.add(new Item((Product)biler.getIndex("Product").get("saab95")));
+      biler.add(new Item((Product)biler.getIndex("Product").get("enzo")));
       
       // and a booking
       biler.add(new Booking(

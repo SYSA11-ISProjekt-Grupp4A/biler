@@ -27,14 +27,7 @@ public class Biler {
   /**
    * Ze konstrukt0r.
    */
-  public Biler() {
-    // some indices for our models
-    indices.put("Product", new HashMap<String, Model>());
-    indices.put("Item", new HashMap<String, Model>());
-    indices.put("Filter", new HashMap<String, Model>());
-    indices.put("Person", new HashMap<String, Model>());
-    indices.put("Booking", new HashMap<String, Model>());
-    
+  public Biler() {    
     // THE filters
     // seatsFilter = new Seats(4);
     // seatsFilter.setSeats(4);
@@ -114,9 +107,10 @@ public class Biler {
    * @param model The Model.
    */
   public void add(Model model) {
-    System.out.println("Adding : " + model);
+    String name = model.getClass().getSimpleName();
+    System.out.println("Biler.add(" + name + " " + model + ")");
     // TODO throws StreamCorruptedException on strange file.
-    getIndex(model.getClass().getSimpleName()).put(model.getId(), model); }
+    getIndex(name).put(model.getId(), model); }
   
   /**
    * Add a Filter.
@@ -140,6 +134,7 @@ public class Biler {
    * Save all Models in all indices. 
    */
   public void saveEverything() {
+    System.out.println("Save Everything! : )");
     for (Map.Entry<String, Map<String, Model>> index : indices.entrySet()) {
       for (Map.Entry<String, Model> model : index.getValue().entrySet()) {
         model.getValue().save(); } } } }

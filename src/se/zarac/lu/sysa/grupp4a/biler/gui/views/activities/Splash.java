@@ -19,6 +19,14 @@ public class Splash extends View {
    * Splash something.
    * 
    * @param gui Because it's a View.
+   */
+  public Splash(GUI gui) {
+    this(gui, "Hellow! o/", 900); }
+  
+  /**
+   * Splash something.
+   * 
+   * @param gui Because it's a View.
    * @param text The text to splash.
    * @param seconds For how long.
    */

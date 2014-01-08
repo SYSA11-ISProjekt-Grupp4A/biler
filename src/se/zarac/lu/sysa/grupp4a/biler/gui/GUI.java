@@ -52,8 +52,8 @@ public class GUI extends JFrame {
     container.setLayout(new GridBagLayout());
     add(container, BorderLayout.CENTER);
 
-    // init. activities
-    activities.put("Splash", new Splash(GUI.this, "Herrow! o/", 900));
+    // initialize singleton Activities (Just some indexed Views)
+    activities.put("Splash", new Splash(GUI.this));
     activities.put("About", new About(GUI.this));
     activities.put("Products", new Products(GUI.this));
     activities.put("Items", new Items(GUI.this));
@@ -179,8 +179,8 @@ public class GUI extends JFrame {
       System.out.println("No specific View '" + className + "' with arguments '" + viewArguments + "'."); } */
     catch (IllegalArgumentException e) {
       e.printStackTrace(); }
-    catch (ClassNotFoundException e) {
-      e.printStackTrace(); }
+    catch (ClassNotFoundException e) { } // It's OK.
+      // e.printStackTrace(); }
     
     return constructor; }
 

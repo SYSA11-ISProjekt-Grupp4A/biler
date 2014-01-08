@@ -23,6 +23,15 @@ public abstract class Model implements Serializable {
     System.out.println("Model() in : " + id); 
     id = UUID.randomUUID().toString();
     System.out.println("Model() out: " + id); }
+
+  /**
+   * Pass through everything by default.
+   * 
+   * @return true
+   */
+  public boolean filter() {
+    System.out.println("Model.filter()" + this);
+    return true; }
   
   protected void serialize() {
     FileOutputStream file;
@@ -44,7 +53,7 @@ public abstract class Model implements Serializable {
   
   public void save() {
     serialize();
-    System.out.println("Model.save() " + this); }
+    System.out.println("Model.save(" + getClass().getSimpleName() + " " + this + ")" ); }
 
   /**
    * Populate biler with whatever is in Biler.DATA_PATH.

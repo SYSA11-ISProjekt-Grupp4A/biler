@@ -1,5 +1,6 @@
 package se.zarac.lu.sysa.grupp4a.biler.gui.views.activities;
 
+import java.awt.BorderLayout;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
@@ -22,15 +23,19 @@ public class Items extends View {
     this.gui = gui;
     this.biler = gui.getBiler();
     
+    setLayout(new BorderLayout());
+    
     filters = new JPanel();
     Iterator<Filter> f = biler.getFilters().iterator();
     while (f.hasNext()) {
       Filter filter = f.next();
       filters.add(gui.createView(filter)); }
-    add(filters);
+    add(filters, BorderLayout.NORTH);
     
     items = new JPanel();
-    add(items);
+    add(items, BorderLayout.CENTER);
+
+    add(new Menu(), BorderLayout.SOUTH);
     
     draw(); }
   
@@ -39,4 +44,8 @@ public class Items extends View {
     Iterator<Entry<String, Model>> i = biler.getIndex("Item").entrySet().iterator();
     while (i.hasNext()) {
       Item item = (Item)i.next().getValue();
-      items.add(new JLabel(item.toString())); } } }
+      items.add(gui.createView(item)); } }
+  
+  protected class Menu extends JPanel {
+    public Menu() {
+      add(new JLabel("ze menyy")); } } }

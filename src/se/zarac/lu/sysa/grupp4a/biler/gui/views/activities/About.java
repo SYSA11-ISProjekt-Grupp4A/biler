@@ -28,6 +28,6 @@ public class About extends View {
     add(new JLabel("Filters : " + biler.getFilters()));
     add(new JLabel("Customers : " + biler.getIndex("Person").size()));
     add(new JLabel("Products : " + biler.getIndex("Product").size()));
-    add(new JLabel("Vehicle : " + biler.getIndex("Vehicle").size()));
+    add(new JLabel("Vehicles : " + biler.getIndex("Vehicle").size()));
     add(new JLabel("Items : " + biler.getIndex("Item").size()));
     add(new JLabel("Bookings : " + biler.getIndex("Booking").size())); } }
