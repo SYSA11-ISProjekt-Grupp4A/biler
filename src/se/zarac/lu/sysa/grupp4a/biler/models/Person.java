@@ -19,6 +19,7 @@ public class Person extends Model {
    * @param personNumber All persons need a number.
    */
   public Person(String personNumber) {
+    super();
     setPersonNumber(personNumber); }
 
   /**

@@ -11,6 +11,7 @@ public class Booking extends Model {
   protected Date end;
 
   public Booking (Person by, Item item, Date start, Date end) {
+    super();
     this.by = by;
     this.item = item;
     this.start = start;

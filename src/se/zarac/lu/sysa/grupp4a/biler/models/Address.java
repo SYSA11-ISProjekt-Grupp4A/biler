@@ -11,6 +11,7 @@ public class Address extends Model {
   protected String country;
 
   public Address(String street, String number, String postalCode, String city, String country) {
+    super();
     this.street = street;
     this.number = number;
     this.postalCode = postalCode;

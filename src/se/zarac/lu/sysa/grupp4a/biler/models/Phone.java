@@ -7,6 +7,7 @@ public class Phone extends Model {
   protected String number;
 
   public Phone(String number) {
+    super();
     this.number = number; }
 
   public String toString() {

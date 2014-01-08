@@ -139,7 +139,7 @@ public class GUI extends JFrame {
     try {
       Constructor<View> constructor = getViewConstructor(clas);
       if (constructor == null) {
-        System.out.println("View constructor not found for '" + object + "'.");
+        System.out.println("View constructor not found for '" + clas.getSimpleName() + "' (" + object + ").");
         view = new Fallback(object, this); }
       else {
         view = constructor.newInstance(object, this); } }

@@ -23,11 +23,12 @@ public class About extends View {
   protected void setInformation() {
     removeAll();
     add(new JLabel("Name : " + biler.getName()));
-    add(new JLabel("Authors : " + Biler.AUTHORS));
     add(new JLabel("Version : " + Biler.VERSION));
-    add(new JLabel("Filters : " + biler.getFilters()));
+    add(new JLabel("Source : https://github.com/SYSA11-ISProjekt-Grupp4A/biler"));
+    add(new JLabel("Authors : " + Biler.AUTHORS));
+    add(new JLabel(".."));
     add(new JLabel("Customers : " + biler.getIndex("Person").size()));
-    add(new JLabel("Products : " + biler.getIndex("Product").size()));
+    //add(new JLabel("Products : " + biler.getIndex("Product").size()));
     add(new JLabel("Vehicles : " + biler.getIndex("Vehicle").size()));
     add(new JLabel("Items : " + biler.getIndex("Item").size()));
     add(new JLabel("Bookings : " + biler.getIndex("Booking").size())); } }

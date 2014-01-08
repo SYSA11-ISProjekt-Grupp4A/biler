@@ -22,19 +22,6 @@ public class Main {
     Biler biler = new Biler();
     //populate(biler);
     Model.load(biler);
-
-    System.out.println((Person)biler.getIndex("Person").get("6667dce7-932d-4937-8e09-dc6b5cfc5635"));
-    System.out.println((Item)biler.getIndex("Item").get("NDU673"));
-    
-    biler.add(new Item((Product)biler.getIndex("Product").get("Volvo V70")));
-    /* Test data
-    biler.add(
-        new Booking(
-            (Person)biler.getIndex("Person").get("6667dce7-932d-4937-8e09-dc6b5cfc5635"),
-            (Item)biler.getIndex("Item").get("NDU673"),
-            new Date(2013, 12, 22),
-            new Date(2013, 12, 27)));
-    */
         
     GUI gui = new GUI(biler);
     // TODO bug-gui-visible : needs to be set here AND inside JFrame constructor (it shouldn't?)
@@ -53,17 +40,6 @@ public class Main {
       biler.add(new Person("5802837592", "Hugo"));
       
       // some vehicles (specialized Products)
-      biler.add(new Vehicle("V70", 5));
-      biler.add(new Vehicle("95", 4));
-      biler.add(new Vehicle("enzo", 2));
-      
-      // some items
-      biler.add(new Item((Product)biler.getIndex("Product").get("V70")));
-      biler.add(new Item((Product)biler.getIndex("Product").get("saab95")));
-      biler.add(new Item((Product)biler.getIndex("Product").get("enzo")));
-      
-      // and a booking
-      biler.add(new Booking(
-          (Person)biler.getIndex("Person").get("4803051932"),
-          (Item)biler.getIndex("Item").get("vulvan"),
-          new Date(2013, 12, 19), new Date(2013, 12, 19))); } }
+      biler.add(new Vehicle("Volvo V70", 5));
+      biler.add(new Vehicle("SAAB 95", 4));
+      biler.add(new Vehicle("enzo", 2)); } }

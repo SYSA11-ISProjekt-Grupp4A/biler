@@ -19,10 +19,8 @@ public abstract class Model implements Serializable {
   protected static String dataPath = "data/";
   protected String id;
   
-  public Model() {
-    System.out.println("Model() in : " + id); 
-    id = UUID.randomUUID().toString();
-    System.out.println("Model() out: " + id); }
+  public Model() { 
+    id = UUID.randomUUID().toString(); }
 
   /**
    * Pass through everything by default.
@@ -33,27 +31,9 @@ public abstract class Model implements Serializable {
     System.out.println("Model.filter()" + this);
     return true; }
   
-  protected void serialize() {
-    FileOutputStream file;
-    ObjectOutputStream object;
-    try {
-      String tail = Biler.DATA_PATH + getClass().getSimpleName();
-      // make sure target for data save exists
-      new File(tail).mkdirs();
-      String path = tail + "/" + id;
-      file = new FileOutputStream(path);
-      object = new ObjectOutputStream(file);
-      object.writeObject(this);
-      object.close();
-      file.close(); }
-    catch (FileNotFoundException e) {
-      e.printStackTrace(); }
-    catch (IOException e) {
-      e.printStackTrace(); } }
-  
   public void save() {
     serialize();
-    System.out.println("Model.save(" + getClass().getSimpleName() + " " + this + ")" ); }
+    System.out.println("Model.save(" + this + ")" ); }
 
   /**
    * Populate biler with whatever is in Biler.DATA_PATH.
@@ -99,4 +79,22 @@ public abstract class Model implements Serializable {
     return id; }
 
   public String toString() {
-    return id; } }
+    return getClass().getSimpleName() + ":" + id; }
+  
+  protected void serialize() {
+    FileOutputStream file;
+    ObjectOutputStream object;
+    try {
+      String tail = Biler.DATA_PATH + getClass().getSimpleName();
+      // make sure target for data save exists
+      new File(tail).mkdirs();
+      String path = tail + "/" + id;
+      file = new FileOutputStream(path);
+      object = new ObjectOutputStream(file);
+      object.writeObject(this);
+      object.close();
+      file.close(); }
+    catch (FileNotFoundException e) {
+      e.printStackTrace(); }
+    catch (IOException e) {
+      e.printStackTrace(); } } }
