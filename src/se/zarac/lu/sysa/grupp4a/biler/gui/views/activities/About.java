@@ -31,5 +31,5 @@ public class About extends View {
     add(new JLabel("Authors : " + Biler.AUTHORS));
     add(new JLabel(""));
 
-    for (Map.Entry<Class<Model>, Map<String, Model>> index : biler.indices.entrySet()) {
+    for (Map.Entry<Class<? extends Model>, Map<String, Model>> index : biler.indices.entrySet()) {
       add(new JLabel(index.getKey().getSimpleName() + " : " + index.getValue().size())); } } }

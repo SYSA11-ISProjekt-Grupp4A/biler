@@ -17,6 +17,7 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Items;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Persons;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Products;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.About;
+import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Testicle;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.*;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.Fallback;
 
@@ -62,6 +63,7 @@ public class GUI extends JFrame {
     activities.put("Persons", new Persons(GUI.this));
     activities.put("AddPerson", new AddPerson(GUI.this));
     // TODO activities.put("bookings", new Bookings(GUI.this));
+    activities.put("Testicle", new Testicle(GUI.this));
     activities.put("Exit", new Exit(GUI.this));
 
     view("Splash");
@@ -214,10 +216,12 @@ public class GUI extends JFrame {
       add(new Button("Products") {
         public void click() { Menu.this.gui.view("Products"); } } );
       add(new Button("Items") {
-        public void click() { Menu.this.gui.view("Items"); } } ); 
+        public void click() { Menu.this.gui.view("Items"); } } );
       add(new Button("Customers") {
-        public void click() { Menu.this.gui.view("Persons"); } } ); 
+        public void click() { Menu.this.gui.view("Persons"); } } );
       add(new Button("Bookings") {
-        public void click() { Menu.this.gui.view("Bookings"); } } ); 
+        public void click() { Menu.this.gui.view("Bookings"); } } );
+      add(new Button("Testicle") {
+        public void click() { Menu.this.gui.view("Testicle"); } } );
       add(new Button("Exit") {
         public void click() { Menu.this.gui.view("Exit"); } } ); } } }

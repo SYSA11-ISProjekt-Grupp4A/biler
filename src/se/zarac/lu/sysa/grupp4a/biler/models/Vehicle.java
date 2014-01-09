@@ -22,6 +22,8 @@ public class Vehicle extends Product {
   
   @Override
   public boolean filter() {
+    System.out.println("Vehicle.filter() " + this + filterSettings + seats);
+    
     if (!super.filter()) return false;
     
     Integer val = null;

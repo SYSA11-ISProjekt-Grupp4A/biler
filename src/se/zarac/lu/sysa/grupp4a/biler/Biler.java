@@ -32,7 +32,7 @@ public class Biler {
   protected String name = "Biler vr00m!";
 
   // model indices
-  public Map<Class<Model>, Map<String, Model>> indices = new HashMap<Class<Model>, Map<String, Model>>();
+  public Map<Class<? extends Model>, Map<String, Model>> indices = new HashMap<Class<? extends Model>, Map<String, Model>>();
     
   public List<Person> findPerson(String key) {
     List<Person> matches = new LinkedList<Person>();
@@ -58,7 +58,7 @@ public class Biler {
    * @param clas The name of the index.
    * @return The index.
    */
-  public Map<String, Model> getIndex(Class<Model> clas) {
+  public Map<String, Model> getIndex(Class<? extends Model> clas) {
     Map<String, Model> index = indices.get(clas);
     if (index == null) {
       index = new HashMap<String, Model>();
@@ -72,11 +72,11 @@ public class Biler {
    */
   @SuppressWarnings("unchecked")
   public void add(Model model) {
-    String name = model.getClass().getSimpleName();
-    System.out.println("Biler.add(" + name + " " + model + ")");
+    //String name = model.getClass().getSimpleName();
+    //System.out.println("Biler.add(" + name + " " + model + ")");
     // TODO throws StreamCorruptedException on strange file.
     getIndex((Class<Model>)model.getClass()).put(model.getId(), model); }
-
+  
   /**
    * Remove a Model.
    * 
@@ -84,8 +84,8 @@ public class Biler {
    */
   @SuppressWarnings("unchecked")
   public void remove(Model model) {
-    String name = model.getClass().getSimpleName();
-    System.out.println("Biler.remove(" + name + " " + model + ")");
+    //String name = model.getClass().getSimpleName();
+    //System.out.println("Biler.remove(" + name + " " + model + ")");
 
     String tail = DATA_PATH + model.getClass().getSimpleName();
     // make sure target for data save exists
@@ -105,6 +105,31 @@ public class Biler {
    */
   public Model find(Class<Model> index, String id) {
     return getIndex(index).get(id); }
+  
+  /**
+   * Get random Model.
+   * @param index From index.
+   * @return A Model.
+   */
+  public Model random(Class<? extends Model> index) {
+    Collection<Model> values = getIndex(index).values();
+
+    int zeroes = 0, ones = 0, twoes = 0, threes = 0;
+    for (int i = 0; i < 100; i++) {
+      int r = (int) Math.floor(Math.random() * 3);
+      if (r == 0) zeroes++;
+      if (r == 1) ones++;
+      if (r == 2) twoes++;
+      if (r == 3) threes++; }
+    System.out.println("zeroes, ones, twoes, threes : " + zeroes + ", " + ones + ", " + twoes + ", " + threes);
+    
+    
+    System.out.println("random model from " + index + ", " + values.size() + " entries");
+    int i = (int) Math.floor(Math.random() * values.size());
+    for (Model val : values) {
+      if (i-- == 0) return val; }
+    
+    return null; }
 
   /**
    * Populate biler with whatever is in Biler.DATA_PATH.
@@ -120,7 +145,6 @@ public class Biler {
         DirectoryFileFilter.DIRECTORY);
     
     for (File file: files) {
-      System.out.println("load and add " + file.getPath());
       add(load(file.getPath())); } }
   
   /**
@@ -172,7 +196,7 @@ public class Biler {
    * @param model The Model.
    */
   public void save(Model model) {
-    System.out.println("Model.save(" + model + ")" );
+    //System.out.println("Model.save(" + model + ")" );
     serialize(model); }
   
   /**
@@ -180,6 +204,6 @@ public class Biler {
    */
   public void saveEverything() {
     System.out.println("# Save everything!");
-    for (Map.Entry<Class<Model>, Map<String, Model>> index : indices.entrySet()) {
+    for (Map.Entry<Class<? extends Model>, Map<String, Model>> index : indices.entrySet()) {
       for (Map.Entry<String, Model> model : index.getValue().entrySet()) {
         save(model.getValue()); } } } }
