@@ -1,12 +1,14 @@
 package se.zarac.lu.sysa.grupp4a.biler.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JComponent;
+import javax.swing.JScrollPane;
 import se.zarac.lu.sysa.grupp4a.biler.*;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.AddPerson;
 import se.zarac.lu.sysa.grupp4a.biler.gui.views.activities.Exit;
@@ -84,9 +86,22 @@ public class GUI extends JFrame {
     container.removeAll();
     if (component == null)
       container.add(new JLabel("Cannot setComponent(null)"));
-    else
-      container.add(component);
+    else {
+      JScrollPane pane = new JScrollPane(component,
+          JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+          JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+      pane.setBorder(View.EmptyBorder);
+      //pane.setAutoscrolls(true);
+      //pane.setMinimumSize(new Dimension(container.getWidth(), container.getHeight()));
+      pane.setPreferredSize(new Dimension(container.getWidth(), container.getHeight()));
+      //pane.setSize(new Dimension(container.getWidth(), container.getHeight()));
+      container.add(pane); }
     // be JRE6 compliant, don't use revalidate()
+    container.invalidate();
+    container.validate();
+    container.repaint(); }
+  
+  public void reDraw() {
     container.invalidate();
     container.validate();
     container.repaint(); }
@@ -129,16 +144,7 @@ public class GUI extends JFrame {
    */
   public View createView(Model obj) {
     return createView("se.zarac.lu.sysa.grupp4a.biler.gui.views.", obj); }
-  
-  /**
-   * Create a View for an Filter.
-   * 
-   * @param filter The Filter to create a View for.
-   * @return The View.
-   */
-  public View createView(Filter filter) {
-    return createView("se.zarac.lu.sysa.grupp4a.biler.gui.views.", filter); }
-  
+
   /**
    * Create a View for a Model or Filter.
    * 

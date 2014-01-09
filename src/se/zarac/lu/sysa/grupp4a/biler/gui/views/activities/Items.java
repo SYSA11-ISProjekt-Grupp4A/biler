@@ -5,15 +5,16 @@ import java.awt.GridLayout;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
-import se.zarac.lu.sysa.grupp4a.biler.Filter;
 import se.zarac.lu.sysa.grupp4a.biler.Model;
 import se.zarac.lu.sysa.grupp4a.biler.gui.Button;
+import se.zarac.lu.sysa.grupp4a.biler.gui.FilterView;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 import se.zarac.lu.sysa.grupp4a.biler.models.Item;
 import se.zarac.lu.sysa.grupp4a.biler.models.Product;
+import se.zarac.lu.sysa.grupp4a.biler.models.Vehicle;
 
 @SuppressWarnings("serial")
 public class Items extends View {
@@ -23,17 +24,17 @@ public class Items extends View {
   
   public Items(GUI gui) {
     super(gui);
-    this.gui = gui;
     this.biler = gui.getBiler();
     
     setLayout(new BorderLayout());
     
     // filters
     filters = new JPanel();
-    Iterator<Filter> f = biler.getFilters().iterator();
-    while (f.hasNext()) {
-      Filter filter = f.next();
-      filters.add(gui.createView(filter)); }
+    filters.setLayout(new GridLayout(0, 1));
+    filters.add(new FilterView<Model>(gui, Model.class, this));
+    filters.add(new FilterView<Product>(gui, Product.class, this));
+    filters.add(new FilterView<Vehicle>(gui, Vehicle.class, this));
+    filters.add(new FilterView<Item>(gui, Item.class, this));
     add(filters, BorderLayout.NORTH);
     
     // items (matching filters)
@@ -48,14 +49,17 @@ public class Items extends View {
   public void preView() {
     draw(); }
   
-  protected void draw() {
+  public void draw() {
     items.removeAll();
-    Iterator<Entry<String, Model>> i = biler.getIndex("Item").entrySet().iterator();
+    Iterator<Entry<String, Model>> i = biler.indices.get(Item.class).entrySet().iterator();
     while (i.hasNext()) {
       Item item = (Item)i.next().getValue();
-      items.add(new ShortView(item)); } }
+      System.out.println("# Filter it! " + item);
+      if (item.filter())
+        items.add(new ShortView(gui, item)); }
+    super.draw(); }
 
-  protected class ShortView extends JPanel {
+  protected class ShortView extends se.zarac.lu.sysa.grupp4a.biler.gui.ShortView {
     protected Item item;
         
     /**
@@ -63,8 +67,10 @@ public class Items extends View {
      * 
      * @param item The Item.
      */
-    public ShortView(final Item item) {
+    public ShortView(final GUI gui, final Item item) {
+      super(gui);
       this.item = item;
+      
       add(new Button(item.toString()) {
         @Override
         public void click() {

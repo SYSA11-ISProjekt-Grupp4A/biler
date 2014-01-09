@@ -1,5 +1,8 @@
 package se.zarac.lu.sysa.grupp4a.biler.gui;
 
+import java.awt.GridLayout;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 
 /**
@@ -10,6 +13,8 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 @SuppressWarnings("serial")
 public abstract class View extends JPanel {
   protected GUI gui;
+  public final static Border EmptyBorder = BorderFactory.createEmptyBorder(0, 0, 0, 0);
+  
   
   /**
    * A View of something in Biler.
@@ -17,7 +22,8 @@ public abstract class View extends JPanel {
    * @param gui The GUI we belong to.
    */
   public View(GUI gui) {
-    this.gui = gui; }
+    this.gui = gui;
+    setLayout(new GridLayout(0, 1)); }
   
   /**
    * Called by GUI.view(View) pre revalidate() and repaint().
@@ -27,4 +33,9 @@ public abstract class View extends JPanel {
   /**
    * Called by GUI.view(View) post revalidate() and repaint().
    */
-  public void postView() { } }
+  public void postView() { }
+  
+  public void draw() {
+    invalidate();
+    validate();
+    repaint(); } }

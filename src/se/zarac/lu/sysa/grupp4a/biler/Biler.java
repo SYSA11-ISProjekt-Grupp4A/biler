@@ -6,8 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import se.zarac.lu.sysa.grupp4a.biler.filters.Seats;
-import se.zarac.lu.sysa.grupp4a.biler.models.Item;
 import se.zarac.lu.sysa.grupp4a.biler.models.Person;
 
 /**
@@ -19,21 +17,13 @@ public class Biler {
   public static final String VERSION = "0.0.1";
   public static final String AUTHORS = "Alexander, Hannes, Mikkel";
   public static final String DATA_PATH = "data/";
+  
   protected String name = "Biler vr00m!";
-  protected List<Filter> filters = new LinkedList<Filter>();
-  protected Seats seatsFilter;
-  protected Map<String, Map<String, Model>> indices = new HashMap<String, Map<String, Model>>();
-
-  /**
-   * Ze konstrukt0r.
-   */
-  public Biler() {    
-    // THE filters
-    // seatsFilter = new Seats(4);
-    // seatsFilter.setSeats(4);
-    // filters.add(seatsFilter);
-    filters.add(new Seats(4));
-    System.out.println("Filters: " + filters); }
+  
+  //protected List<Filterable> filters = new LinkedList<Filterable>();
+  //protected Seats seatsFilter;
+  // model indices
+  public Map<Class<Model>, Map<String, Model>> indices = new HashMap<Class<Model>, Map<String, Model>>();
 
   /**
    * Check if item passes all given filters.
@@ -41,7 +31,7 @@ public class Biler {
    * @param filters
    * @param item
    * @return Well, did it?
-   */
+   *
   public boolean filter(List<Filter> filters, Item item) {
     Iterator<Filter> f = filters.iterator();
     while (f.hasNext()) {
@@ -64,11 +54,12 @@ public class Biler {
         goodies.add(item); } }
 
     return goodies; }
+  */
     
   public List<Person> findPerson(String key) {
     List<Person> matches = new LinkedList<Person>();
 
-    Iterator<Entry<String, Model>> p = indices.get("Person").entrySet().iterator();
+    Iterator<Entry<String, Model>> p = indices.get(Person.class).entrySet().iterator();
     //Iterator<Person> p = customers.iterator();
     while (p.hasNext()) {
       Entry<String, Model> entry = p.next();
@@ -79,8 +70,11 @@ public class Biler {
 
     return matches; }
 
-  public List<Filter> getFilters() {
+  /* public List<Filterable> getFilters() {
     return filters; }
+
+  public List<FilterSettings> getFilterSettings() {
+    return filterSettings; } */
 
   public void setName(String name) {
     this.name = name; }
@@ -93,12 +87,25 @@ public class Biler {
    * 
    * @param name The name of the index.
    * @return The index.
-   */
   public Map<String, Model> getIndex(String name) {
     Map<String, Model> index = indices.get(name);
     if (index == null) {
       index = new HashMap<String, Model>();
       indices.put(name, index); }
+    return index; }
+   */
+  
+  /**
+   * Index singletons. Used for our models.
+   *  
+   * @param clas The name of the index.
+   * @return The index.
+   */
+  public Map<String, Model> getIndex(Class<Model> clas) {
+    Map<String, Model> index = indices.get(clas);
+    if (index == null) {
+      index = new HashMap<String, Model>();
+      indices.put(clas, index); }
     return index; }
   
   /**
@@ -106,19 +113,20 @@ public class Biler {
    * 
    * @param model The Model.
    */
+  @SuppressWarnings("unchecked")
   public void add(Model model) {
     String name = model.getClass().getSimpleName();
     System.out.println("Biler.add(" + name + " " + model + ")");
     // TODO throws StreamCorruptedException on strange file.
-    getIndex(name).put(model.getId(), model); }
+    getIndex((Class<Model>)model.getClass()).put(model.getId(), model); }
   
   /**
    * Add a Filter.
    * 
    * @param filter The Filter.
-   */
-  public void add(Filter filter) {
+  public void add(Filterable filter) {
     filters.add(filter); }
+   */
 
   /**
    * Find Model.
@@ -127,14 +135,14 @@ public class Biler {
    * @param id What id?
    * @return The Model, hopefully.
    */
-  public Model find(String index, String id) {
+  public Model find(Class<Model> index, String id) {
     return getIndex(index).get(id); }
   
   /**
    * Save all Models in all indices. 
    */
   public void saveEverything() {
-    System.out.println("Save Everything! : )");
-    for (Map.Entry<String, Map<String, Model>> index : indices.entrySet()) {
+    System.out.println("# Save everything!");
+    for (Map.Entry<Class<Model>, Map<String, Model>> index : indices.entrySet()) {
       for (Map.Entry<String, Model> model : index.getValue().entrySet()) {
         model.getValue().save(); } } } }

@@ -1,5 +1,6 @@
 package se.zarac.lu.sysa.grupp4a.biler.gui;
 
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.BorderFactory;
@@ -14,13 +15,15 @@ public class Editable extends JTextField implements KeyListener {
   
   @Override
   public void keyPressed(KeyEvent e) { 
-    if (e.getKeyCode() != 10) // <ENTER>
-      editing(); }
+    /* if (e.getKeyCode() != 10) // <ENTER>
+      editing(); */ }
 
   @Override
   public void keyReleased(KeyEvent e) {
     if (e.getKeyCode() == 10) // <ENTER>
-      edited(); }
+      edited();
+    else
+      editing(); }
   
   @Override
   public void keyTyped(KeyEvent e) { }
@@ -38,6 +41,7 @@ public class Editable extends JTextField implements KeyListener {
     super();
     this.saved = string;
     setBorder(border);
+    setSize(new Dimension(100, getSize().height)); 
     setText(string);
     addKeyListener(this); }
 

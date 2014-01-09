@@ -1,7 +1,9 @@
 package se.zarac.lu.sysa.grupp4a.biler.gui.views.activities;
 
 import java.awt.GridLayout;
+import java.util.Map;
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
+import se.zarac.lu.sysa.grupp4a.biler.Model;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
@@ -22,13 +24,12 @@ public class About extends View {
   
   protected void setInformation() {
     removeAll();
+
     add(new JLabel("Name : " + biler.getName()));
     add(new JLabel("Version : " + Biler.VERSION));
     add(new JLabel("Source : https://github.com/SYSA11-ISProjekt-Grupp4A/biler"));
     add(new JLabel("Authors : " + Biler.AUTHORS));
     add(new JLabel(""));
-    add(new JLabel("Customers : " + biler.getIndex("Person").size()));
-    //add(new JLabel("Products : " + biler.getIndex("Product").size()));
-    add(new JLabel("Vehicles : " + biler.getIndex("Vehicle").size()));
-    add(new JLabel("Items : " + biler.getIndex("Item").size()));
-    add(new JLabel("Bookings : " + biler.getIndex("Booking").size())); } }
+
+    for (Map.Entry<Class<Model>, Map<String, Model>> index : biler.indices.entrySet()) {
+      add(new JLabel(index.getKey().getSimpleName() + " : " + index.getValue().size())); } } }

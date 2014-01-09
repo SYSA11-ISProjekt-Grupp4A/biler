@@ -9,6 +9,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
@@ -16,19 +18,40 @@ import org.apache.commons.io.filefilter.RegexFileFilter;
 
 public abstract class Model implements Serializable {
   private static final long serialVersionUID = 5678656957190670757L;
-  protected static String dataPath = "data/";
   protected String id;
+  //public static List<FilterPoint> filterPoints = new LinkedList<FilterPoint>();
   
-  public Model() { 
-    id = UUID.randomUUID().toString(); }
+  public static Map<String, Object> filterSettings;
+  static {
+    filterSettings = new HashMap<String, Object>();
+    filterSettings.put("id", new String()); }
+  
+  /* public class FilterSetting<T> {
+    public final String name;
+    protected T value;
+    
+    public void set(String name, T value) {
+      this.name = name;
+      this.value = value; } 
+    
+    public T get() {
+      return value; } } */
 
-  /**
-   * Pass through everything by default.
-   * 
-   * @return true
-   */
+  public Model() { 
+    this(UUID.randomUUID().toString()); }
+  
+  public Model(String id) {
+    this.id = id; }
+
+  //@Override
   public boolean filter() {
-    System.out.println("Model.filter()" + this);
+    System.out.println("Model.filter() " + this); 
+    String val = (String)filterSettings.get("id");
+    if (val.length() > 0
+        && Model.this.id.indexOf((String)filterSettings.get("id")) < 0) {
+      return false; }
+    
+    System.out.println("Model.filter() passed " + this);
     return true; }
   
   public void save() {
@@ -41,6 +64,7 @@ public abstract class Model implements Serializable {
    * @param biler The instance of Biler.
    */
   public static void load(Biler biler) {
+    System.out.println("# Load everything!");
     new File(Biler.DATA_PATH).mkdirs();
     Collection<File> files = FileUtils.listFiles(
         new File(Biler.DATA_PATH),
@@ -79,7 +103,7 @@ public abstract class Model implements Serializable {
     return id; }
 
   public String toString() {
-    return getClass().getSimpleName() + ":" + id; }
+    return "{" + getClass().getSimpleName() + ":" + id + "}"; }
   
   protected void serialize() {
     FileOutputStream file;

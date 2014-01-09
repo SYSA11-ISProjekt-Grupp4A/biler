@@ -14,4 +14,5 @@ public class Exit extends View {
     super.preView();
     // TODO remove (and save when needed)
     gui.getBiler().saveEverything();
+    System.out.println("# Good bye! :)");
     System.exit(0); } }

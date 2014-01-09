@@ -5,7 +5,7 @@ public class JFrame extends javax.swing.JFrame {
   public JFrame() {
     super();
     setUndecorated(true);
-    setSize(640, 480);
+    setSize(800, 600);
     setLocationRelativeTo(null);
     //setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
     setResizable(true);
