@@ -1,11 +1,22 @@
 package se.zarac.lu.sysa.grupp4a.biler;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
+import org.apache.commons.io.filefilter.RegexFileFilter;
 import se.zarac.lu.sysa.grupp4a.biler.models.Person;
 
 /**
@@ -67,6 +78,25 @@ public class Biler {
     getIndex((Class<Model>)model.getClass()).put(model.getId(), model); }
 
   /**
+   * Remove a Model.
+   * 
+   * @param model The Model.
+   */
+  @SuppressWarnings("unchecked")
+  public void remove(Model model) {
+    String name = model.getClass().getSimpleName();
+    System.out.println("Biler.remove(" + name + " " + model + ")");
+
+    String tail = DATA_PATH + model.getClass().getSimpleName();
+    // make sure target for data save exists
+    new File(tail).mkdirs();
+    String path = tail + "/" + model.getId();
+
+    new File(path).delete();
+    
+    getIndex((Class<Model>)model.getClass()).remove(model.getId()); } 
+  
+  /**
    * Find Model.
    * 
    * @param index What index?
@@ -75,12 +105,81 @@ public class Biler {
    */
   public Model find(Class<Model> index, String id) {
     return getIndex(index).get(id); }
+
+  /**
+   * Populate biler with whatever is in Biler.DATA_PATH.
+   * 
+   * @param biler The instance of Biler.
+   */
+  public void load() {
+    System.out.println("# Load everything!");
+    new File(Biler.DATA_PATH).mkdirs();
+    Collection<File> files = FileUtils.listFiles(
+        new File(Biler.DATA_PATH),
+        new RegexFileFilter("^(.*?)"),
+        DirectoryFileFilter.DIRECTORY);
+    
+    for (File file: files) {
+      System.out.println("load and add " + file.getPath());
+      add(load(file.getPath())); } }
   
   /**
-   * Save all Models in all indices. 
+   * Load up a serialized model.
+   * 
+   * @param path Path to file.
+   * @return The deserialized Model.
+   */
+  public Model load(String path) {
+    Model model = null;
+    FileInputStream file;
+    ObjectInputStream object;
+    try {
+      file = new FileInputStream(path);
+      object = new ObjectInputStream(file);
+      model = (Model)object.readObject();
+      object.close();
+      file.close(); }
+    catch (FileNotFoundException e) {
+      e.printStackTrace(); }
+    catch (IOException e) {
+      e.printStackTrace(); }
+    catch (ClassNotFoundException e) {
+      e.printStackTrace(); }
+    
+    return model; }
+  
+  protected void serialize(Model model) {
+    FileOutputStream file;
+    ObjectOutputStream object;
+    try {
+      String tail = DATA_PATH + model.getClass().getSimpleName();
+      // make sure target for data save exists
+      new File(tail).mkdirs();
+      String path = tail + "/" + model.getId();
+      file = new FileOutputStream(path);
+      object = new ObjectOutputStream(file);
+      object.writeObject(model);
+      object.close();
+      file.close(); }
+    catch (FileNotFoundException e) {
+      e.printStackTrace(); }
+    catch (IOException e) {
+      e.printStackTrace(); } }
+  
+  /**
+   * Save a Model (to persistent storage).
+   * 
+   * @param model The Model.
+   */
+  public void save(Model model) {
+    System.out.println("Model.save(" + model + ")" );
+    serialize(model); }
+  
+  /**
+   * Save Everything (all Models in all indices). 
    */
   public void saveEverything() {
     System.out.println("# Save everything!");
     for (Map.Entry<Class<Model>, Map<String, Model>> index : indices.entrySet()) {
       for (Map.Entry<String, Model> model : index.getValue().entrySet()) {
-        model.getValue().save(); } } } }
+        save(model.getValue()); } } } }

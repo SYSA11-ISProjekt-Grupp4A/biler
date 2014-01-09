@@ -23,14 +23,14 @@ public class Person extends View {
     number = new Editable(person.getPersonNumber()) {
       public void edited() {
         Person.this.person.setPersonNumber(getText());
-        person.save(); } };
+        biler.save(person); } };
     add(number);
 
     add(new JLabel("Name"));
     name = new Editable(person.getName()) {
       public void edited() {
         Person.this.person.setName(getText());
-        person.save(); } };
+        biler.save(person); } };
     add(name);
     
     add(new JLabel("Press <ENTER> to save field."));

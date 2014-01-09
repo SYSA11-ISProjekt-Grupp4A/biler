@@ -30,7 +30,7 @@ public class AddPerson extends View {
       public void click() {
         Person person = new Person(number.getText(), name.getText());
         gui.getBiler().add(person);
-        person.save();
+        biler.save(person);
         gui.view(person); } } ); }
   
   @Override

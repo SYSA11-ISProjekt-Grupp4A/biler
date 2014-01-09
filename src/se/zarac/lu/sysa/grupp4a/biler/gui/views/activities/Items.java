@@ -84,7 +84,13 @@ public class Items extends View {
         add(new Button(product.toString()) {
           @Override
           public void click() {
-            gui.view(product); } }); } } }
+            gui.view(product); } }); }
+
+      add(new Button("X") {
+        @Override
+        public void click() {
+          biler.remove(item);
+          gui.view(item); } }); } }
   
   protected class Menu extends JPanel {
     public Menu() {
