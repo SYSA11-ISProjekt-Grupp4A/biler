@@ -14,6 +14,9 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 public abstract class View extends JPanel {
   protected GUI gui;
   public final static Border EmptyBorder = BorderFactory.createEmptyBorder(0, 0, 0, 0);
+  public final static Border border = BorderFactory.createCompoundBorder(
+      BorderFactory.createEmptyBorder(5, 5, 5, 5),
+      BorderFactory.createEmptyBorder(0, 0, 0, 0));
   
   
   /**
@@ -23,7 +26,8 @@ public abstract class View extends JPanel {
    */
   public View(GUI gui) {
     this.gui = gui;
-    setLayout(new GridLayout(0, 1)); }
+    setLayout(new GridLayout(0, 1));
+    setBorder(border); }
   
   /**
    * Called by GUI.view(View) pre revalidate() and repaint().

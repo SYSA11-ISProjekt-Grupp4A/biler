@@ -93,6 +93,7 @@ public class GUI extends JFrame {
       pane.setBorder(View.EmptyBorder);
       //pane.setAutoscrolls(true);
       //pane.setMinimumSize(new Dimension(container.getWidth(), container.getHeight()));
+      //pane.setMaximumSize(new Dimension(container.getWidth(), container.getHeight()));
       pane.setPreferredSize(new Dimension(container.getWidth(), container.getHeight()));
       //pane.setSize(new Dimension(container.getWidth(), container.getHeight()));
       container.add(pane); }

@@ -9,6 +9,7 @@ import se.zarac.lu.sysa.grupp4a.biler.Model;
 import se.zarac.lu.sysa.grupp4a.biler.gui.Button;
 import se.zarac.lu.sysa.grupp4a.biler.gui.FilterView;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
+import se.zarac.lu.sysa.grupp4a.biler.gui.ShortView;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
@@ -56,10 +57,10 @@ public class Items extends View {
       Item item = (Item)i.next().getValue();
       System.out.println("# Filter it! " + item);
       if (item.filter())
-        items.add(new ShortView(gui, item)); }
+        items.add(new Hit(gui, item)); }
     super.draw(); }
 
-  protected class ShortView extends se.zarac.lu.sysa.grupp4a.biler.gui.ShortView {
+  protected class Hit extends ShortView {
     protected Item item;
         
     /**
@@ -67,7 +68,7 @@ public class Items extends View {
      * 
      * @param item The Item.
      */
-    public ShortView(final GUI gui, final Item item) {
+    public Hit(final GUI gui, final Item item) {
       super(gui);
       this.item = item;
       

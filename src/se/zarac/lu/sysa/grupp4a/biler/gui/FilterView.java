@@ -28,8 +28,7 @@ public class FilterView<T extends Model> extends ShortView {
     catch (IllegalAccessException e) {
       e.printStackTrace(); }
     
-    /*
-    for (Field field : class1.getDeclaredFields()) {
+    /* for (Field field : class1.getDeclaredFields()) {
       System.out.println("FIELD = " + field.getType());
       if (field.getName() == "serialVersionUID") continue;
       if (field.getType() == String.class) {

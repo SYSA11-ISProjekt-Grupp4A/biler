@@ -5,14 +5,10 @@ import se.zarac.lu.sysa.grupp4a.biler.Model;
 public class Item extends Model {
   private static final long serialVersionUID = 1388623416825290648L;
   protected Product product;
-  
-  //protected Map<Class<?>, Object> filterables;
 
   public Item(Product product) {
     super();
-    this.product = product;
-    //filterables.put(product.getClass(), this.product);
-    }
+    this.product = product; }
 
   public Product getProduct() {
     return product; } 
