@@ -26,7 +26,10 @@ public abstract class View extends JPanel {
    */
   public View(GUI gui) {
     this.gui = gui;
-    setLayout(new GridLayout(0, 1));
+    GridLayout layout = new GridLayout(0, 1);
+    layout.setVgap(5);
+    layout.setHgap(5);
+    setLayout(layout);
     setBorder(border); }
   
   /**

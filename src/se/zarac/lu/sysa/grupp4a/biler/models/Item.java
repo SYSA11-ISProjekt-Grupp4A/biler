@@ -15,7 +15,6 @@ public class Item extends Model {
 
   public boolean filter() {
     System.out.println("Item.filter() " + this);
-    //if (!super.filter()) return false;
     if (!super.filter() || (product != null && !product.filter())) return false;
     
     System.out.println("Item.filter() passed " + this);

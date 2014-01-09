@@ -91,6 +91,7 @@ public class GUI extends JFrame {
           JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
           JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
       pane.setBorder(View.EmptyBorder);
+      // TODO fix, make pretty
       //pane.setAutoscrolls(true);
       //pane.setMinimumSize(new Dimension(container.getWidth(), container.getHeight()));
       //pane.setMaximumSize(new Dimension(container.getWidth(), container.getHeight()));

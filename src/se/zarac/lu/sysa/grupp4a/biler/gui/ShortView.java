@@ -22,8 +22,8 @@ public abstract class ShortView extends View {
    */
   public ShortView(GUI gui) {
     super(gui);
-    GridLayout gl = new GridLayout(1, 0);
-    gl.setVgap(5);
-    gl.setHgap(5);
-    setLayout(gl);
+    GridLayout layout = new GridLayout(1, 0);
+    layout.setVgap(5);
+    layout.setHgap(5);
+    setLayout(layout);
     setBorder(border); } }
