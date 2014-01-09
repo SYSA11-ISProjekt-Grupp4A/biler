@@ -10,7 +10,6 @@ TODO
     Booking
       Lägga till
   **
-    Padding to Editable/JTextField
     Enhance Person View
       List bookings
       Delete
@@ -18,6 +17,7 @@ TODO
     More TODOs marked as such within the source
       ..
 DONE
+  Padding to Editable/JTextField
   Person/Kund
     Söka
     Lägga till

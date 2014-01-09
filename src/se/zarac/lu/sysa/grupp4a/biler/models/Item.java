@@ -7,7 +7,7 @@ import se.zarac.lu.sysa.grupp4a.biler.Model;
 public class Item extends Model {
   private static final long serialVersionUID = 1388623416825290648L;
   protected Product product;
-  
+
   public static Map<String, Object> filterSettings;
   static {
     filterSettings = new HashMap<String, Object>(); }
@@ -17,7 +17,7 @@ public class Item extends Model {
     this.product = product; }
 
   public Product getProduct() {
-    return product; } 
+    return product; }
 
   public boolean filter() {
     System.out.println("Item.filter() " + this + filterSettings);

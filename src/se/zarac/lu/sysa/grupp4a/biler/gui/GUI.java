@@ -33,6 +33,20 @@ public class GUI extends JFrame {
   protected Menu menu;
   // activities / modes
   public Map<String, View> activities = new HashMap<String, View>();
+  // package paths to types of Views
+  public static enum ViewTypes {
+    View("se.zarac.lu.sysa.grupp4a.biler.gui.views."),
+    Full("se.zarac.lu.sysa.grupp4a.biler.gui.views.full."),
+    Short("se.zarac.lu.sysa.grupp4a.biler.gui.views.shorts."), // package cannot be named .short
+    Edit("se.zarac.lu.sysa.grupp4a.biler.gui.views.edit.");
+    
+    protected final String path;
+    
+    private ViewTypes(final String path) {
+      this.path = path; }
+    
+    public String toString() {
+      return path; } };
   
   /**
    * Construct it jao.
@@ -128,7 +142,17 @@ public class GUI extends JFrame {
    * @param model The Model, it must have a matching View.
    */
   public void view(Model model) {
-    view(createView(model)); }
+    view(model, ViewTypes.View); }
+  
+  /**
+   * View a Model with a specified view type.
+   * 
+   * @param model The Model, it must have a matching View of the specified type.
+   * @param type The type.
+   */
+  public void view(Model model, ViewTypes type) {
+    System.out.println("GUI.view(" + model + ", " + type.toString() + ")");
+    view(createView(type, model)); }
 
   /**
    * View a View then execute its onView().
@@ -147,7 +171,7 @@ public class GUI extends JFrame {
    * @return The View.
    */
   public View createView(Model obj) {
-    return createView("se.zarac.lu.sysa.grupp4a.biler.gui.views.", obj); }
+    return createView(ViewTypes.View, obj); }
 
   /**
    * Create a View for a Model or Filter.
@@ -155,10 +179,10 @@ public class GUI extends JFrame {
    * @param clas The class path.
    * @param model The Model/Filter, it must have a matching View.
    */
-  protected View createView(String basePath, Object object) {
+  protected View createView(ViewTypes type, Object object) {
     View view = null;
     try {
-      String className = basePath + object.getClass().getSimpleName();
+      String className = type.toString() + object.getClass().getSimpleName();
       Constructor<View> constructor = getViewConstructor(className);
       if (constructor == null) {
         System.out.println("View constructor not found for '" + object.getClass().getSimpleName() + "' (" + object + ").");

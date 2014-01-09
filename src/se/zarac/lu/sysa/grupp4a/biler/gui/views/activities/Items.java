@@ -55,7 +55,7 @@ public class Items extends View {
     Iterator<Entry<String, Model>> i = biler.indices.get(Item.class).entrySet().iterator();
     while (i.hasNext()) {
       Item item = (Item)i.next().getValue();
-      System.out.println("# Filter it! " + item);
+      System.out.println("## Filter Item " + item);
       if (item.filter())
         items.add(new Hit(gui, item)); }
     super.draw(); }
