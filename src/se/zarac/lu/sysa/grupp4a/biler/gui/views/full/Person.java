@@ -19,11 +19,9 @@ public class Person extends View {
 
     add(new JLabel(person.getPersonNumber()));
 
-    View view = gui.createView(person.getAddresses(), GUI.ViewTypes.Short);
-    System.out.println("view = " + view);
-    add(view);
+    add(gui.createView(person.getAddresses(), GUI.ViewTypes.Short));
     
-    //add(gui.createView(person.getPhoneNumbers(), GUI.ViewTypes.Short));
+    add(gui.createView(person.getPhoneNumbers(), GUI.ViewTypes.Short));
     
     add(new Button("Edit") {
       public void click() {

@@ -183,9 +183,8 @@ public class GUI extends JFrame {
    * @return the View
    */
   public View createView(Object object, ViewTypes type) {
-    if (object == null) {
-      System.out.println("! Cannot view nothing.");
-      return new Fallback(object, this); }
+    if (object == null) // Cannot view nothing!
+      return new Fallback(null, this);
     
     View view = null;
     try {
