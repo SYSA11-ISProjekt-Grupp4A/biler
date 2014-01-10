@@ -11,4 +11,7 @@ public class Fallback extends View {
   public Fallback(Object object, GUI gui) {
     super(gui);
     this.object = object;
-    add(new JLabel("[Fallback View for '" + object.toString() + "'.]")); } }
+    if (object == null)
+      add(new JLabel("[Fallback View for null!]"));
+    else
+      add(new JLabel("[Fallback View for '" + object.toString() + "'.]")); } }

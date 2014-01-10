@@ -6,7 +6,7 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.*;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.SwingConstants;
@@ -45,7 +45,7 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
     output.add(metaLabel, BorderLayout.NORTH);
 
     result = new JPanel();
-    result.setLayout(new FlowLayout());
+    result.setLayout(new GridLayout(0, 1));
     output.add(result, BorderLayout.CENTER);
 
     add(output, BorderLayout.CENTER);

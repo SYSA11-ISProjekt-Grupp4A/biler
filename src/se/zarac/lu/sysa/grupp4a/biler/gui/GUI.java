@@ -183,6 +183,10 @@ public class GUI extends JFrame {
    * @return the View
    */
   public View createView(Object object, ViewTypes type) {
+    if (object == null) {
+      System.out.println("! Cannot view nothing.");
+      return new Fallback(object, this); }
+    
     View view = null;
     try {
       Constructor<View> constructor = null;
@@ -201,7 +205,8 @@ public class GUI extends JFrame {
     catch (IllegalAccessException e) {
       e.printStackTrace(); }
     catch (InvocationTargetException e) {
-      e.printStackTrace(); }
+      System.out.println("!");
+      System.out.println(e.getStackTrace()); }
     
     if (view == null) {
       view = new Fallback(object, this); }
