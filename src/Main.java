@@ -14,6 +14,4 @@ public class Main {
   public static void main(String[] argv) {
     Biler biler = new Biler();
     biler.load();
-    GUI gui = new GUI(biler);
-    // TODO bug-gui-visible : needs to be set here AND inside JFrame constructor (it shouldn't?)
-    gui.setVisible(true); } }
+    new GUI(biler); } }

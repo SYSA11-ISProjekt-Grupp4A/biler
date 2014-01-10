@@ -4,9 +4,6 @@ TODO
       Lista
       Uppdatera
       Lägga till
-    Items
-      Lägga till (should be done from Product View / Products Activity?)
-      Uppdatera
     Booking
       Lägga till
   **
@@ -14,9 +11,18 @@ TODO
       List bookings
       Delete
     Javadoc everything public.
+    Filtering
+      Make sure it works as expected.
+      Add Booking / Date filtering in Items Activity.
+    Change what Product an Item is.
+  ?
     More TODOs marked as such within the source
       ..
 DONE
+  GUI bug, splash screen doesn't show on initial load.
+  Items
+    Lägga till (should be done from Product View / Products Activity?)
+    Uppdatera
   Padding to Editable/JTextField
   Person/Kund
     Söka

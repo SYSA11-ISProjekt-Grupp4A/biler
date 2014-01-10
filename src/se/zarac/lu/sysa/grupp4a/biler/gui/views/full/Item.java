@@ -13,7 +13,10 @@ public class Item extends View {
     super(gui);
     this.item = item;
     add(new JLabel("" + item + " is a"));
-    add(gui.createView(item.getProduct(), GUI.ViewTypes.Short));
+    if (item.getProduct() != null)
+      add(gui.createView(item.getProduct(), GUI.ViewTypes.Short));
+    else
+      add(new JLabel("Keine produkten!"));
     
     add(new Button("Edit") {
       public void click() {

@@ -34,16 +34,9 @@ public class Splash extends View {
     super(gui);
     this.text = text;
     this.milliseconds = milliseconds;
-    panel = new JPanel();
-    panel.setLayout(new GridBagLayout());
+    setLayout(new GridBagLayout());
     label = new JLabel(text);
-    panel.add(label);
-    // TODO center that sh1zn1t
-    //text.setHorizontalAlignment(JLabel.CENTER);
-    //text.setVerticalAlignment(JLabel.CENTER);
-    //text.setVerticalTextPosition(JLabel.CENTER);
-    //setAlignmentY(CENTER_ALIGNMENT);
-    add(panel); }
+    add(label); }
     
   @Override
   public void postView() {

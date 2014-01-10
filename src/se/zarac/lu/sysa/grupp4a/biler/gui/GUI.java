@@ -56,7 +56,7 @@ public class GUI extends JFrame {
   public GUI(Biler biler) {
     this.biler = biler;
 
-    // frame
+    // frame (window)
     setTitle(biler.getName());
     setLayout(new BorderLayout());
 
@@ -80,10 +80,9 @@ public class GUI extends JFrame {
     activities.put("Testicle", new Testicle(GUI.this));
     activities.put("Exit", new Exit(GUI.this));
 
-    view("Splash");
+    setVisible(true);
     
-    // TODO bug-gui-visible : needs to be set here AND after JFrame is instantiated
-    setVisible(true); }
+    view("Splash"); }
 
   /**
    * Get the Biler instance the GUI is attached to.
@@ -190,26 +189,23 @@ public class GUI extends JFrame {
       Class<?> clas = object.getClass();
       while (clas != null) {
         String className = type.toString() + clas.getSimpleName();
-        //System.out.println("get constructor for " + className + clas);
         constructor = getViewConstructor(className);
         // done?
-        if (constructor != null) break;
-        clas = clas.getSuperclass(); }
-      
-      //String className = type.toString() + object.getClass().getSimpleName();
-      //constructor = getViewConstructor(className);
-      if (constructor == null) {
-        //System.out.println(type + " constructor not found for " + object + ".");
-        view = new Fallback(object, this); }
-      else {
-        view = constructor.newInstance(object, this); } }
+        if (constructor != null) {
+          view = constructor.newInstance(object, this);
+          break; }
+        else
+          clas = clas.getSuperclass(); } }
     catch (InstantiationException e) {
       e.printStackTrace(); }
     catch (IllegalAccessException e) {
       e.printStackTrace(); }
     catch (InvocationTargetException e) {
       e.printStackTrace(); }
-
+    
+    if (view == null) {
+      view = new Fallback(object, this); }
+    
     return view; }
   
   protected Constructor<View> getViewConstructor(String className) {
