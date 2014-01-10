@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -34,9 +35,36 @@ public class Biler {
   // model indices
   public Map<Class<? extends Model>, Map<String, Model>> indices = new HashMap<Class<? extends Model>, Map<String, Model>>();
     
+  public List<Model> find(Class<? extends Model> clas, String fieldName, String key) {
+    List<Model> hits = new LinkedList<Model>();
+    Map<String, Model> index = indices.get(clas);
+
+    System.out.println("find() " + key + " in " + fieldName);
+    for (Model model : index.values()) {
+      System.out.println("find() checking model " + model);
+      try {
+        Field field = clas.getField(fieldName);
+        String value = (String)field.get(model);
+        System.out.println(field);
+        System.out.println(field.get(model));
+        if (key.length() == 0 || value.indexOf(key) > 0)
+          hits.add(model); }
+      catch (SecurityException e) {
+        e.printStackTrace(); }
+      catch (NoSuchFieldException e) {
+        e.printStackTrace(); }
+      catch (IllegalArgumentException e) {
+        e.printStackTrace(); }
+      catch (IllegalAccessException e) {
+        e.printStackTrace(); } }
+      
+      /* if (model.getName().toLowerCase().indexOf(key.toLowerCase()) > -1) {
+        hits.add(model); } */
+    return hits; }
+  
+  @Deprecated
   public List<Person> findPerson(String key) {
     List<Person> matches = new LinkedList<Person>();
-
     Iterator<Entry<String, Model>> p = indices.get(Person.class).entrySet().iterator();
     while (p.hasNext()) {
       Entry<String, Model> entry = p.next();

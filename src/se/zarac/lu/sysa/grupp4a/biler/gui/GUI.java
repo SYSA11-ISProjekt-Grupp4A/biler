@@ -98,6 +98,7 @@ public class GUI extends JFrame {
    * @param component The JComponent.
    */
   public void setComponent(JComponent component) {
+    // TODO fix, doesn't work nicely. JFrame.pack() doesn't seem to help either..
     container.removeAll();
     if (component == null)
       container.add(new JLabel("Cannot setComponent(null)"));
@@ -113,16 +114,15 @@ public class GUI extends JFrame {
       pane.setPreferredSize(new Dimension(container.getWidth(), container.getHeight()));
       //pane.setSize(new Dimension(container.getWidth(), container.getHeight()));
       container.add(pane); }
-    // be JRE6 compliant, don't use revalidate()
-    container.invalidate();
-    container.validate();
-    container.repaint(); }
+    
+    redraw(); }
   
   /**
    * Force redraw of container.
    * TODO remove? (shouldn't be needed)
    */
   public void redraw() {
+    // be JRE6 compliant, don't use revalidate()
     container.invalidate();
     container.validate();
     container.repaint(); }

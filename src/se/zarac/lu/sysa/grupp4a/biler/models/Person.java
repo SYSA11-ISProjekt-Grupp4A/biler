@@ -1,6 +1,8 @@
 package se.zarac.lu.sysa.grupp4a.biler.models;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import se.zarac.lu.sysa.grupp4a.biler.Model;
 
 /**
@@ -10,10 +12,16 @@ import se.zarac.lu.sysa.grupp4a.biler.Model;
  */
 public class Person extends Model {
   private static final long serialVersionUID = 8990080958752583292L;
-  protected String name = "Anonymous";
+  public String name = "Anonymous"; // public to work with biler.find()
   protected String personNumber = "XXXXXXXXXX";
   protected List<Phone> phoneNumbers;
   protected List<Address> addresses;
+
+  public static Map<String, Object> filterSettings;
+  static {
+    filterSettings = new HashMap<String, Object>();
+    filterSettings.put("name", new String()); 
+    filterSettings.put("number", new String()); }
 
   /**
    * @param personNumber All persons need a number.
@@ -29,6 +37,24 @@ public class Person extends Model {
   public Person(String personNumber, String name) {
     this(personNumber);
     setName(name); }
+
+  public boolean filter() {
+    System.out.println("Person() " + this + filterSettings);
+
+    if (!super.filter()) return false;
+
+    String val = (String)filterSettings.get("name");
+    if (val.length() > 0
+        && Person.this.name.toLowerCase().indexOf(((String)filterSettings.get("name")).toLowerCase()) < 0) {
+      return false; }
+    
+    val = (String)filterSettings.get("number");
+    if (val.length() > 0
+        && Person.this.personNumber.toLowerCase().indexOf(((String)filterSettings.get("number")).toLowerCase()) < 0) {
+      return false; }
+    
+    System.out.println("Person() passed " + this);
+    return true; }
 
   public String toString() {
     return "{" + name + ":" + id + "}"; } 
@@ -48,7 +74,7 @@ public class Person extends Model {
   public void setPersonNumber(String text) {
     if (text.length() > 0)
       personNumber = text;
-    else 
+    else
       personNumber = "XXXXXXXXXX"; }
 
   public void setName(String text) {

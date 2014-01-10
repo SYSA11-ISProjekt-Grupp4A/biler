@@ -6,6 +6,7 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 import se.zarac.lu.sysa.grupp4a.biler.models.Item;
+import se.zarac.lu.sysa.grupp4a.biler.models.Person;
 import se.zarac.lu.sysa.grupp4a.biler.models.Product;
 import se.zarac.lu.sysa.grupp4a.biler.models.Vehicle;
 
@@ -28,6 +29,10 @@ public class Testicle extends View {
   
   protected class Menu extends JPanel {
     public Menu() {
+      add(new Button("find(Person, name, a)") {
+        public void click() {
+          System.out.println(biler.find(Person.class, "name", "a").size()); } } );
+      
       add(new Button("view random Model") {
         public void click() {
           gui.view(biler.random()); } } );

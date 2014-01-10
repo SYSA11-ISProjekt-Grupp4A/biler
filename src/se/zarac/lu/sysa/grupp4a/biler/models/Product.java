@@ -34,6 +34,8 @@ public class Product extends Model {
   public boolean filter() {
     System.out.println("Product.filter() " + this + filterSettings + name);
 
+    //if (!super.filter()) return false;
+    
     String val = (String)filterSettings.get("name");
     if (val.length() > 0 &&
         (name == null || name.indexOf(val) < 0)) {

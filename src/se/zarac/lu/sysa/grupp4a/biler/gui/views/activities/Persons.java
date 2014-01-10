@@ -1,14 +1,18 @@
 package se.zarac.lu.sysa.grupp4a.biler.gui.views.activities;
 
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
+import se.zarac.lu.sysa.grupp4a.biler.Model;
 import se.zarac.lu.sysa.grupp4a.biler.gui.Button;
+import se.zarac.lu.sysa.grupp4a.biler.gui.FilterView;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.*;
+import se.zarac.lu.sysa.grupp4a.biler.models.Person;
 import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Map.Entry;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -20,7 +24,7 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
   protected JPanel meta;
   protected JLabel metaLabel;
   protected JPanel result;
-  protected Biler biler;  
+  protected Biler biler;
 
   public Persons(GUI gui) {
     super(gui);
@@ -29,9 +33,11 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
     setLayout(new BorderLayout());
 
     // input
-    input = new JTextField();
-    input.getDocument().addDocumentListener(this);    
-    add(input, BorderLayout.NORTH);
+    JPanel filters = new JPanel();
+    filters.setLayout(new GridLayout(0, 1));
+    filters.add(new FilterView<Model>(gui, Model.class, this));
+    filters.add(new FilterView<Person>(gui, Person.class, this));
+    add(filters, BorderLayout.NORTH);
 
     // output
     output = new JPanel();
@@ -45,31 +51,26 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
     output.add(metaLabel, BorderLayout.NORTH);
 
     result = new JPanel();
-    result.setLayout(new GridLayout(0, 1));
+    result.setLayout(new GridBagLayout());
     output.add(result, BorderLayout.CENTER);
 
     add(output, BorderLayout.CENTER);
     
     // menu
-    add(new Menu(), BorderLayout.SOUTH);
-    
-    // do initial empty search
-    findPerson(); }
-
-  public void findPerson() {
-    // what to find
-    String key = input.getText();
-    // find it/them
-    List<se.zarac.lu.sysa.grupp4a.biler.models.Person> matches = biler.findPerson(key);
-    // draw it/them
-    metaLabel.setText("Found " + matches.size() + " persons.");
+    add(new Menu(), BorderLayout.SOUTH); }
+  
+  public void draw() {
     result.removeAll();
-    Iterator<se.zarac.lu.sysa.grupp4a.biler.models.Person> p = matches.iterator();
-    while (p.hasNext()) {
-      result.add(gui.createView(p.next(), GUI.ViewTypes.Short)); }
-
-    result.revalidate();
-    result.repaint(); }
+    Iterator<Entry<String, Model>> i = biler.indices.get(Person.class).entrySet().iterator();
+    int count = 0;
+    while (i.hasNext()) {
+      Person person = (Person)i.next().getValue();
+      System.out.println("## Filter Item " + person);
+      if (person.filter()) {
+        count++;
+        result.add(gui.createView(person, GUI.ViewTypes.Short)); } }
+    metaLabel.setText("Found " + count + " persons.");
+    super.draw(); }
 
   @Override
   public void changedUpdate(DocumentEvent arg0) {
@@ -77,11 +78,11 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
 
   @Override
   public void insertUpdate(DocumentEvent arg0) {
-    findPerson(); }
+    draw(); }
 
   @Override
   public void removeUpdate(DocumentEvent arg0) {
-    findPerson(); }    
+    draw(); }    
 
   protected class PersonView extends Button {
     protected se.zarac.lu.sysa.grupp4a.biler.models.Person person;
@@ -96,12 +97,14 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
 
   public JTextField getInput() {
     return input; }
+
+  @Override
+  public void preView() {
+    draw(); }
   
   @Override
   public void postView() {
-    super.postView();
-    getInput().requestFocus();
-    findPerson(); }
+    super.postView(); }
 
   public class Menu extends JPanel {
     public Menu() {

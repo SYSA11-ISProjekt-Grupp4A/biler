@@ -12,7 +12,7 @@ public class Item extends ShortView {
   public Item(final se.zarac.lu.sysa.grupp4a.biler.models.Item item, final GUI gui) {
     super(gui);
     this.item = item;
-    add(new Button(item.toString()) {
+    add(new Button("Item:" + item.getId()) {
       public void click() {
         gui.view(item, GUI.ViewTypes.Full); } } ); 
     

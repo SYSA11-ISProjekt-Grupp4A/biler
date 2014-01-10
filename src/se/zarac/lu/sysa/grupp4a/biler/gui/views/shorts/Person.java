@@ -12,6 +12,6 @@ public class Person extends View {
     super(gui);
     this.person = person;
 
-    add(new Button(person.toString()) {
+    add(new Button(person.getName()) {
       public void click() {
         gui.view(person, GUI.ViewTypes.Full); } } ); } }
