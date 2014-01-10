@@ -1,4 +1,4 @@
-package se.zarac.lu.sysa.grupp4a.biler.gui.views;
+package se.zarac.lu.sysa.grupp4a.biler.gui.views.shorts;
 
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;

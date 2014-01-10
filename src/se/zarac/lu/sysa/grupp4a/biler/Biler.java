@@ -72,8 +72,6 @@ public class Biler {
    */
   @SuppressWarnings("unchecked")
   public void add(Model model) {
-    //String name = model.getClass().getSimpleName();
-    //System.out.println("Biler.add(" + name + " " + model + ")");
     // TODO throws StreamCorruptedException on strange file.
     getIndex((Class<Model>)model.getClass()).put(model.getId(), model); }
   
@@ -84,9 +82,6 @@ public class Biler {
    */
   @SuppressWarnings("unchecked")
   public void remove(Model model) {
-    //String name = model.getClass().getSimpleName();
-    //System.out.println("Biler.remove(" + name + " " + model + ")");
-
     String tail = DATA_PATH + model.getClass().getSimpleName();
     // make sure target for data save exists
     new File(tail).mkdirs();
@@ -107,24 +102,14 @@ public class Biler {
     return getIndex(index).get(id); }
   
   /**
-   * Get random Model.
-   * @param index From index.
+   * Get a random Model from an Index.
+   * 
+   * @param index The index.
    * @return A Model.
    */
   public Model random(Class<? extends Model> index) {
     Collection<Model> values = getIndex(index).values();
-
-    int zeroes = 0, ones = 0, twoes = 0, threes = 0;
-    for (int i = 0; i < 100; i++) {
-      int r = (int) Math.floor(Math.random() * 3);
-      if (r == 0) zeroes++;
-      if (r == 1) ones++;
-      if (r == 2) twoes++;
-      if (r == 3) threes++; }
-    System.out.println("zeroes, ones, twoes, threes : " + zeroes + ", " + ones + ", " + twoes + ", " + threes);
     
-    
-    System.out.println("random model from " + index + ", " + values.size() + " entries");
     int i = (int) Math.floor(Math.random() * values.size());
     for (Model val : values) {
       if (i-- == 0) return val; }

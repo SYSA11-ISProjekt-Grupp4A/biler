@@ -66,7 +66,7 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
     result.removeAll();
     Iterator<se.zarac.lu.sysa.grupp4a.biler.models.Person> p = matches.iterator();
     while (p.hasNext()) {
-      result.add(new PersonView(p.next())); }
+      result.add(gui.createView(p.next(), GUI.ViewTypes.Short)); }
 
     result.revalidate();
     result.repaint(); }

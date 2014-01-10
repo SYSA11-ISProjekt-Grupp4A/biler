@@ -1,4 +1,4 @@
-package se.zarac.lu.sysa.grupp4a.biler.gui.views;
+package se.zarac.lu.sysa.grupp4a.biler.gui.views.edit;
 
 import java.awt.GridLayout;
 import se.zarac.lu.sysa.grupp4a.biler.gui.Editable;

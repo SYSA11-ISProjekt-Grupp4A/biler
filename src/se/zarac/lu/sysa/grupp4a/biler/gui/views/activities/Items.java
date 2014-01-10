@@ -9,9 +9,7 @@ import se.zarac.lu.sysa.grupp4a.biler.Model;
 import se.zarac.lu.sysa.grupp4a.biler.gui.Button;
 import se.zarac.lu.sysa.grupp4a.biler.gui.FilterView;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
-import se.zarac.lu.sysa.grupp4a.biler.gui.ShortView;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
-import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 import se.zarac.lu.sysa.grupp4a.biler.models.Item;
 import se.zarac.lu.sysa.grupp4a.biler.models.Product;
@@ -57,40 +55,8 @@ public class Items extends View {
       Item item = (Item)i.next().getValue();
       System.out.println("## Filter Item " + item);
       if (item.filter())
-        items.add(new Hit(gui, item)); }
+        items.add(gui.createView(item, GUI.ViewTypes.Short)); }
     super.draw(); }
-
-  protected class Hit extends ShortView {
-    protected Item item;
-        
-    /**
-     * A short View for Item.
-     * 
-     * @param item The Item.
-     */
-    public Hit(final GUI gui, final Item item) {
-      super(gui);
-      this.item = item;
-      
-      add(new Button(item.toString()) {
-        @Override
-        public void click() {
-          gui.view(item); } });
-      
-      final Product product = item.getProduct();
-      if (product == null) // shouldn't be
-        add(new JLabel("Keine produkten!"));
-      else {
-        add(new Button(product.toString()) {
-          @Override
-          public void click() {
-            gui.view(product); } }); }
-
-      add(new Button("X") {
-        @Override
-        public void click() {
-          biler.remove(item);
-          gui.view(item); } }); } }
   
   protected class Menu extends JPanel {
     public Menu() {

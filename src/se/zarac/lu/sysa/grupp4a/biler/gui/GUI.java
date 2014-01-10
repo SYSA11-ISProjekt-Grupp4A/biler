@@ -119,7 +119,11 @@ public class GUI extends JFrame {
     container.validate();
     container.repaint(); }
   
-  public void reDraw() {
+  /**
+   * Force redraw of container.
+   * TODO remove? (shouldn't be needed)
+   */
+  public void redraw() {
     container.invalidate();
     container.validate();
     container.repaint(); }
@@ -142,7 +146,7 @@ public class GUI extends JFrame {
    * @param model The Model, it must have a matching View.
    */
   public void view(Model model) {
-    view(model, ViewTypes.View); }
+    view(model, ViewTypes.Full); }
   
   /**
    * View a Model with a specified view type.
@@ -151,8 +155,7 @@ public class GUI extends JFrame {
    * @param type The type.
    */
   public void view(Model model, ViewTypes type) {
-    System.out.println("GUI.view(" + model + ", " + type.toString() + ")");
-    view(createView(type, model)); }
+    view(createView(model, type)); }
 
   /**
    * View a View then execute its onView().
@@ -171,21 +174,32 @@ public class GUI extends JFrame {
    * @return The View.
    */
   public View createView(Model obj) {
-    return createView(ViewTypes.View, obj); }
+    return createView(obj, ViewTypes.View); }
 
   /**
-   * Create a View for a Model or Filter.
+   * Create a View for an Object.
    * 
-   * @param clas The class path.
-   * @param model The Model/Filter, it must have a matching View.
+   * @param object The Object (e.g. Model, Filter), it must have a matching View.
+   * @param clas The View Type.
+   * @return the View
    */
-  protected View createView(ViewTypes type, Object object) {
+  public View createView(Object object, ViewTypes type) {
     View view = null;
     try {
-      String className = type.toString() + object.getClass().getSimpleName();
-      Constructor<View> constructor = getViewConstructor(className);
+      Constructor<View> constructor = null;
+      Class<?> clas = object.getClass();
+      while (clas != null) {
+        String className = type.toString() + clas.getSimpleName();
+        //System.out.println("get constructor for " + className + clas);
+        constructor = getViewConstructor(className);
+        // done?
+        if (constructor != null) break;
+        clas = clas.getSuperclass(); }
+      
+      //String className = type.toString() + object.getClass().getSimpleName();
+      //constructor = getViewConstructor(className);
       if (constructor == null) {
-        System.out.println("View constructor not found for '" + object.getClass().getSimpleName() + "' (" + object + ").");
+        //System.out.println(type + " constructor not found for " + object + ".");
         view = new Fallback(object, this); }
       else {
         view = constructor.newInstance(object, this); } }
