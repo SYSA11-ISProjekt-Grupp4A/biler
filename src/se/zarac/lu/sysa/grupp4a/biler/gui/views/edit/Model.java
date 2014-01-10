@@ -14,7 +14,7 @@ public class Model extends View {
   public Model(final se.zarac.lu.sysa.grupp4a.biler.Model model, final GUI gui) {
     super(gui);
     this.model = model;
-    add(new JLabel(model.getId())); 
+    add(new JLabel(model.toString()));
     add(new JLabel("I don't know what to edit, 'cause I'm just a basic Model Edit View."));
     JPanel menu = new JPanel(new GridLayout(0, 1));
     menu.add(new Button("Remove") {

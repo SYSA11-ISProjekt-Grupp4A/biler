@@ -11,6 +11,6 @@ public class Model extends View {
   public Model(final se.zarac.lu.sysa.grupp4a.biler.Model model, final GUI gui) {
     super(gui);
     this.model = model;
-    add(new Button("{" + model.getId() + "}") {
+    add(new Button(model.toString()) {
       public void click() {
         gui.view(Model.this.model, GUI.ViewTypes.Full); } } ); } }

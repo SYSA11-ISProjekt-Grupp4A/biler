@@ -11,6 +11,7 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.FilterView;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
+import se.zarac.lu.sysa.grupp4a.biler.models.Booking;
 import se.zarac.lu.sysa.grupp4a.biler.models.Item;
 import se.zarac.lu.sysa.grupp4a.biler.models.Product;
 import se.zarac.lu.sysa.grupp4a.biler.models.Vehicle;
@@ -33,7 +34,8 @@ public class Items extends View {
     filters.add(new FilterView<Model>(gui, Model.class, this));
     filters.add(new FilterView<Product>(gui, Product.class, this));
     filters.add(new FilterView<Vehicle>(gui, Vehicle.class, this));
-    filters.add(new FilterView<Item>(gui, Item.class, this));
+    //filters.add(new FilterView<Item>(gui, Item.class, this));
+    filters.add(new FilterView<Booking>(gui, Booking.class, this));
     add(filters, BorderLayout.NORTH);
     
     // items (matching filters)

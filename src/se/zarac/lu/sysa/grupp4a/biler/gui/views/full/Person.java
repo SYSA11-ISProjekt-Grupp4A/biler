@@ -1,9 +1,11 @@
 package se.zarac.lu.sysa.grupp4a.biler.gui.views.full;
 
+import java.util.List;
 import se.zarac.lu.sysa.grupp4a.biler.gui.Button;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
+import se.zarac.lu.sysa.grupp4a.biler.models.Booking;
 
 @SuppressWarnings("serial")
 public class Person extends View {
@@ -19,6 +21,10 @@ public class Person extends View {
 
     add(new JLabel(person.getPersonNumber()));
 
+    List<Booking> bookings = person.getBookings(biler);
+    for (Booking booking : bookings) {
+      add(gui.createView(booking, GUI.ViewTypes.Short)); }
+    
     add(gui.createView(person.getAddresses(), GUI.ViewTypes.Short));
     
     add(gui.createView(person.getPhoneNumbers(), GUI.ViewTypes.Short));

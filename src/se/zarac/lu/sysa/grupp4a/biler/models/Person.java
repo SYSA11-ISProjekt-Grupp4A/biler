@@ -3,6 +3,7 @@ package se.zarac.lu.sysa.grupp4a.biler.models;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import se.zarac.lu.sysa.grupp4a.biler.Biler;
 import se.zarac.lu.sysa.grupp4a.biler.Model;
 
 /**
@@ -81,4 +82,15 @@ public class Person extends Model {
     if (text.length() > 0)
       name = text;
     else
-      name = "Anonymous"; } }
+      name = "Anonymous"; }
+
+  @SuppressWarnings("unchecked")
+  public List<Booking> getBookings(Biler biler) {
+    List<Booking> bookings = null;
+    try {
+      bookings = (List<Booking>) biler.find(Booking.class.getField("by"), this); }
+    catch (SecurityException e) {
+      e.printStackTrace(); }
+    catch (NoSuchFieldException e) {
+      e.printStackTrace(); }
+    return bookings; } }

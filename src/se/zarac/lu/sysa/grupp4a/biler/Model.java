@@ -15,6 +15,10 @@ public abstract class Model implements Serializable {
   
   protected String id;
 
+  @Override
+  public boolean equals(Object obj) {
+    return (id.equals(((Model)obj).getId())); }
+
   public Model() { 
     this(UUID.randomUUID().toString()); }
   
@@ -35,4 +39,4 @@ public abstract class Model implements Serializable {
     return id; }
 
   public String toString() {
-    return "{" + getClass().getSimpleName() + ":" + id + "}"; } }
+    return "{" + getClass().getSimpleName() + ":" + hashCode() + ":" + id + "}"; } }

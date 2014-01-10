@@ -7,7 +7,6 @@ TODO
     Booking
       Lägga till
   **
-    List bookings in Person View
     Javadoc everything public.
     Filtering
       Make sure it works as expected.
@@ -27,6 +26,7 @@ DONE
     Lägga till
     Uppdatera
     Delete
+    List bookings in Person Full View
   Model
     Save
     Load

@@ -10,15 +10,12 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 import org.apache.commons.io.filefilter.RegexFileFilter;
-import se.zarac.lu.sysa.grupp4a.biler.models.Person;
 
 /**
  * The main program, Biler.
@@ -34,7 +31,40 @@ public class Biler {
 
   // model indices
   public Map<Class<? extends Model>, Map<String, Model>> indices = new HashMap<Class<? extends Model>, Map<String, Model>>();
+
+  public List<? extends Model> find(Field field, Object key) {
+    //System.out.println("biler.find(field, key)");
+    //System.out.println(" field = " + field);
+    //System.out.println(" key = " + key);
+    List<Model> hits = new LinkedList<Model>();
+    @SuppressWarnings("unchecked")
+    Class<Model> clas = (Class<Model>) field.getDeclaringClass();
+    //System.out.println(" class = " + clas);
+    Map<String, Model> index = getIndex(clas);
+    //System.out.println(" index = " + index);
+    for (Model model : index.values()) {
+      //System.out.println(" .model " + model);
+      try {
+        Object value = field.get(model);
+        //System.out.println("  value = " + value);
+        //System.out.println("   class = " + value.getClass());
+        //System.out.println("  ? compare hashCode()s = " + key.hashCode() + " .. " + value.hashCode());
+        //if (value.toString().equals(key.toString())) { // TODO compare directly (without toString()).
+        if (value.equals(key)) {
+          //System.out.println("   YAY!");
+          hits.add(model); }
+        //else 
+          //System.out.println("   NO");
+        }
+      catch (IllegalArgumentException e) {
+        e.printStackTrace(); }
+      catch (IllegalAccessException e) {
+        e.printStackTrace(); } }
     
+    return hits; }
+  
+  /* 
+  @Deprecated
   public List<Model> find(Class<? extends Model> clas, String fieldName, String key) {
     List<Model> hits = new LinkedList<Model>();
     Map<String, Model> index = indices.get(clas);
@@ -44,7 +74,10 @@ public class Biler {
       System.out.println("find() checking model " + model);
       try {
         Field field = clas.getField(fieldName);
-        String value = (String)field.get(model);
+        Object o = field.get(model);
+        System.out.println("object = " + o);
+        System.out.println(o.getClass());
+        String value = (String)o;
         System.out.println(field);
         System.out.println(field.get(model));
         if (key.length() == 0 || value.indexOf(key) > 0)
@@ -53,16 +86,18 @@ public class Biler {
         e.printStackTrace(); }
       catch (NoSuchFieldException e) {
         e.printStackTrace(); }
+      catch (ClassCastException e) {
+        e.printStackTrace(); }
       catch (IllegalArgumentException e) {
         e.printStackTrace(); }
       catch (IllegalAccessException e) {
         e.printStackTrace(); } }
       
-      /* if (model.getName().toLowerCase().indexOf(key.toLowerCase()) > -1) {
-        hits.add(model); } */
-    return hits; }
+      //if (model.getName().toLowerCase().indexOf(key.toLowerCase()) > -1) {
+        //hits.add(model); }
+    return hits; } */
   
-  @Deprecated
+  /* @Deprecated
   public List<Person> findPerson(String key) {
     List<Person> matches = new LinkedList<Person>();
     Iterator<Entry<String, Model>> p = indices.get(Person.class).entrySet().iterator();
@@ -72,7 +107,7 @@ public class Biler {
       if (person.getName().toLowerCase().indexOf(key.toLowerCase()) > -1) {
         matches.add(person); } }
 
-    return matches; }
+    return matches; } */
 
   public void setName(String name) {
     this.name = name; }

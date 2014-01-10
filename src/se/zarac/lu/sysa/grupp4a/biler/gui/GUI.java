@@ -187,11 +187,12 @@ public class GUI extends JFrame {
       return new Fallback(null, this);
     
     View view = null;
+    Constructor<View> constructor = null;
+    String className = null;
     try {
-      Constructor<View> constructor = null;
       Class<?> clas = object.getClass();
       while (clas != null) {
-        String className = type.toString() + clas.getSimpleName();
+        className = type.toString() + clas.getSimpleName();
         constructor = getViewConstructor(className);
         // done?
         if (constructor != null) {
@@ -205,6 +206,8 @@ public class GUI extends JFrame {
       e.printStackTrace(); }
     catch (InvocationTargetException e) {
       System.out.println("!");
+      System.out.println(object);
+      System.out.println(className);
       e.printStackTrace(); }
     
     if (view == null) {

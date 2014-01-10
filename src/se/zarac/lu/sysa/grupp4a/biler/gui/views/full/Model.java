@@ -12,7 +12,7 @@ public class Model extends View {
   public Model(final se.zarac.lu.sysa.grupp4a.biler.Model model, final GUI gui) {
     super(gui);
     this.model = model;
-    add(new JLabel(model.getId()));
+    add(new JLabel(model.toString()));
     add(new Button("Edit") {
       public void click() {
         gui.view(Model.this.model, GUI.ViewTypes.Edit); } } ); } }
