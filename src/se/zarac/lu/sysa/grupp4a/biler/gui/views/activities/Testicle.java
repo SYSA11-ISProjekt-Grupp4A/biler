@@ -28,9 +28,9 @@ public class Testicle extends View {
   
   protected class Menu extends JPanel {
     public Menu() {
-      add(new Button("view random Item") {
+      add(new Button("view random Model") {
         public void click() {
-          gui.view(biler.random(Vehicle.class)); } } );
+          gui.view(biler.random()); } } );
       
       add(new Button("new Product") {
         public void click() {

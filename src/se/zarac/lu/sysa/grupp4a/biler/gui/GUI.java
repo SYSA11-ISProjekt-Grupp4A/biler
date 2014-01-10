@@ -205,7 +205,7 @@ public class GUI extends JFrame {
       e.printStackTrace(); }
     catch (InvocationTargetException e) {
       System.out.println("!");
-      System.out.println(e.getStackTrace()); }
+      e.printStackTrace(); }
     
     if (view == null) {
       view = new Fallback(object, this); }
@@ -250,7 +250,7 @@ public class GUI extends JFrame {
       this.gui = gui;
 
       add(new Button("About") {
-        public void click() { Menu.this.gui.view("Splash"); } } );
+        public void click() { Menu.this.gui.view("About"); } } );
       add(new Button("Products") {
         public void click() { Menu.this.gui.view("Products"); } } );
       add(new Button("Items") {

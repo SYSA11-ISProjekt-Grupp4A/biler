@@ -7,8 +7,16 @@ import se.zarac.lu.sysa.grupp4a.biler.Model;
 public class Product extends Model {
   private static final long serialVersionUID = 332532907994301139L;
   protected String name = "";
+  public String getName() {
+    return name; }
+  public void setName(String name) {
+    this.name = name; }
   protected String manufacturer = "";
-  
+  public String getManufacturer() {
+    return manufacturer; }
+  public void setManufacturer(String manufacturer) {
+    this.manufacturer = manufacturer; }
+
   public static Map<String, Object> filterSettings;
   static {
     filterSettings = new HashMap<String, Object>();

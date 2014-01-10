@@ -100,6 +100,20 @@ public class Biler {
    */
   public Model find(Class<Model> index, String id) {
     return getIndex(index).get(id); }
+
+  /**
+   * Get a random Model from random Index.
+   * 
+   * @return A Model.
+   */
+  public Model random() {
+    Collection<Class<? extends Model>> keys = indices.keySet();
+    int i = (int) Math.floor(Math.random() * keys.size());
+    Class<? extends Model> index = null;
+    for (Class<? extends Model> key : keys) {
+      if (i-- == 0) index = key; }
+    
+    return random(index); }
   
   /**
    * Get a random Model from an Index.
