@@ -34,6 +34,9 @@ public class Testicle extends View {
     public Menu() {
       super(Testicle.this.gui);
       
+      add(new Button("nothing") {
+        public void click() { } } );
+      
       add(new Button("view random Model") {
         public void click() {
           gui.view(biler.random()); } } );

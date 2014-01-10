@@ -260,7 +260,7 @@ public class Biler {
   public void save(Model model) {
     //System.out.println("Model.save(" + model + ")" );
     serialize(model); }
-  
+
   /**
    * Save Everything (all Models in all indices). 
    */
@@ -268,4 +268,8 @@ public class Biler {
     System.out.println("# Save everything!");
     for (Map.Entry<Class<? extends Model>, Map<String, Model>> index : indices.entrySet()) {
       for (Map.Entry<String, Model> model : index.getValue().entrySet()) {
-        save(model.getValue()); } } } }
+        save(model.getValue()); } } }
+  
+  public abstract class Modell {
+    protected String foo = "bar";
+    protected Biler biler = Biler.this; }  }

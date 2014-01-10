@@ -1,6 +1,7 @@
 package se.zarac.lu.sysa.grupp4a.biler.models;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
@@ -25,6 +26,9 @@ public class Item extends Model {
     System.out.println("Item.filter() " + this + filterSettings);
     if (!super.filter() || (product != null && !product.filter())) return false;
     
+    // List<Booking> bookings = getBookings();
+    if (!super.filter() || (product != null && !product.filter())) return false;
+    
     System.out.println("Item.filter() passed " + this);
     return true; }
 
@@ -36,5 +40,6 @@ public class Item extends Model {
     catch (SecurityException e) {
       e.printStackTrace(); }
     catch (NoSuchFieldException e) {
+      bookings = new LinkedList<Booking>();
       e.printStackTrace(); }
     return bookings; }  }

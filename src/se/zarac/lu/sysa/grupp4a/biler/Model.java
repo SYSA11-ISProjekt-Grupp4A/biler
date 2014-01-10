@@ -19,7 +19,7 @@ public abstract class Model implements Serializable {
   public boolean equals(Object obj) {
     return (id.equals(((Model)obj).getId())); }
 
-  public Model() { 
+  public Model() {
     this(UUID.randomUUID().toString()); }
   
   public Model(String id) {
