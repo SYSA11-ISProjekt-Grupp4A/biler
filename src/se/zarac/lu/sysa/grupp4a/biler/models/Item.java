@@ -33,9 +33,9 @@ public class Item extends Model {
   public Product getProduct() {
     return product; }
 
-  public boolean filter() {
+  public boolean filter(Biler biler) {
     System.out.println("Item.filter() " + this + filterSettings);
-    if (!super.filter() || (product != null && !product.filter())) return false;
+    if (!super.filter(biler) || (product != null && !product.filter(biler))) return false;
     
     // List<Booking> bookings = getBookings();
     //if (!super.filter() || (product != null && !product.filter())) return false;

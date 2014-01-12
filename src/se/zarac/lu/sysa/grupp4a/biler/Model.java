@@ -25,7 +25,10 @@ public abstract class Model implements Serializable {
   public Model(String id) {
     this.id = id; }
 
-  public boolean filter() {
+  // TODO passing biler is kinda nasty, but works for now.
+  //  having to pass a reference to each Model is also nasty (and brings serialization issues)
+  //  making the Models inner classes of Biler brings the same serialization issues (but nice Model instantiation, e.g. biler.new Product())
+  public boolean filter(Biler biler) {
     System.out.println("Model.filter() " + this + filterSettings); 
     String val = (String)filterSettings.get("id");
     if (val.length() > 0

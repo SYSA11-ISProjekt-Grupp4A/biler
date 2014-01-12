@@ -66,7 +66,7 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
     while (i.hasNext()) {
       Person person = (Person)i.next().getValue();
       System.out.println("## Filter Item " + person);
-      if (person.filter()) {
+      if (person.filter(biler)) {
         count++;
         result.add(gui.createView(person, GUI.ViewTypes.Short)); } }
     metaLabel.setText("Found " + count + " persons.");

@@ -3,6 +3,7 @@ package se.zarac.lu.sysa.grupp4a.biler.models;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import se.zarac.lu.sysa.grupp4a.biler.Biler;
 import se.zarac.lu.sysa.grupp4a.biler.Model;
 
 public class Booking extends Model {
@@ -26,7 +27,7 @@ public class Booking extends Model {
     this.end = end; }
   
   @Override
-  public boolean filter() {
+  public boolean filter(Biler biler) {
     System.out.println("Booking.filter() " + this + filterSettings + start + end);
 
     //if (!super.filter()) return false;

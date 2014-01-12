@@ -16,6 +16,7 @@ TODO
     Change what Product an Item is.
   *** 
    Import and export data from and to a CouchDB.
+   give filter() access to biler in a clean way (see TODO in Model.filter(Biler biler))
   ?
     More TODOs marked as such within the source
       ..

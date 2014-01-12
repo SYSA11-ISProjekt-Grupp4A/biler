@@ -39,10 +39,10 @@ public class Person extends Model {
     this(personNumber);
     setName(name); }
 
-  public boolean filter() {
+  public boolean filter(Biler biler) {
     System.out.println("Person() " + this + filterSettings);
 
-    if (!super.filter()) return false;
+    if (!super.filter(biler)) return false;
 
     String val = (String)filterSettings.get("name");
     if (val.length() > 0

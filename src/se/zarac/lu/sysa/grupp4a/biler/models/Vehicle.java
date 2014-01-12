@@ -2,6 +2,7 @@ package se.zarac.lu.sysa.grupp4a.biler.models;
 
 import java.util.HashMap;
 import java.util.Map;
+import se.zarac.lu.sysa.grupp4a.biler.Biler;
 
 public class Vehicle extends Product {
   private static final long serialVersionUID = 8501965668305894009L;
@@ -21,10 +22,10 @@ public class Vehicle extends Product {
     return seats; }
   
   @Override
-  public boolean filter() {
+  public boolean filter(Biler biler) {
     System.out.println("Vehicle.filter() " + this + filterSettings + seats);
     
-    if (!super.filter()) return false;
+    if (!super.filter(biler)) return false;
     
     Integer val = null;
     try {

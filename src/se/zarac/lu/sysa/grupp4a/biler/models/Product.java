@@ -2,6 +2,7 @@ package se.zarac.lu.sysa.grupp4a.biler.models;
 
 import java.util.HashMap;
 import java.util.Map;
+import se.zarac.lu.sysa.grupp4a.biler.Biler;
 import se.zarac.lu.sysa.grupp4a.biler.Model;
 
 public class Product extends Model {
@@ -31,7 +32,7 @@ public class Product extends Model {
     return "{" + getClass().getSimpleName() + ":" + name + ":" + id + "}"; }
   
   @Override
-  public boolean filter() {
+  public boolean filter(Biler biler) {
     System.out.println("Product.filter() " + this + filterSettings + name);
 
     //if (!super.filter()) return false;

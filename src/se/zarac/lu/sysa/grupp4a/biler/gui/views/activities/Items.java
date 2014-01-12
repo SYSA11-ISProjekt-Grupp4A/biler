@@ -70,7 +70,7 @@ public class Items extends View {
     while (i.hasNext()) {
       Item item = (Item)i.next().getValue();
       System.out.println("## Filter Item " + item);
-      if (item.filter())
+      if (item.filter(biler))
         items.add(gui.createView(item, GUI.ViewTypes.Short)); } }
   
   public void draw() {
