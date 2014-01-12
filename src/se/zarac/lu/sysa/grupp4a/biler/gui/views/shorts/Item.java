@@ -17,6 +17,7 @@ public class Item extends ShortView {
         gui.view(item, GUI.ViewTypes.Full); } } ); 
     
     if (item.getProduct() != null)
-      add(new JLabel(item.getProduct().getName()));
+      add(gui.createView(item.getProduct(), GUI.ViewTypes.Short));
+      //add(new JLabel(item.getProduct().getName()));
     else
       add(new JLabel("! Keine produkten !")); } }

@@ -38,7 +38,7 @@ public class Product extends Model {
     
     String val = (String)filterSettings.get("name");
     if (val.length() > 0 &&
-        (name == null || name.indexOf(val) < 0)) {
+        (name == null || name.toLowerCase().indexOf(val.toLowerCase()) < 0)) {
       return false; }
     
     // if (!super.filter()) return false;

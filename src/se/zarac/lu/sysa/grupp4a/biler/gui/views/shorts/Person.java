@@ -11,7 +11,6 @@ public class Person extends View {
   public Person(final se.zarac.lu.sysa.grupp4a.biler.models.Person person, final GUI gui) {
     super(gui);
     this.person = person;
-    
     add(new Button(person.getName()) {
       public void click() {
         gui.view(person, GUI.ViewTypes.Full); } } ); } }
