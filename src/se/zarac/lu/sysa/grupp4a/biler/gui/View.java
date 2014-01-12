@@ -44,7 +44,7 @@ public abstract class View extends JPanel {
    */
   public void postView() { }
   
+  public void update() { }
+  
   public void draw() {
-    invalidate();
-    validate();
-    repaint(); } }
+    gui.setComponent(this); } }

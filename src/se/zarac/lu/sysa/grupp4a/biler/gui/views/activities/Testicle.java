@@ -33,7 +33,7 @@ public class Testicle extends View {
   protected class Menu extends View {
     public Menu() {
       super(Testicle.this.gui);
-      
+
       add(new Button("nothing") {
         public void click() { } } );
       
@@ -67,6 +67,12 @@ public class Testicle extends View {
           biler.add(product);
           gui.view(product, GUI.ViewTypes.Edit); } } );
       
+//      add(new Button("new base.Modell") {
+//        public void click() {
+//          Biler.Modell m = biler.new Modell("a biler.Product");
+//          biler.add(m);
+//          gui.view(m, GUI.ViewTypes.Edit); } } );
+            
       add(new Button("new 3 seat Vehicle") {
         public void click() {
           Vehicle vehicle = new Vehicle("new Vehicle", 3);

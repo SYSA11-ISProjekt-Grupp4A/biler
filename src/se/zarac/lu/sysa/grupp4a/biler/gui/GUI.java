@@ -48,6 +48,8 @@ public class GUI extends JFrame {
     public String toString() {
       return path; } };
   
+  protected JScrollPane pane;
+      
   /**
    * Construct it jao.
    * 
@@ -63,11 +65,17 @@ public class GUI extends JFrame {
     // menu
     menu = new Menu(this);
     add(menu, BorderLayout.SOUTH);
-    
+
+
     // container, for activities
     container = new JPanel();
     container.setLayout(new GridBagLayout());
-    add(container, BorderLayout.CENTER);
+    pane = new JScrollPane(container,
+        JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    pane.setBorder(View.EmptyBorder);
+    pane.setViewportView(container);
+    add(pane, BorderLayout.CENTER);
 
     // initialize singleton Activities (Just some indexed Views)
     activities.put("Splash", new Splash(GUI.this));
@@ -98,23 +106,14 @@ public class GUI extends JFrame {
    * @param component The JComponent.
    */
   public void setComponent(JComponent component) {
-    // TODO fix, doesn't work nicely. JFrame.pack() doesn't seem to help either..
-    container.removeAll();
-    if (component == null)
-      container.add(new JLabel("Cannot setComponent(null)"));
-    else {
-      JScrollPane pane = new JScrollPane(component,
-          JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-          JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-      pane.setBorder(View.EmptyBorder);
-      // TODO fix, make pretty
-      //pane.setAutoscrolls(true);
-      //pane.setMinimumSize(new Dimension(container.getWidth(), container.getHeight()));
-      //pane.setMaximumSize(new Dimension(container.getWidth(), container.getHeight()));
-      pane.setPreferredSize(new Dimension(container.getWidth(), container.getHeight()));
-      //pane.setSize(new Dimension(container.getWidth(), container.getHeight()));
-      container.add(pane); }
-    
+    System.out.println("setComponent(" + component + ")");
+    if (!(container.getComponentCount() > 0 && component == container.getComponent(0))) {
+      container.removeAll();
+      container.add(component); }
+    else
+      System.out.println("It is the same! ");
+    pane.getViewport().revalidate();
+    pane.setPreferredSize(new Dimension(container.getPreferredSize().width, component.getPreferredSize().height));
     redraw(); }
   
   /**

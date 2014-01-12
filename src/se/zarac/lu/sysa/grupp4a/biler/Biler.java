@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
@@ -23,14 +24,14 @@ import org.apache.commons.io.filefilter.RegexFileFilter;
  * @author zarac
  */
 public class Biler {
-  public static final String VERSION = "0.0.1";
-  public static final String AUTHORS = "Alexander, Hannes, Mikkel";
-  public static final String DATA_PATH = "data/";
+  public transient static final String VERSION = "0.0.1";
+  public transient static final String AUTHORS = "Alexander, Hannes, Mikkel";
+  public transient static final String DATA_PATH = "data/";
   
   protected String name = "Biler vr00m!";
 
   // model indices
-  public Map<Class<? extends Model>, Map<String, Model>> indices = new HashMap<Class<? extends Model>, Map<String, Model>>();
+  public transient Map<Class<? extends Model>, Map<String, Model>> indices = new HashMap<Class<? extends Model>, Map<String, Model>>();
 
   public List<? extends Model> find(Field field, Object key) {
     //System.out.println("biler.find(field, key)");
@@ -62,52 +63,6 @@ public class Biler {
         e.printStackTrace(); } }
     
     return hits; }
-  
-  /* 
-  @Deprecated
-  public List<Model> find(Class<? extends Model> clas, String fieldName, String key) {
-    List<Model> hits = new LinkedList<Model>();
-    Map<String, Model> index = indices.get(clas);
-
-    System.out.println("find() " + key + " in " + fieldName);
-    for (Model model : index.values()) {
-      System.out.println("find() checking model " + model);
-      try {
-        Field field = clas.getField(fieldName);
-        Object o = field.get(model);
-        System.out.println("object = " + o);
-        System.out.println(o.getClass());
-        String value = (String)o;
-        System.out.println(field);
-        System.out.println(field.get(model));
-        if (key.length() == 0 || value.indexOf(key) > 0)
-          hits.add(model); }
-      catch (SecurityException e) {
-        e.printStackTrace(); }
-      catch (NoSuchFieldException e) {
-        e.printStackTrace(); }
-      catch (ClassCastException e) {
-        e.printStackTrace(); }
-      catch (IllegalArgumentException e) {
-        e.printStackTrace(); }
-      catch (IllegalAccessException e) {
-        e.printStackTrace(); } }
-      
-      //if (model.getName().toLowerCase().indexOf(key.toLowerCase()) > -1) {
-        //hits.add(model); }
-    return hits; } */
-  
-  /* @Deprecated
-  public List<Person> findPerson(String key) {
-    List<Person> matches = new LinkedList<Person>();
-    Iterator<Entry<String, Model>> p = indices.get(Person.class).entrySet().iterator();
-    while (p.hasNext()) {
-      Entry<String, Model> entry = p.next();
-      Person person = (Person)entry.getValue();
-      if (person.getName().toLowerCase().indexOf(key.toLowerCase()) > -1) {
-        matches.add(person); } }
-
-    return matches; } */
 
   public void setName(String name) {
     this.name = name; }
@@ -135,6 +90,9 @@ public class Biler {
    */
   @SuppressWarnings("unchecked")
   public void add(Model model) {
+    if (model == null) {
+      System.out.println("! cannot add(null)");
+      return; }
     // TODO throws StreamCorruptedException on strange file.
     getIndex((Class<Model>)model.getClass()).put(model.getId(), model); }
   
@@ -144,7 +102,7 @@ public class Biler {
    * @param model The Model.
    */
   @SuppressWarnings("unchecked")
-  public void remove(Model model) {
+  public boolean remove(Model model) {
     String tail = DATA_PATH + model.getClass().getSimpleName();
     // make sure target for data save exists
     new File(tail).mkdirs();
@@ -152,7 +110,7 @@ public class Biler {
 
     new File(path).delete();
     
-    getIndex((Class<Model>)model.getClass()).remove(model.getId()); } 
+    return (getIndex((Class<Model>)model.getClass()).remove(model.getId()) != null ? true : false); } 
   
   /**
    * Find Model.
@@ -227,16 +185,19 @@ public class Biler {
       file.close(); }
     catch (FileNotFoundException e) {
       e.printStackTrace(); }
-    catch (IOException e) {
+    catch (NotSerializableException e) {
+      System.out.println("! could not serialize " + path);
       e.printStackTrace(); }
+    catch (IOException e) {
+      System.out.println("! io error " + path); }
     catch (ClassNotFoundException e) {
       e.printStackTrace(); }
     
     return model; }
   
   protected void serialize(Model model) {
-    FileOutputStream file;
-    ObjectOutputStream object;
+    FileOutputStream file = null;
+    ObjectOutputStream object = null;
     try {
       String tail = DATA_PATH + model.getClass().getSimpleName();
       // make sure target for data save exists
@@ -249,8 +210,11 @@ public class Biler {
       file.close(); }
     catch (FileNotFoundException e) {
       e.printStackTrace(); }
+    catch (NotSerializableException e) {
+      System.out.println("! could not serialize " + model + " to " + object);
+      e.printStackTrace(); }
     catch (IOException e) {
-      e.printStackTrace(); } }
+      System.out.println("! io error in serialize(" + model + ")"); } }
   
   /**
    * Save a Model (to persistent storage).
@@ -268,8 +232,4 @@ public class Biler {
     System.out.println("# Save everything!");
     for (Map.Entry<Class<? extends Model>, Map<String, Model>> index : indices.entrySet()) {
       for (Map.Entry<String, Model> model : index.getValue().entrySet()) {
-        save(model.getValue()); } } }
-  
-  public abstract class Modell {
-    protected String foo = "bar";
-    protected Biler biler = Biler.this; }  }
+        save(model.getValue()); } } } }

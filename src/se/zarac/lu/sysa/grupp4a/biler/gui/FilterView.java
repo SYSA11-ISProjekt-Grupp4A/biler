@@ -9,6 +9,9 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
 public class FilterView<T extends Model> extends ShortView {
   protected Map<String, Object> settings;
   protected View parent;
+  
+  public FilterView(final GUI gui, Field field, View parent) {
+    super(gui); }
 
   @SuppressWarnings("unchecked")
   public FilterView(final GUI gui, Class<T> model, View parent) {
@@ -49,4 +52,6 @@ public class FilterView<T extends Model> extends ShortView {
       add(new Editable(value.toString(), key) {
         public void editing() {
           settings.put(key, getText());
-          if (parent != null) parent.draw(); } } ); } } }
+          if (parent != null) {
+            parent.update();
+            parent.draw(); } } } ); } } }

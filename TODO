@@ -9,11 +9,13 @@ TODO
     Items
       Filter on Bookings.
   **
-    Javadoc everything public.
+    JavaDoc everything public.
     Filtering
       Make sure it works as expected.
       Add Booking / Date filtering in Items Activity.
     Change what Product an Item is.
+  *** 
+   Import and export data from and to a CouchDB.
   ?
     More TODOs marked as such within the source
       ..

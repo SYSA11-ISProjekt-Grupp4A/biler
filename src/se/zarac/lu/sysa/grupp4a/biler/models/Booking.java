@@ -18,7 +18,7 @@ public class Booking extends Model {
     filterSettings.put("start", new String()); 
     filterSettings.put("end", new String()); }
 
-  public Booking (Person by, Item item, Date start, Date end) {
+  public Booking(Person by, Item item, Date start, Date end) {
     super();
     this.by = by;
     this.item = item;

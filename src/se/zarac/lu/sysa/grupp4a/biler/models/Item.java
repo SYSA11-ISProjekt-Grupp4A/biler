@@ -11,6 +11,17 @@ public class Item extends Model {
   private static final long serialVersionUID = 1388623416825290648L;
   protected Product product;
 
+  /* public interface Filter {
+    public boolean filter(Model model); }
+  
+  protected Filter filter = new Filter() {
+    public boolean filter() {
+      return true; }
+
+    @Override
+    public boolean filter(Model model) {
+      return true; } }; */
+  
   public static Map<String, Object> filterSettings;
   static {
     filterSettings = new HashMap<String, Object>(); }
@@ -27,7 +38,7 @@ public class Item extends Model {
     if (!super.filter() || (product != null && !product.filter())) return false;
     
     // List<Booking> bookings = getBookings();
-    if (!super.filter() || (product != null && !product.filter())) return false;
+    //if (!super.filter() || (product != null && !product.filter())) return false;
     
     System.out.println("Item.filter() passed " + this);
     return true; }

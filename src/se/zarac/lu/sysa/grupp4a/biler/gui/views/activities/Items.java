@@ -22,11 +22,25 @@ public class Items extends View {
   protected JPanel items;
   protected Biler biler;
   
+  /* public class Filters extends View {
+    protected View view;
+    public Filters(GUI gui, View view) {
+      super(gui);
+      this.view = view; }
+    public void add(Class<? extends Model> c) {
+      add(new FilterView(gui, c, this));
+    } } */
+  
   public Items(GUI gui) {
     super(gui);
     this.biler = gui.getBiler();
     
     setLayout(new BorderLayout());
+    
+    /* Filters f = new Filters(gui, this);
+    f.add(Model.class);
+    f.add(Product.class);
+    add(f, BorderLayout.NORTH); */
     
     // filters
     filters = new JPanel();
@@ -48,16 +62,18 @@ public class Items extends View {
   
   @Override
   public void preView() {
-    draw(); }
+    update(); }
   
-  public void draw() {
+  public void update() {
     items.removeAll();
     Iterator<Entry<String, Model>> i = biler.indices.get(Item.class).entrySet().iterator();
     while (i.hasNext()) {
       Item item = (Item)i.next().getValue();
       System.out.println("## Filter Item " + item);
       if (item.filter())
-        items.add(gui.createView(item, GUI.ViewTypes.Short)); }
+        items.add(gui.createView(item, GUI.ViewTypes.Short)); } }
+  
+  public void draw() {
     super.draw(); }
   
   protected class Menu extends JPanel {

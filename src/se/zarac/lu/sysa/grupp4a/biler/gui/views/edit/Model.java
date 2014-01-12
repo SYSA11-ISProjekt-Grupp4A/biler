@@ -19,6 +19,5 @@ public class Model extends View {
     JPanel menu = new JPanel(new GridLayout(0, 1));
     menu.add(new Button("Remove") {
       public void click() {
-        System.out.println("remove it");
         biler.remove(Model.this.model); } } );
     add(menu); } }
