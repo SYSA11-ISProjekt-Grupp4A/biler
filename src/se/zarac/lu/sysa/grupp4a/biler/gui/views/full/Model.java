@@ -23,7 +23,10 @@ public class Model extends View {
         System.out.println("field.getType()" + field.getType());
         Object f = field.get(model);
         System.out.println("field.get(model)" + f);
-        add(new JLabel(field.getName() + " = " + f)); }
+        if (f instanceof se.zarac.lu.sysa.grupp4a.biler.Model)
+          add(gui.createView(f, GUI.ViewTypes.Short));
+        else
+          add(new JLabel(field.getName() + " = " + f)); }
       catch (IllegalArgumentException e) {
         e.printStackTrace(); }
       catch (IllegalAccessException e) {

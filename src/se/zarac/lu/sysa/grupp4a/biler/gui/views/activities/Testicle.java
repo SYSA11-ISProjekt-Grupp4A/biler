@@ -1,7 +1,6 @@
 package se.zarac.lu.sysa.grupp4a.biler.gui.views.activities;
 
 import java.awt.BorderLayout;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import se.zarac.lu.sysa.grupp4a.biler.gui.Button;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
@@ -95,8 +94,8 @@ public class Testicle extends View {
         public void click() {
           Person by = (Person)biler.random(Person.class);
           Item item = (Item)biler.random(Item.class);
-          Date from = new GregorianCalendar(1970, 01, 01).getTime();
-          Date to = new GregorianCalendar(1970, 01, 03).getTime();
+          GregorianCalendar from = new GregorianCalendar(1970, 01, 01);
+          GregorianCalendar to = new GregorianCalendar(1970, 01, 03);
           Booking booking = new Booking(by, item, from, to);
           biler.add(booking);
           gui.view(booking); } } ); } } }

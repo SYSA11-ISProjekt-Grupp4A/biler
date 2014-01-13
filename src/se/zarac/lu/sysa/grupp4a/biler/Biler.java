@@ -203,6 +203,9 @@ public class Biler {
       System.out.println("! io error " + path); }
     catch (ClassNotFoundException e) {
       e.printStackTrace(); }
+    catch (ClassCastException e) {
+      System.out.println("! class cast trouble " + path); }
+    
     
     return model; }
   

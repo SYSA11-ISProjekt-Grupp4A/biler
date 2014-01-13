@@ -43,5 +43,5 @@ public class Product extends Model {
       return false; }
     
     // if (!super.filter()) return false;
-    System.out.println("Product.filter() passed " + this);
+    System.out.println(" Product.filter() passed " + this);
     return true; } }

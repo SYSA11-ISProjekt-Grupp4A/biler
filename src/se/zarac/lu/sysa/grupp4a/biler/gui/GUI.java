@@ -110,8 +110,6 @@ public class GUI extends JFrame {
     if (!(container.getComponentCount() > 0 && component == container.getComponent(0))) {
       container.removeAll();
       container.add(component); }
-    else
-      System.out.println("It is the same! ");
     pane.getViewport().revalidate();
     pane.setPreferredSize(new Dimension(container.getPreferredSize().width, component.getPreferredSize().height));
     redraw(); }

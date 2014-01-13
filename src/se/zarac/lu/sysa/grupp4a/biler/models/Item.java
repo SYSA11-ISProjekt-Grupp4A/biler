@@ -41,7 +41,7 @@ public class Item extends Model {
     List<Booking> bookings = (List<Booking>) biler.find(Booking.class, "item", this);
     System.out.println(" Item.filter() found bookings : " + bookings);
     for (Booking booking : bookings) {
-      if (!booking.filter(biler)) {
+      if (booking.filter(biler)) {
         System.out.println(" already booked!");
         return false; } }
     // List<Booking> bookings = getBookings();

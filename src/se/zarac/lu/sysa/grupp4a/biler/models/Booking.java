@@ -1,6 +1,7 @@
 package se.zarac.lu.sysa.grupp4a.biler.models;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
@@ -10,8 +11,8 @@ public class Booking extends Model {
   private static final long serialVersionUID = -4414963132044701769L;
   public Person by; // usable by biler.find(..)
   public Item item; // usable by biler.find(..)
-  public Date start;
-  public Date end;
+  public GregorianCalendar start;
+  public GregorianCalendar end;
 
   public static Map<String, Object> filterSettings;
   static {
@@ -20,7 +21,7 @@ public class Booking extends Model {
     filterSettings.put("month", new String());
     filterSettings.put("day", new String()); }
 
-  public Booking(Person by, Item item, Date start, Date end) {
+  public Booking(Person by, Item item, GregorianCalendar start, GregorianCalendar end) {
     super();
     this.by = by;
     this.item = item;
@@ -29,6 +30,7 @@ public class Booking extends Model {
   
   @Override
   public boolean filter(Biler biler) {
+    // returns true if the item is booked
     System.out.println("Booking.filter() " + this + filterSettings + start + end);
 
     //if (!super.filter()) return false;
@@ -39,11 +41,13 @@ public class Booking extends Model {
     if (year.length() > 0 || month.length() > 0 || day.length() > 0) {
       if (start == null) return false; // all bookings should have a start date
       try {
-        Integer valInt = Integer.parseInt(year);
-        if (start.getYear() != valInt) {
+        Integer yearInt = Integer.parseInt(year);
+        System.out.println(" Booking.filter() " + yearInt + " " + start.get(Calendar.YEAR));
+        if (start.get(Calendar.YEAR) != yearInt) {
           return false; } }
       catch (NumberFormatException e) { } }
+    else return false;
     
     // if (!super.filter()) return false;
-    System.out.println("Booking.filter() passed " + this);
+    System.out.println(" Booking.filter() passed " + this);
     return true; }  }
