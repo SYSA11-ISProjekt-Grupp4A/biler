@@ -263,6 +263,9 @@ public class GUI extends JFrame {
         public void click() { Menu.this.gui.view("Testicle"); } } );
       add(new Button("maxa") {
         public void click() {
-          gui.setExtendedState(gui.getExtendedState()|JFrame.MAXIMIZED_BOTH); } } );
+          if (gui.getExtendedState() != JFrame.MAXIMIZED_BOTH)
+            gui.setExtendedState(gui.getExtendedState()|JFrame.MAXIMIZED_BOTH);
+          else
+            gui.setExtendedState(JFrame.NORMAL); } } );
       add(new Button("Exit") {
         public void click() { Menu.this.gui.view("Exit"); } } ); } } }
