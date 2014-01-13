@@ -17,6 +17,9 @@ public class Model extends View {
     add(new JLabel(model.toString()));
     add(new JLabel("I don't know what to edit, 'cause I'm just a basic Model Edit View."));
     JPanel menu = new JPanel(new GridLayout(0, 1));
+    menu.add(new Button("Back") {
+      public void click() {
+        gui.view(Model.this.model); } } );
     menu.add(new Button("Remove") {
       public void click() {
         biler.remove(Model.this.model); } } );
