@@ -2,6 +2,7 @@ package se.zarac.lu.sysa.grupp4a.biler.gui.views.full;
 
 import java.util.Iterator;
 import java.util.List;
+import se.zarac.lu.sysa.grupp4a.biler.gui.Button;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
@@ -24,4 +25,8 @@ public class Product extends View {
     while (i.hasNext()) {
       Item item = i.next();
       System.out.println("CREATE VIEW FOR ITEM " + item);
-      add(gui.createView(item, GUI.ViewTypes.Short)); } } }
+      add(gui.createView(item, GUI.ViewTypes.Short)); }
+  
+    add(new Button("Edit") {
+      public void click() {
+        gui.view(product, GUI.ViewTypes.Edit); } } ); } }
