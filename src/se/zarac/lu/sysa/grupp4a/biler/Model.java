@@ -17,6 +17,7 @@ public abstract class Model implements Serializable {
 
   @Override
   public boolean equals(Object obj) {
+    if (obj == null) return false;
     return (id.equals(((Model)obj).getId())); }
 
   public Model() {

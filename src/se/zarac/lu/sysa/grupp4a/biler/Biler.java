@@ -62,7 +62,7 @@ public class Biler {
         //System.out.println("   class = " + value.getClass());
         //System.out.println("  ? compare hashCode()s = " + key.hashCode() + " .. " + value.hashCode());
         //if (value.toString().equals(key.toString())) { // TODO compare directly (without toString()).
-        if (value.equals(key)) {
+        if (key.equals(value)) {
           //System.out.println("   YAY!");
           hits.add(model); }
         //else 
