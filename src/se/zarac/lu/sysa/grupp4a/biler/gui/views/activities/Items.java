@@ -2,6 +2,7 @@ package se.zarac.lu.sysa.grupp4a.biler.gui.views.activities;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -15,6 +16,7 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 import se.zarac.lu.sysa.grupp4a.biler.models.Booking;
 import se.zarac.lu.sysa.grupp4a.biler.models.Item;
+import se.zarac.lu.sysa.grupp4a.biler.models.Person;
 import se.zarac.lu.sysa.grupp4a.biler.models.Product;
 import se.zarac.lu.sysa.grupp4a.biler.models.Vehicle;
 
@@ -79,13 +81,38 @@ public class Items extends View {
     items.removeAll();
     Map<String, Model> index = biler.indices.get(Item.class);
     Iterator<Entry<String, Model>> i = index.entrySet().iterator();
+
+    String year = (String)Booking.filterSettings.get("year");
+    String month = (String)Booking.filterSettings.get("month");
+    String day = (String)Booking.filterSettings.get("day");
+    GregorianCalendar cal = null;
+    if (year != null && year.length() > 0
+        && month != null && month.length() > 0
+        && day != null && day.length() > 0) {
+      Integer yearInt = Integer.parseInt(year);
+      Integer monthInt = Integer.parseInt(month);
+      Integer dayInt = Integer.parseInt(day);
+      
+      cal = new GregorianCalendar(yearInt, monthInt, dayInt); }
+    
+    System.out.println(" cal = " + cal);
+    
     int count = 0;
     while (i.hasNext()) {
-      Item item = (Item)i.next().getValue();
+      final Item item = (Item)i.next().getValue();
       System.out.println("## Filter Item " + item);
       if (item.filter(biler)) {
         count++;
-        items.add(gui.createView(item, GUI.ViewTypes.Short)); } }
+        View view = gui.createView(item, GUI.ViewTypes.Short);
+        if (cal != null) {
+          final GregorianCalendar cal2 = cal;
+          view.add(new Button("Book") {
+            public void click() {
+              Booking booking = new Booking((Person)biler.random(Person.class), item, cal2, cal2);
+              biler.add(booking);
+              gui.view(booking); } } ); }
+        
+        items.add(view); } }
     meta.setText("Displaying " + count + " / " + index.size() + " items."); }
   
   public void draw() {
