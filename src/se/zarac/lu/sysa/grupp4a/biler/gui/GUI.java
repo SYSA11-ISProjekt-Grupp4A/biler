@@ -246,9 +246,9 @@ public class GUI extends JFrame {
   protected class Menu extends JPanel {
     protected GUI gui;
 
-    public Menu(GUI gui) {
+    public Menu(final GUI gui) {
       this.gui = gui;
-
+      
       add(new Button("About") {
         public void click() { Menu.this.gui.view("About"); } } );
       add(new Button("Products") {
@@ -261,5 +261,8 @@ public class GUI extends JFrame {
         public void click() { Menu.this.gui.view("Bookings"); } } );
       add(new Button("Testicle") {
         public void click() { Menu.this.gui.view("Testicle"); } } );
+      add(new Button("maxa") {
+        public void click() {
+          gui.setExtendedState(gui.getExtendedState()|JFrame.MAXIMIZED_BOTH); } } );
       add(new Button("Exit") {
         public void click() { Menu.this.gui.view("Exit"); } } ); } } }

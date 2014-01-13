@@ -51,7 +51,7 @@ public class Persons extends View implements /*KeyListener, */DocumentListener {
     output.add(metaLabel, BorderLayout.NORTH);
 
     result = new JPanel();
-    result.setLayout(new GridBagLayout());
+    result.setLayout(new GridLayout(0, 1));
     output.add(result, BorderLayout.CENTER);
 
     add(output, BorderLayout.CENTER);
