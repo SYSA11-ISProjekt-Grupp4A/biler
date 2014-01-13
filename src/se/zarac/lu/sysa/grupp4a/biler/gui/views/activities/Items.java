@@ -3,6 +3,7 @@ package se.zarac.lu.sysa.grupp4a.biler.gui.views.activities;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 import se.zarac.lu.sysa.grupp4a.biler.Biler;
 import se.zarac.lu.sysa.grupp4a.biler.Model;
@@ -10,6 +11,7 @@ import se.zarac.lu.sysa.grupp4a.biler.gui.Button;
 import se.zarac.lu.sysa.grupp4a.biler.gui.FilterView;
 import se.zarac.lu.sysa.grupp4a.biler.gui.GUI;
 import se.zarac.lu.sysa.grupp4a.biler.gui.View;
+import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JLabel;
 import se.zarac.lu.sysa.grupp4a.biler.gui.styles.handson.JPanel;
 import se.zarac.lu.sysa.grupp4a.biler.models.Booking;
 import se.zarac.lu.sysa.grupp4a.biler.models.Item;
@@ -19,7 +21,10 @@ import se.zarac.lu.sysa.grupp4a.biler.models.Vehicle;
 @SuppressWarnings("serial")
 public class Items extends View {
   protected JPanel filters;
+  protected JPanel result;
+  protected JLabel meta;
   protected JPanel items;
+  protected Menu menu;
   protected Biler biler;
   
   /* public class Filters extends View {
@@ -37,6 +42,10 @@ public class Items extends View {
     
     setLayout(new BorderLayout());
     
+    // menu
+    menu = new Menu();
+    add(menu, BorderLayout.SOUTH);
+    
     /* Filters f = new Filters(gui, this);
     f.add(Model.class);
     f.add(Product.class);
@@ -53,12 +62,14 @@ public class Items extends View {
     add(filters, BorderLayout.NORTH);
     
     // items (matching filters)
+    result = new JPanel();
+    result.setLayout(new BorderLayout());
+    meta = new JLabel("nothing yet..");
+    result.add(meta, BorderLayout.NORTH);
     items = new JPanel();
     items.setLayout(new GridLayout(0, 1));
-    add(items, BorderLayout.CENTER);
-    
-    // menu
-    add(new Menu(), BorderLayout.SOUTH); }
+    result.add(items, BorderLayout.CENTER);
+    add(result, BorderLayout.CENTER); }
   
   @Override
   public void preView() {
@@ -66,12 +77,16 @@ public class Items extends View {
   
   public void update() {
     items.removeAll();
-    Iterator<Entry<String, Model>> i = biler.indices.get(Item.class).entrySet().iterator();
+    Map<String, Model> index = biler.indices.get(Item.class);
+    Iterator<Entry<String, Model>> i = index.entrySet().iterator();
+    int count = 0;
     while (i.hasNext()) {
       Item item = (Item)i.next().getValue();
       System.out.println("## Filter Item " + item);
-      if (item.filter(biler))
+      if (item.filter(biler)) {
+        count++;
         items.add(gui.createView(item, GUI.ViewTypes.Short)); } }
+    meta.setText("Displaying " + count + " / " + index.size() + " items."); }
   
   public void draw() {
     super.draw(); }

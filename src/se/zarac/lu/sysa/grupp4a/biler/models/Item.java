@@ -37,10 +37,17 @@ public class Item extends Model {
     System.out.println("Item.filter() " + this + filterSettings);
     if (!super.filter(biler) || (product != null && !product.filter(biler))) return false;
     
+    @SuppressWarnings("unchecked")
+    List<Booking> bookings = (List<Booking>) biler.find(Booking.class, "item", this);
+    System.out.println(" Item.filter() found bookings : " + bookings);
+    for (Booking booking : bookings) {
+      if (!booking.filter(biler)) {
+        System.out.println(" already booked!");
+        return false; } }
     // List<Booking> bookings = getBookings();
     //if (!super.filter() || (product != null && !product.filter())) return false;
     
-    System.out.println("Item.filter() passed " + this);
+    System.out.println(" Item.filter() passed " + this);
     return true; }
 
   @SuppressWarnings("unchecked")

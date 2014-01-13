@@ -33,6 +33,17 @@ public class Biler {
   // model indices
   public transient Map<Class<? extends Model>, Map<String, Model>> indices = new HashMap<Class<? extends Model>, Map<String, Model>>();
 
+  public List<? extends Model> find(Class<? extends Model> clas, String fieldName, Object key) {
+    try {
+      Field field = clas.getField(fieldName);
+      return find(field, key); }
+    catch (SecurityException e) {
+      e.printStackTrace(); }
+    catch (NoSuchFieldException e) {
+      e.printStackTrace(); }
+    
+    return null; }
+  
   public List<? extends Model> find(Field field, Object key) {
     //System.out.println("biler.find(field, key)");
     //System.out.println(" field = " + field);
