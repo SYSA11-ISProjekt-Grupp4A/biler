@@ -4,17 +4,26 @@
 An application for a car rental company. Handles Products, Persons, Bookings etc.
 
 ## Libraries
-* Biler makes use of Apache commons-io FileUtils.
+* Apache commons-io FileUtils.
+* JUnit (commons-io uses it)
 
 ## Usage example
 
 ### Get source - (in e.g. bash)
-* git clone https://.../biler.git
+* git clone https://github.com/SYSA11-ISProjekt-Grupp4A/biler.git
 * cd biler
-* git submodule init
-* git submodule update
+* git submodule update --init
 
-### Import to eclipse
+### IntelliJ
+#### Import the project.
+* Just import it and play to God of Luck.
+
+#### Recreate the project
+* Create new project and point it to /biler
+* Add libs/commons-io/src/main/java to source paths.
+* Add libs/junit/src/main/java to source paths.
+
+### Eclipse
 
 #### Import biler.
 New project, call it Biler (or whatever), specify /biler directory as the directory.

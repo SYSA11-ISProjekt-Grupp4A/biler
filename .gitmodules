@@ -1,3 +1,6 @@
 [submodule "libs/commons-io"]
 	path = libs/commons-io
 	url = https://github.com/apache/commons-io
+[submodule "libs/junit"]
+	path = libs/junit
+	url = https://github.com/junit-team/junit.git
