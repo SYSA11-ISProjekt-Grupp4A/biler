@@ -15,10 +15,13 @@ An application for a car rental company. Handles Products, Persons, Bookings etc
 * git submodule update --init
 
 ### IntelliJ
-#### Import the project.
-* Just import it and play to God of Luck.
 
-#### Recreate the project
+#### Import the project.
+* Just import it and pray to God of Luck. (Uncheck all extraneous
+  sources/modules/libs, only commons-io/src/main/java and junit/src/main/java
+  should be added as source directories).
+
+#### (or) Recreate the project
 * Create new project and point it to /biler
 * Add libs/commons-io/src/main/java to source paths.
 * Add libs/junit/src/main/java to source paths.
