@@ -25,6 +25,7 @@ An application for a car rental company. Handles Products, Persons, Bookings etc
 * Create new project and point it to /biler
 * Add libs/commons-io/src/main/java to source paths.
 * Add libs/junit/src/main/java to source paths.
+* Add libs/junit/lib/hamcrest-core-1.3.jar (or similar) as a library.
 
 ### Eclipse
 
