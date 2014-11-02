@@ -164,8 +164,6 @@ public class Biler {
 
   /**
    * Populate biler with whatever is in Biler.DATA_PATH.
-   * 
-   * @param biler The instance of Biler.
    */
   public void load() {
     System.out.println("# Load everything!");
